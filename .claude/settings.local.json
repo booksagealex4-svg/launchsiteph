@@ -16,7 +16,8 @@
       "Bash(git commit *)",
       "Bash(git config *)",
       "Bash(grep -iE \"^user-round\\\\.mjs$|^user\\\\.mjs$\")",
-      "WebSearch"
+      "WebSearch",
+      "Bash(grep -iE \"^\\(send|message-circle|x\\)\\\\.mjs$\")"
     ]
   }
 }
