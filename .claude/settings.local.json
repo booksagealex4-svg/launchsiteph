@@ -12,7 +12,9 @@
       "Bash(grep -iE \"^x\\\\.mjs$|^instagram|^facebook\")",
       "PowerShell(\\(Get-Command npm\\).Source; \\(Get-Command node\\).Source)",
       "Bash(ls \"/c/Program Files/nodejs\" 2>/dev/null || echo \"not found there\")",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git config *)"
     ]
   }
 }
