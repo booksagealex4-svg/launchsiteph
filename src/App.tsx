@@ -7,6 +7,7 @@ import TemplateDetail from "@/pages/TemplateDetail"
 import Pricing from "@/pages/Pricing"
 import Process from "@/pages/Process"
 import Resources from "@/pages/Resources"
+import ArticleDetail from "@/pages/ArticleDetail"
 import About from "@/pages/About"
 import Contact from "@/pages/Contact"
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/process" element={<Process />} />
         <Route path="/resources" element={<Resources />} />
+        <Route path="/resources/:slug" element={<ArticleDetail />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Route>
