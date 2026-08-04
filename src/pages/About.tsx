@@ -1,5 +1,95 @@
-import { PlaceholderSection } from "@/components/shared/PlaceholderSection"
+import { Link } from "react-router-dom"
+import { UserRound } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+import { Reveal } from "@/components/shared/Reveal"
+import { ValuesGrid } from "@/components/about/ValuesGrid"
+import { CareerTimeline } from "@/components/about/CareerTimeline"
+import { ToolsStrip } from "@/components/about/ToolsStrip"
+import { CredentialsRow } from "@/components/about/CredentialsRow"
 
 export default function About() {
-  return <PlaceholderSection title="About" />
+  return (
+    <div className="py-14 md:py-20">
+      <div className="mx-auto max-w-6xl px-5 md:px-8">
+        <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-12">
+          <Reveal>
+            <h1 className="text-foreground">
+              You are hiring a person, not an agency.
+            </h1>
+            <p className="mt-4 text-muted-foreground">
+              [Your name]. [X] years in publishing and creative production,
+              including work with international clients. I now build
+              websites for Philippine professionals using current AI
+              tooling, which is how a site that would cost PHP 40,000
+              elsewhere starts at PHP 10,000 here.
+            </p>
+          </Reveal>
+
+          <Reveal delay={1}>
+            <div className="relative mx-auto max-w-sm">
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 -z-10 rounded-full bg-primary/20 blur-[80px]"
+              />
+              <div className="flex aspect-[4/5] w-full items-center justify-center rounded-[14px] border border-border bg-surface">
+                <UserRound
+                  className="text-muted-foreground/40"
+                  size={64}
+                  strokeWidth={1}
+                  aria-hidden="true"
+                />
+              </div>
+              <p className="mt-3 text-center text-xs text-muted-foreground">
+                [Add your portrait photo here]
+              </p>
+            </div>
+          </Reveal>
+        </div>
+
+        <Reveal className="mt-16 md:mt-20">
+          <div className="mx-auto max-w-3xl rounded-[14px] border border-border bg-surface p-8 text-center md:p-10">
+            <h2 className="text-foreground">Why solo is a feature</h2>
+            <p className="mx-auto mt-3 text-muted-foreground">
+              No account manager. No handoffs between departments. You talk
+              to the person building your site, from the first message to
+              launch day.
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="mt-16 md:mt-20">
+          <ValuesGrid />
+        </div>
+
+        <Reveal className="mt-16 md:mt-20">
+          <h2 className="text-foreground">The journey so far.</h2>
+          <div className="mt-8 max-w-2xl">
+            <CareerTimeline />
+          </div>
+        </Reveal>
+
+        <Reveal className="mt-16 md:mt-20">
+          <ToolsStrip />
+        </Reveal>
+
+        <Reveal className="mt-16 md:mt-20">
+          <CredentialsRow />
+        </Reveal>
+
+        <Reveal className="mt-16">
+          <div className="rounded-[14px] border border-border bg-surface p-8 text-center md:p-10">
+            <h3 className="text-foreground">
+              Tell me what you do. I will tell you what it costs.
+            </h3>
+            <div className="mt-6">
+              <Button asChild>
+                <Link to="/contact">Get a Free Quote</Link>
+              </Button>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </div>
+  )
 }
