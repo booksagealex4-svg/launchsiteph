@@ -15,7 +15,8 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git config *)",
-      "Bash(grep -iE \"^user-round\\\\.mjs$|^user\\\\.mjs$\")"
+      "Bash(grep -iE \"^user-round\\\\.mjs$|^user\\\\.mjs$\")",
+      "WebSearch"
     ]
   }
 }

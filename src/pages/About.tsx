@@ -18,11 +18,11 @@ export default function About() {
               You are hiring a person, not an agency.
             </h1>
             <p className="mt-4 text-muted-foreground">
-              [Your name]. [X] years in publishing and creative production,
-              including work with international clients. I now build
-              websites for Philippine professionals using current AI
-              tooling, which is how a site that would cost PHP 40,000
-              elsewhere starts at PHP 10,000 here.
+              Alex. 6 years in publishing and creative production, including
+              work with international clients. I now build websites for
+              Philippine professionals using current AI tooling, which is
+              how a site that would cost PHP 40,000 elsewhere starts at PHP
+              10,000 here.
             </p>
           </Reveal>
 

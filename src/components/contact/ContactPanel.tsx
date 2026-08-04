@@ -7,7 +7,7 @@ import { ViberIcon } from "@/components/contact/ViberIcon"
 const channels = [
   { icon: MessengerIcon, label: "Message on Messenger", href: "#" },
   { icon: ViberIcon, label: "Message on Viber", href: "#" },
-  { icon: Phone, label: "[mobile number]", href: "tel:+63" },
+  { icon: Phone, label: "N/A", href: null },
   {
     icon: Mail,
     label: "hello@launchsiteph.com",
@@ -21,20 +21,35 @@ export function ContactPanel() {
       <div>
         <h2 className="text-foreground">Prefer to talk?</h2>
         <div className="mt-6 flex flex-col gap-3">
-          {channels.map((channel) => (
-            <a
-              key={channel.label}
-              href={channel.href}
-              className="flex min-h-14 items-center gap-3 rounded-[10px] border border-border px-4 py-3 text-foreground transition-colors duration-200 hover:bg-surface-elevated"
-            >
-              <channel.icon
-                className="shrink-0 text-primary"
-                size={20}
-                aria-hidden="true"
-              />
-              <span className="text-sm">{channel.label}</span>
-            </a>
-          ))}
+          {channels.map((channel) => {
+            const content = (
+              <>
+                <channel.icon
+                  className="shrink-0 text-primary"
+                  size={20}
+                  aria-hidden="true"
+                />
+                <span className="text-sm">{channel.label}</span>
+              </>
+            )
+
+            return channel.href ? (
+              <a
+                key={channel.label}
+                href={channel.href}
+                className="flex min-h-14 items-center gap-3 rounded-[10px] border border-border px-4 py-3 text-foreground transition-colors duration-200 hover:bg-surface-elevated"
+              >
+                {content}
+              </a>
+            ) : (
+              <div
+                key={channel.label}
+                className="flex min-h-14 items-center gap-3 rounded-[10px] border border-border px-4 py-3 text-muted-foreground"
+              >
+                {content}
+              </div>
+            )
+          })}
         </div>
       </div>
 
@@ -43,7 +58,7 @@ export function ContactPanel() {
           Mon&ndash;Sat, 9AM&ndash;6PM PHT
         </p>
         <p className="mt-1 text-sm text-muted-foreground">
-          [City], Philippines &mdash; we work with clients nationwide
+          Cebu City, Philippines &mdash; we work with clients nationwide
         </p>
         <div className="mt-4">
           <Button asChild variant="secondary" className="w-full">

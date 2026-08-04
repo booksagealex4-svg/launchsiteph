@@ -96,15 +96,8 @@ export function Footer() {
                   [email address]
                 </a>
               </li>
-              <li>
-                <a
-                  href="tel:+63"
-                  className="transition-colors hover:text-foreground"
-                >
-                  [mobile number]
-                </a>
-              </li>
-              <li>[City], Philippines</li>
+              <li>N/A</li>
+              <li>Cebu City, Philippines</li>
               <li>Mon&ndash;Sat, 9AM&ndash;6PM PHT</li>
             </ul>
           </div>
