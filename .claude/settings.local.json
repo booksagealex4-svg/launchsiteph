@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(unzip -l files.zip)",
+      "Bash(unzip -o files.zip -d _extracted)",
+      "Bash(unzip -l _extracted/launchsite-ph.zip)",
+      "Bash(npm -v)",
+      "PowerShell(node -v)",
+      "PowerShell(npm -v)",
+      "PowerShell(winget install OpenJS.NodeJS.LTS --silent --accept-package-agreements --accept-source-agreements)",
+      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); node -v; npm -v)",
+      "Bash(grep -iE \"^x\\\\.mjs$|^instagram|^facebook\")",
+      "PowerShell(\\(Get-Command npm\\).Source; \\(Get-Command node\\).Source)",
+      "Bash(ls \"/c/Program Files/nodejs\" 2>/dev/null || echo \"not found there\")",
+      "Bash(git add *)"
+    ]
+  }
+}
