@@ -3,9 +3,11 @@ import type { TemplatePreviewContent } from "@/lib/template-preview-content"
 export function TemplateHeroMockup({
   name,
   content,
+  eager = false,
 }: {
   name: string
   content: TemplatePreviewContent
+  eager?: boolean
 }) {
   const {
     bg,
@@ -91,7 +93,8 @@ export function TemplateHeroMockup({
             src={heroImage}
             alt=""
             className="h-full w-full object-cover"
-            loading="lazy"
+            loading={eager ? "eager" : "lazy"}
+            fetchPriority={eager ? "high" : "auto"}
             width={700}
             height={616}
           />
