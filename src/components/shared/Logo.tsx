@@ -24,7 +24,7 @@ export function Logo({ className }: { className?: string }) {
           strokeLinejoin="round"
         />
       </svg>
-      LaunchSite PH
+      LaunchSite <span className="text-primary">PH</span>
     </span>
   )
 }
