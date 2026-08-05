@@ -38,14 +38,22 @@ export function Header() {
   const closeMenu = () => setMenuOpen(false)
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-colors duration-200",
-        scrolled || menuOpen
-          ? "border-b border-border bg-background/80 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent"
-      )}
-    >
+    // Fragment, not a single wrapper: the mobile nav panel below is fixed
+    // and must be a sibling of <header>, not a descendant. Header gets
+    // backdrop-blur (a CSS "filter") when the menu is open, and any
+    // backdrop-filter/filter/transform on an ancestor makes it the
+    // containing block for fixed descendants — nesting the panel inside
+    // header would size its `bottom-0` against header's own 64px height
+    // instead of the viewport, collapsing it to zero height.
+    <>
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-colors duration-200",
+          scrolled || menuOpen
+            ? "border-b border-border bg-background/80 backdrop-blur-md"
+            : "border-b border-transparent bg-transparent"
+        )}
+      >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:h-20 md:px-8">
         <Link to="/" onClick={closeMenu} className="rounded-md">
           <Logo />
@@ -86,11 +94,12 @@ export function Header() {
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
+      </header>
 
       {menuOpen && (
         <div
           id="mobile-nav"
-          className="fixed inset-x-0 top-16 bottom-0 flex flex-col justify-between overflow-y-auto bg-background md:hidden"
+          className="fixed inset-x-0 top-16 bottom-0 z-50 flex flex-col justify-between overflow-y-auto bg-background md:hidden"
         >
           <nav className="flex flex-col px-5">
             {navLinks.map((link, i) => (
@@ -120,6 +129,6 @@ export function Header() {
           </div>
         </div>
       )}
-    </header>
+    </>
   )
 }
