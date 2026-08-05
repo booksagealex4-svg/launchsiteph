@@ -118,7 +118,11 @@ export default function TemplateDetail() {
           </Reveal>
 
           <Reveal delay={1}>
-            <DevicePreviewSwitcher palette={template.palette} slug={template.slug} />
+            <DevicePreviewSwitcher
+              palette={template.palette}
+              slug={template.slug}
+              name={template.name}
+            />
           </Reveal>
         </div>
 

@@ -7,7 +7,9 @@ import {
   templateIndustryIcon,
   genericMockupIcon,
 } from "@/lib/mockup"
+import { templatePreviewContent } from "@/lib/template-preview-content"
 import { SiteMockup } from "@/components/shared/SiteMockup"
+import { TemplateHeroMockup } from "@/components/shared/TemplateHeroMockup"
 import type { GalleryTemplate } from "@/components/gallery/data"
 
 export function TemplateGalleryCard({
@@ -15,6 +17,8 @@ export function TemplateGalleryCard({
 }: {
   template: GalleryTemplate
 }) {
+  const preview = templatePreviewContent[template.slug]
+
   return (
     <Link
       to={`/templates/${template.slug}`}
@@ -27,13 +31,17 @@ export function TemplateGalleryCard({
           <span className="h-2 w-2 rounded-full bg-muted-foreground/30" />
         </div>
         <div className="aspect-[4/3]">
-          <SiteMockup
-            background={template.bg}
-            accent={template.accent}
-            text={getReadableTextColor(template.bg)}
-            variant={templateMockupVariants[template.slug] ?? "cards"}
-            icon={templateIndustryIcon[template.slug] ?? genericMockupIcon}
-          />
+          {preview ? (
+            <TemplateHeroMockup name={template.name} content={preview} />
+          ) : (
+            <SiteMockup
+              background={template.bg}
+              accent={template.accent}
+              text={getReadableTextColor(template.bg)}
+              variant={templateMockupVariants[template.slug] ?? "cards"}
+              icon={templateIndustryIcon[template.slug] ?? genericMockupIcon}
+            />
+          )}
         </div>
       </div>
       <div className="mt-4 px-1 pb-1">

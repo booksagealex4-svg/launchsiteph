@@ -7,7 +7,9 @@ import {
   templateIndustryIcon,
   genericMockupIcon,
 } from "@/lib/mockup"
+import { templatePreviewContent } from "@/lib/template-preview-content"
 import { SiteMockup } from "@/components/shared/SiteMockup"
+import { TemplateHeroMockup } from "@/components/shared/TemplateHeroMockup"
 
 const DEVICES = ["Desktop", "Tablet", "Mobile"] as const
 type Device = (typeof DEVICES)[number]
@@ -21,12 +23,15 @@ const FRAME_CLASS: Record<Device, string> = {
 export function DevicePreviewSwitcher({
   palette,
   slug,
+  name,
 }: {
   palette: [string, string, string]
   slug: string
+  name: string
 }) {
   const [device, setDevice] = useState<Device>("Desktop")
   const [fading, setFading] = useState(false)
+  const preview = templatePreviewContent[slug]
 
   const selectDevice = (next: Device) => {
     if (next === device) return
@@ -72,13 +77,17 @@ export function DevicePreviewSwitcher({
             <span className="h-2 w-2 rounded-full bg-muted-foreground/30" />
           </div>
           <div className="min-h-0 flex-1">
-            <SiteMockup
-              background={palette[0]}
-              accent={palette[1]}
-              text={getReadableTextColor(palette[0])}
-              variant={templateMockupVariants[slug] ?? "cards"}
-              icon={templateIndustryIcon[slug] ?? genericMockupIcon}
-            />
+            {preview ? (
+              <TemplateHeroMockup name={name} content={preview} />
+            ) : (
+              <SiteMockup
+                background={palette[0]}
+                accent={palette[1]}
+                text={getReadableTextColor(palette[0])}
+                variant={templateMockupVariants[slug] ?? "cards"}
+                icon={templateIndustryIcon[slug] ?? genericMockupIcon}
+              />
+            )}
           </div>
         </div>
       </div>
