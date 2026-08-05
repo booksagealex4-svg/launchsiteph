@@ -50,7 +50,7 @@ export function Header() {
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-colors duration-200",
           scrolled || menuOpen
-            ? "border-b border-border bg-background/80 backdrop-blur-md"
+            ? "border-b border-border bg-surface/90 backdrop-blur-md"
             : "border-b border-transparent bg-transparent"
         )}
       >
@@ -99,7 +99,7 @@ export function Header() {
       {menuOpen && (
         <div
           id="mobile-nav"
-          className="fixed inset-x-0 top-16 bottom-0 z-50 flex flex-col justify-between overflow-y-auto bg-background md:hidden"
+          className="fixed inset-x-0 top-16 bottom-0 z-50 flex flex-col justify-between overflow-y-auto bg-surface md:hidden"
         >
           <nav className="flex flex-col px-5">
             {navLinks.map((link, i) => (
