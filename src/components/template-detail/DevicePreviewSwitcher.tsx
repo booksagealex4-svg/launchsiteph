@@ -1,6 +1,8 @@
 import { useState } from "react"
 
 import { cn } from "@/lib/utils"
+import { getReadableTextColor, templateMockupVariants } from "@/lib/mockup"
+import { SiteMockup } from "@/components/shared/SiteMockup"
 
 const DEVICES = ["Desktop", "Tablet", "Mobile"] as const
 type Device = (typeof DEVICES)[number]
@@ -13,8 +15,10 @@ const FRAME_CLASS: Record<Device, string> = {
 
 export function DevicePreviewSwitcher({
   palette,
+  slug,
 }: {
   palette: [string, string, string]
+  slug: string
 }) {
   const [device, setDevice] = useState<Device>("Desktop")
   const [fading, setFading] = useState(false)
@@ -52,23 +56,24 @@ export function DevicePreviewSwitcher({
       <div className="rounded-[14px] border border-border bg-surface p-2">
         <div
           className={cn(
-            "mx-auto overflow-hidden rounded-[10px] border border-border bg-background transition-[opacity] duration-[250ms] ease-out",
+            "mx-auto flex flex-col overflow-hidden rounded-[10px] border border-border bg-background transition-[opacity] duration-[250ms] ease-out",
             FRAME_CLASS[device],
             fading ? "opacity-0" : "opacity-100"
           )}
         >
-          <div className="flex items-center gap-1.5 border-b border-border px-3 py-2">
+          <div className="flex shrink-0 items-center gap-1.5 border-b border-border px-3 py-2">
             <span className="h-2 w-2 rounded-full bg-muted-foreground/30" />
             <span className="h-2 w-2 rounded-full bg-muted-foreground/30" />
             <span className="h-2 w-2 rounded-full bg-muted-foreground/30" />
           </div>
-          <div
-            className="h-full w-full"
-            style={{
-              backgroundImage: `linear-gradient(135deg, ${palette[0]}, ${palette[1]})`,
-            }}
-            aria-hidden="true"
-          />
+          <div className="min-h-0 flex-1">
+            <SiteMockup
+              background={palette[0]}
+              accent={palette[1]}
+              text={getReadableTextColor(palette[0])}
+              variant={templateMockupVariants[slug] ?? "cards"}
+            />
+          </div>
         </div>
       </div>
     </div>

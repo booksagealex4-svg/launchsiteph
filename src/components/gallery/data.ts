@@ -13,7 +13,8 @@ export interface GalleryTemplate {
   name: string
   category: Exclude<Category, "All">
   description: string
-  gradient: string
+  bg: string
+  accent: string
 }
 
 export const galleryTemplates: GalleryTemplate[] = [
@@ -23,7 +24,8 @@ export const galleryTemplates: GalleryTemplate[] = [
     category: "Healthcare",
     description:
       "Clinical and calm. Credentials, services and clinic hours, front and centre.",
-    gradient: "linear-gradient(135deg, #eaf2fb, #b9d4ef)",
+    bg: "#eaf2fb",
+    accent: "#3b82c4",
   },
   {
     slug: "enamel",
@@ -31,7 +33,8 @@ export const galleryTemplates: GalleryTemplate[] = [
     category: "Healthcare",
     description:
       "Bright and reassuring, with a before-and-after gallery and simple booking.",
-    gradient: "linear-gradient(135deg, #e7fff5, #ff8f72)",
+    bg: "#e7fff5",
+    accent: "#ff8f72",
   },
   {
     slug: "verdict",
@@ -39,7 +42,8 @@ export const galleryTemplates: GalleryTemplate[] = [
     category: "Professional Services",
     description:
       "Authoritative and restrained. Practice areas, attorney profiles, consultation form.",
-    gradient: "linear-gradient(135deg, #16213f, #c9a227)",
+    bg: "#16213f",
+    accent: "#c9a227",
   },
   {
     slug: "ledger",
@@ -47,28 +51,32 @@ export const galleryTemplates: GalleryTemplate[] = [
     category: "Professional Services",
     description:
       "Clear and credible. Services, qualifications and a consultation request.",
-    gradient: "linear-gradient(135deg, #3f4d5a, #7faa8e)",
+    bg: "#3f4d5a",
+    accent: "#7faa8e",
   },
   {
     slug: "plateau",
     name: "Plateau",
     category: "Professional Services",
     description: "Minimal, image-led. Your projects do the talking.",
-    gradient: "linear-gradient(135deg, #f3f2ee, #3c3c3c)",
+    bg: "#f3f2ee",
+    accent: "#8a8680",
   },
   {
     slug: "ember",
     name: "Ember",
     category: "Hospitality",
     description: "Warm and appetite-driven. Menu, photography, reservations.",
-    gradient: "linear-gradient(135deg, #2c1c13, #e9aa4c)",
+    bg: "#2c1c13",
+    accent: "#e9aa4c",
   },
   {
     slug: "tidewater",
     name: "Tidewater",
     category: "Hospitality",
     description: "Calm and spacious. Rooms, amenities, booking inquiry.",
-    gradient: "linear-gradient(135deg, #e8dcc4, #0f5359)",
+    bg: "#e8dcc4",
+    accent: "#0f5359",
   },
   {
     slug: "anthem",
@@ -76,7 +84,8 @@ export const galleryTemplates: GalleryTemplate[] = [
     category: "Personal Brand",
     description:
       "Bold typography and video. Built for coaches, speakers and consultants.",
-    gradient: "linear-gradient(135deg, #121212, #ff3b5c)",
+    bg: "#121212",
+    accent: "#ff3b5c",
   },
 ]
 

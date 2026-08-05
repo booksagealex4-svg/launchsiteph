@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 import { ArrowRight } from "lucide-react"
 
+import { getReadableTextColor, templateMockupVariants } from "@/lib/mockup"
+import { SiteMockup } from "@/components/shared/SiteMockup"
 import type { GalleryTemplate } from "@/components/gallery/data"
 
 export function TemplateGalleryCard({
@@ -19,11 +21,14 @@ export function TemplateGalleryCard({
           <span className="h-2 w-2 rounded-full bg-muted-foreground/30" />
           <span className="h-2 w-2 rounded-full bg-muted-foreground/30" />
         </div>
-        <div
-          className="aspect-[4/3]"
-          style={{ backgroundImage: template.gradient }}
-          aria-hidden="true"
-        />
+        <div className="aspect-[4/3]">
+          <SiteMockup
+            background={template.bg}
+            accent={template.accent}
+            text={getReadableTextColor(template.bg)}
+            variant={templateMockupVariants[template.slug] ?? "cards"}
+          />
+        </div>
       </div>
       <div className="mt-4 px-1 pb-1">
         <p className="font-heading font-semibold text-foreground">

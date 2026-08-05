@@ -22,7 +22,8 @@ function toGalleryTemplate(t: TemplateRecord): GalleryTemplate {
     name: t.name,
     category: t.category,
     description: t.tagline,
-    gradient: `linear-gradient(135deg, ${t.palette[0]}, ${t.palette[1]})`,
+    bg: t.palette[0],
+    accent: t.palette[1],
   }
 }
 
@@ -117,7 +118,7 @@ export default function TemplateDetail() {
           </Reveal>
 
           <Reveal delay={1}>
-            <DevicePreviewSwitcher palette={template.palette} />
+            <DevicePreviewSwitcher palette={template.palette} slug={template.slug} />
           </Reveal>
         </div>
 

@@ -2,79 +2,18 @@ import { useEffect, useState } from "react"
 
 import { cn } from "@/lib/utils"
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion"
+import { SiteMockup, type MockupVariant } from "@/components/shared/SiteMockup"
 
-const VARIANT_COUNT = 4
+const CYCLE_VARIANTS: MockupVariant[] = ["cards", "gallery", "list", "video"]
 const CYCLE_MS = 4000
 const FADE_MS = 300
 
-function WireframeScreen({ variant }: { variant: number }) {
-  switch (variant) {
-    case 1:
-      return (
-        <div className="flex h-full w-full flex-col gap-2 p-3">
-          <div className="flex items-center justify-between">
-            <div className="h-2 w-10 rounded-[10px] bg-primary/40" />
-            <div className="flex gap-1">
-              <div className="h-2 w-4 rounded-[10px] bg-surface-elevated" />
-              <div className="h-2 w-4 rounded-[10px] bg-surface-elevated" />
-              <div className="h-2 w-4 rounded-[10px] bg-surface-elevated" />
-            </div>
-          </div>
-          <div className="grid flex-1 grid-cols-3 gap-2">
-            <div className="col-span-2 rounded-[10px] border border-border bg-surface-elevated" />
-            <div className="flex flex-col gap-2">
-              <div className="flex-1 rounded-[10px] bg-primary/20" />
-              <div className="flex-1 rounded-[10px] bg-surface-elevated" />
-            </div>
-          </div>
-          <div className="flex gap-2">
-            <div className="h-3 flex-1 rounded-[10px] bg-surface-elevated" />
-            <div className="h-3 flex-1 rounded-[10px] bg-surface-elevated" />
-            <div className="h-3 flex-1 rounded-[10px] bg-surface-elevated" />
-          </div>
-        </div>
-      )
-    case 2:
-      return (
-        <div className="flex h-full w-full flex-col items-center gap-2 p-3">
-          <div className="h-2 w-2 rounded-full bg-primary/50" />
-          <div className="h-2 w-16 rounded-[10px] bg-surface-elevated" />
-          <div className="h-1.5 w-24 rounded-[10px] bg-border" />
-          <div className="mt-2 grid w-full flex-1 grid-cols-3 gap-2">
-            <div className="rounded-[10px] border border-border" />
-            <div className="rounded-[10px] border border-border" />
-            <div className="rounded-[10px] border border-border" />
-          </div>
-        </div>
-      )
-    case 3:
-      return (
-        <div className="flex h-full w-full flex-col gap-2 p-3">
-          <div className="h-2 w-12 rounded-[10px] bg-surface-elevated" />
-          <div className="grid flex-1 grid-cols-2 gap-2">
-            <div className="rounded-[10px] bg-surface-elevated" />
-            <div className="rounded-[10px] bg-surface-elevated" />
-            <div className="rounded-[10px] bg-surface-elevated" />
-            <div className="rounded-[10px] bg-primary/20" />
-          </div>
-          <div className="h-3 w-full rounded-[10px] bg-primary/40" />
-        </div>
-      )
-    default:
-      return (
-        <div className="flex h-full w-full flex-col gap-2 p-3">
-          <div className="h-2 w-8 rounded-[10px] bg-surface-elevated" />
-          <div className="flex-1 rounded-[10px] bg-primary/25" />
-          <div className="flex gap-2">
-            <div className="h-3 flex-1 rounded-[10px] bg-surface-elevated" />
-            <div className="h-3 w-10 rounded-[10px] bg-primary/40" />
-          </div>
-        </div>
-      )
-  }
-}
+// Our own dark chrome, not a client palette — only the layout changes.
+const MOCKUP_BACKGROUND = "#161a20"
+const MOCKUP_ACCENT = "#2e7dff"
+const MOCKUP_TEXT = "#e8ecf2"
 
-function Screen({ variant, fading }: { variant: number; fading: boolean }) {
+function Screen({ variant, fading }: { variant: MockupVariant; fading: boolean }) {
   return (
     <div
       className={cn(
@@ -82,12 +21,23 @@ function Screen({ variant, fading }: { variant: number; fading: boolean }) {
         fading ? "opacity-0" : "opacity-100"
       )}
     >
-      <WireframeScreen variant={variant} />
+      <SiteMockup
+        background={MOCKUP_BACKGROUND}
+        accent={MOCKUP_ACCENT}
+        text={MOCKUP_TEXT}
+        variant={variant}
+      />
     </div>
   )
 }
 
-function LaptopFrame({ variant, fading }: { variant: number; fading: boolean }) {
+function LaptopFrame({
+  variant,
+  fading,
+}: {
+  variant: MockupVariant
+  fading: boolean
+}) {
   return (
     <div className="w-full">
       <div className="rounded-[14px] border border-border bg-surface p-2">
@@ -100,7 +50,13 @@ function LaptopFrame({ variant, fading }: { variant: number; fading: boolean }) 
   )
 }
 
-function PhoneFrame({ variant, fading }: { variant: number; fading: boolean }) {
+function PhoneFrame({
+  variant,
+  fading,
+}: {
+  variant: MockupVariant
+  fading: boolean
+}) {
   return (
     <div className="absolute -bottom-8 -left-6 w-[36%] rounded-[14px] border border-border bg-surface p-1.5 md:-bottom-10 md:-left-8">
       <div className="relative aspect-[9/19] w-full overflow-hidden rounded-[10px] bg-background">
@@ -112,7 +68,7 @@ function PhoneFrame({ variant, fading }: { variant: number; fading: boolean }) {
 
 export function DeviceMockup() {
   const prefersReducedMotion = usePrefersReducedMotion()
-  const [variant, setVariant] = useState(0)
+  const [index, setIndex] = useState(0)
   const [fading, setFading] = useState(false)
 
   useEffect(() => {
@@ -124,7 +80,7 @@ export function DeviceMockup() {
       if (document.hidden) return
       setFading(true)
       timeoutId = setTimeout(() => {
-        setVariant((v) => (v + 1) % VARIANT_COUNT)
+        setIndex((i) => (i + 1) % CYCLE_VARIANTS.length)
         setFading(false)
       }, FADE_MS)
     }, CYCLE_MS)
@@ -134,6 +90,8 @@ export function DeviceMockup() {
       if (timeoutId) clearTimeout(timeoutId)
     }
   }, [prefersReducedMotion])
+
+  const variant = CYCLE_VARIANTS[index]
 
   return (
     <div className="relative mx-auto max-w-[420px] pb-10 pl-8 md:mx-0 md:max-w-none md:pl-10">
