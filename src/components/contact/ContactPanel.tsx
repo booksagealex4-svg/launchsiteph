@@ -7,21 +7,34 @@ import {
   BUSINESS_EMAIL,
   BUSINESS_MOBILE_DISPLAY,
   BUSINESS_MOBILE_TEL,
+  BUSINESS_MESSENGER_URL,
   BUSINESS_WHATSAPP_URL,
 } from "@/lib/site"
 
 const channels = [
-  { icon: MessengerIcon, label: "Message on Messenger", href: "#" },
-  { icon: WhatsAppIcon, label: "Message on WhatsApp", href: BUSINESS_WHATSAPP_URL },
+  {
+    icon: MessengerIcon,
+    label: "Message on Messenger",
+    href: BUSINESS_MESSENGER_URL,
+    external: true,
+  },
+  {
+    icon: WhatsAppIcon,
+    label: "Message on WhatsApp",
+    href: BUSINESS_WHATSAPP_URL,
+    external: true,
+  },
   {
     icon: Phone,
     label: BUSINESS_MOBILE_DISPLAY,
     href: `tel:${BUSINESS_MOBILE_TEL}`,
+    external: false,
   },
   {
     icon: Mail,
     label: BUSINESS_EMAIL,
     href: `mailto:${BUSINESS_EMAIL}`,
+    external: false,
   },
 ]
 
@@ -47,6 +60,8 @@ export function ContactPanel() {
               <a
                 key={channel.label}
                 href={channel.href}
+                target={channel.external ? "_blank" : undefined}
+                rel={channel.external ? "noopener noreferrer" : undefined}
                 className="flex min-h-14 items-center gap-3 rounded-[10px] border border-border px-4 py-3 text-foreground transition-colors duration-200 hover:bg-surface-elevated"
               >
                 {content}

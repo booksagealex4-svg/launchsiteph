@@ -1,8 +1,21 @@
 import { Link } from "react-router-dom"
 
 import { Logo } from "@/components/shared/Logo"
-import { FacebookIcon, MessengerIcon } from "@/components/shared/SocialIcons"
-import { BUSINESS_EMAIL, BUSINESS_MOBILE_DISPLAY, BUSINESS_MOBILE_TEL } from "@/lib/site"
+import {
+  FacebookIcon,
+  InstagramIcon,
+  MessengerIcon,
+} from "@/components/shared/SocialIcons"
+import { WhatsAppIcon } from "@/components/contact/WhatsAppIcon"
+import {
+  BUSINESS_EMAIL,
+  BUSINESS_MOBILE_DISPLAY,
+  BUSINESS_MOBILE_TEL,
+  BUSINESS_FACEBOOK_URL,
+  BUSINESS_INSTAGRAM_URL,
+  BUSINESS_MESSENGER_URL,
+  BUSINESS_WHATSAPP_URL,
+} from "@/lib/site"
 
 const serviceLinks = [
   { to: "/templates", label: "Templates" },
@@ -31,20 +44,42 @@ export function Footer() {
             <p className="max-w-[30ch] text-sm text-muted-foreground">
               Professional websites powered by AI and crafted by humans.
             </p>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <a
-                href="#"
+                href={BUSINESS_FACEBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Facebook"
                 className="flex h-12 w-12 items-center justify-center rounded-[10px] border border-border text-muted-foreground transition-colors hover:border-primary-glow/30 hover:text-foreground"
               >
                 <FacebookIcon />
               </a>
               <a
-                href="#"
+                href={BUSINESS_INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="flex h-12 w-12 items-center justify-center rounded-[10px] border border-border text-muted-foreground transition-colors hover:border-primary-glow/30 hover:text-foreground"
+              >
+                <InstagramIcon />
+              </a>
+              <a
+                href={BUSINESS_MESSENGER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Messenger"
                 className="flex h-12 w-12 items-center justify-center rounded-[10px] border border-border text-muted-foreground transition-colors hover:border-primary-glow/30 hover:text-foreground"
               >
                 <MessengerIcon />
+              </a>
+              <a
+                href={BUSINESS_WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="flex h-12 w-12 items-center justify-center rounded-[10px] border border-border text-muted-foreground transition-colors hover:border-primary-glow/30 hover:text-foreground"
+              >
+                <WhatsAppIcon />
               </a>
             </div>
           </div>
