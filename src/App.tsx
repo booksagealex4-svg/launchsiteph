@@ -12,6 +12,7 @@ import Resources from "@/pages/Resources"
 import ArticleDetail from "@/pages/ArticleDetail"
 import About from "@/pages/About"
 import Contact from "@/pages/Contact"
+import Referral from "@/pages/Referral"
 
 const AdminRoot = lazy(() =>
   import("@/admin/AdminRoot").then((m) => ({ default: m.AdminRoot }))
@@ -45,6 +46,7 @@ function App() {
           <Route path="/resources/:slug" element={<ArticleDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/referral" element={<Referral />} />
         </Route>
 
         <Route element={<AdminRoot />}>

@@ -8,6 +8,7 @@ const serviceLinks = [
   { to: "/pricing", label: "Pricing" },
   { to: "/process", label: "Process" },
   { to: "/pricing", label: "Care Plans" },
+  { to: "/referral", label: "Referral Program" },
 ]
 
 const companyLinks = [

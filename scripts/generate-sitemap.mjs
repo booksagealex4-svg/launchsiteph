@@ -31,6 +31,7 @@ const staticRoutes = [
   "/resources",
   "/about",
   "/contact",
+  "/referral",
 ]
 
 const routes = [
