@@ -103,7 +103,7 @@ export function ReferralForm() {
           className="rounded-[10px] border border-destructive/40 bg-destructive/10 p-4 text-sm text-foreground"
         >
           Something went wrong sending your referral. Please try again, or
-          message us directly on Messenger or Viber.
+          message us directly on Messenger or WhatsApp.
         </div>
       )}
 

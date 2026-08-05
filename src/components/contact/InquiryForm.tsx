@@ -24,7 +24,7 @@ const industries = [
 ] as const
 
 const packageOptions = ["Not sure yet", "Launch", "Momentum", "Authority"] as const
-const contactMethods = ["Messenger", "Viber", "Call", "Email"] as const
+const contactMethods = ["Messenger", "WhatsApp", "Call", "Email"] as const
 const websiteOptions = [
   "No",
   "Yes but it needs replacing",
@@ -185,7 +185,7 @@ export function InquiryForm() {
           className="rounded-[10px] border border-destructive/40 bg-destructive/10 p-4 text-sm text-foreground"
         >
           Something went wrong sending your message. Please try again, or
-          message us directly on Messenger or Viber.
+          message us directly on Messenger or WhatsApp.
         </div>
       )}
 

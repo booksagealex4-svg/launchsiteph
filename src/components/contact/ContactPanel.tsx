@@ -2,12 +2,17 @@ import { Mail, Phone } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { MessengerIcon } from "@/components/shared/SocialIcons"
-import { ViberIcon } from "@/components/contact/ViberIcon"
-import { BUSINESS_EMAIL, BUSINESS_MOBILE_DISPLAY, BUSINESS_MOBILE_TEL } from "@/lib/site"
+import { WhatsAppIcon } from "@/components/contact/WhatsAppIcon"
+import {
+  BUSINESS_EMAIL,
+  BUSINESS_MOBILE_DISPLAY,
+  BUSINESS_MOBILE_TEL,
+  BUSINESS_WHATSAPP_URL,
+} from "@/lib/site"
 
 const channels = [
   { icon: MessengerIcon, label: "Message on Messenger", href: "#" },
-  { icon: ViberIcon, label: "Message on Viber", href: "#" },
+  { icon: WhatsAppIcon, label: "Message on WhatsApp", href: BUSINESS_WHATSAPP_URL },
   {
     icon: Phone,
     label: BUSINESS_MOBILE_DISPLAY,
