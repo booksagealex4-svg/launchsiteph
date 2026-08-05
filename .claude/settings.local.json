@@ -30,7 +30,10 @@
       "Bash(\"/c/Program Files/nodejs/npx.cmd\" lighthouse http://localhost:4173/pricing --only-categories=performance,accessibility --output=json --output-path=./lighthouse-mobile-pricing.json --chrome-flags=\"--headless=new\" --quiet)",
       "Bash(cd \"C:\\\\Users\\\\Totti\\\\Documents\\\\Claude CODE\" && rm -f lighthouse-*.json lh-*.json lh2-*.json && git status --short)",
       "Bash(pkill -f \"vite/bin/vite.js preview\")",
-      "Bash(grep -iE \"^\\(gift|hand-coins|user-plus\\)\\\\.mjs$\")"
+      "Bash(grep -iE \"^\\(gift|hand-coins|user-plus\\)\\\\.mjs$\")",
+      "Bash(\"/c/Program Files/nodejs/node.exe\" node_modules/vite/bin/vite.js preview --port 4173)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:4173/)",
+      "Bash(curl -s http://localhost:4173/assets/index-CvaIfRWQ.js)"
     ]
   }
 }

@@ -28,3 +28,26 @@ export interface Client {
 }
 
 export type ClientInput = Omit<Client, "id" | "created_at" | "updated_at">
+
+export const REFERRAL_STATUS_OPTIONS = [
+  "New",
+  "Contacted",
+  "Client Converted",
+  "Commission Paid",
+  "Not Converted",
+] as const
+
+export interface Referral {
+  id: string
+  referrer_name: string
+  referrer_mobile: string
+  referrer_email: string | null
+  payout_method: string
+  referred_business_name: string
+  referred_contact_name: string
+  referred_contact_info: string
+  notes: string | null
+  status: (typeof REFERRAL_STATUS_OPTIONS)[number]
+  created_at: string
+  updated_at: string
+}

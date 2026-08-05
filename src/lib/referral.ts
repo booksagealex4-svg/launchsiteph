@@ -1,3 +1,5 @@
+import { supabase } from "@/lib/supabase"
+
 export interface ReferralFormData {
   referrerName: string
   referrerMobile: string
@@ -10,11 +12,22 @@ export interface ReferralFormData {
 }
 
 /**
- * Swap this implementation for a real endpoint (Formspree, mailto, or an
- * API route) before launch — same pattern as submitInquiry in
- * InquiryForm.tsx. Left as a stub so the rest of the form's behaviour can
- * be built and tested now.
+ * Writes the referral straight into Supabase (public insert is allowed by
+ * the "referrals" table's RLS policy; only an authenticated admin can read
+ * or manage rows afterward — see supabase/schema.sql). Submissions show up
+ * in /admin/referrals.
  */
-export async function submitReferral(_data: ReferralFormData): Promise<void> {
-  await new Promise((resolve) => setTimeout(resolve, 900))
+export async function submitReferral(data: ReferralFormData): Promise<void> {
+  const { error } = await supabase.from("referrals").insert({
+    referrer_name: data.referrerName,
+    referrer_mobile: data.referrerMobile,
+    referrer_email: data.referrerEmail || null,
+    payout_method: data.payoutMethod,
+    referred_business_name: data.referredBusinessName,
+    referred_contact_name: data.referredContactName,
+    referred_contact_info: data.referredContactInfo,
+    notes: data.notes || null,
+  })
+
+  if (error) throw error
 }

@@ -12,7 +12,10 @@ import Resources from "@/pages/Resources"
 import ArticleDetail from "@/pages/ArticleDetail"
 import About from "@/pages/About"
 import Contact from "@/pages/Contact"
-import Referral from "@/pages/Referral"
+
+// Lazy-loaded: pulls in the Supabase client, kept out of the main bundle
+// so public visitors who never submit a referral don't pay for it.
+const Referral = lazy(() => import("@/pages/Referral"))
 
 const AdminRoot = lazy(() =>
   import("@/admin/AdminRoot").then((m) => ({ default: m.AdminRoot }))
@@ -30,6 +33,7 @@ const AdminLayout = lazy(() =>
 const AdminLogin = lazy(() => import("@/admin/pages/Login"))
 const AdminDashboard = lazy(() => import("@/admin/pages/Dashboard"))
 const AdminClientForm = lazy(() => import("@/admin/pages/ClientForm"))
+const AdminReferrals = lazy(() => import("@/admin/pages/Referrals"))
 
 function App() {
   return (
@@ -56,6 +60,7 @@ function App() {
               <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/admin/clients/new" element={<AdminClientForm />} />
               <Route path="/admin/clients/:id" element={<AdminClientForm />} />
+              <Route path="/admin/referrals" element={<AdminReferrals />} />
             </Route>
           </Route>
         </Route>
