@@ -1,7 +1,12 @@
 import { useState } from "react"
 
 import { cn } from "@/lib/utils"
-import { getReadableTextColor, templateMockupVariants } from "@/lib/mockup"
+import {
+  getReadableTextColor,
+  templateMockupVariants,
+  templateIndustryIcon,
+  genericMockupIcon,
+} from "@/lib/mockup"
 import { SiteMockup } from "@/components/shared/SiteMockup"
 
 const DEVICES = ["Desktop", "Tablet", "Mobile"] as const
@@ -72,6 +77,7 @@ export function DevicePreviewSwitcher({
               accent={palette[1]}
               text={getReadableTextColor(palette[0])}
               variant={templateMockupVariants[slug] ?? "cards"}
+              icon={templateIndustryIcon[slug] ?? genericMockupIcon}
             />
           </div>
         </div>

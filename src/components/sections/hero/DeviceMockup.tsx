@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 
 import { cn } from "@/lib/utils"
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion"
+import { genericMockupIcon } from "@/lib/mockup"
 import { SiteMockup, type MockupVariant } from "@/components/shared/SiteMockup"
 
 const CYCLE_VARIANTS: MockupVariant[] = ["cards", "gallery", "list", "video"]
@@ -26,6 +27,7 @@ function Screen({ variant, fading }: { variant: MockupVariant; fading: boolean }
         accent={MOCKUP_ACCENT}
         text={MOCKUP_TEXT}
         variant={variant}
+        icon={genericMockupIcon}
       />
     </div>
   )

@@ -1,4 +1,35 @@
+import {
+  Stethoscope,
+  Scale,
+  SmilePlus,
+  PencilRuler,
+  ChefHat,
+  Palmtree,
+  Calculator,
+  Mic,
+  Store,
+  type LucideIcon,
+} from "lucide-react"
+
 import type { MockupVariant } from "@/components/shared/SiteMockup"
+
+// A subject-matter icon per template, standing in for real photography in
+// the hero photo panel and content cards — enough to read as "a real
+// clinic" or "a real restaurant" rather than an abstract colored shape.
+export const templateIndustryIcon: Record<string, LucideIcon> = {
+  meridian: Stethoscope,
+  verdict: Scale,
+  enamel: SmilePlus,
+  plateau: PencilRuler,
+  ember: ChefHat,
+  tidewater: Palmtree,
+  ledger: Calculator,
+  anthem: Mic,
+}
+
+// Used by the homepage hero device mockup, which isn't tied to any one
+// template — a generic "real business online" mark.
+export const genericMockupIcon: LucideIcon = Store
 
 export function getReadableTextColor(bgHex: string): string {
   const hex = bgHex.replace("#", "")

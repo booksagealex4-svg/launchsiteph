@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom"
 
-import { getReadableTextColor, templateMockupVariants } from "@/lib/mockup"
+import {
+  getReadableTextColor,
+  templateMockupVariants,
+  templateIndustryIcon,
+  genericMockupIcon,
+} from "@/lib/mockup"
 import { SiteMockup } from "@/components/shared/SiteMockup"
 import type { TemplateSlide } from "@/components/sections/showcase/data"
 
@@ -22,6 +27,7 @@ export function TemplateCard({ template }: { template: TemplateSlide }) {
             accent={template.accent}
             text={getReadableTextColor(template.bg)}
             variant={templateMockupVariants[template.slug] ?? "cards"}
+            icon={templateIndustryIcon[template.slug] ?? genericMockupIcon}
           />
         </div>
       </div>
