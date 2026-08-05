@@ -2,15 +2,36 @@ import { Link } from "react-router-dom"
 
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/shared/Reveal"
+import { Seo } from "@/components/shared/Seo"
+import { JsonLd } from "@/components/shared/JsonLd"
 import { packages } from "@/data/packages"
 import { PricingCard } from "@/components/pricing/PricingCard"
 import { CarePlanPanel } from "@/components/pricing/CarePlanPanel"
 import { ComparisonTable } from "@/components/pricing/ComparisonTable"
-import { FaqAccordion } from "@/components/pricing/FaqAccordion"
+import { FaqAccordion, faqItems } from "@/components/pricing/FaqAccordion"
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+}
 
 export default function Pricing() {
   return (
     <div className="py-14 md:py-20">
+      <Seo
+        title="Pricing — Three Website Packages From PHP 10,000 | LaunchSite PH"
+        description="Launch, Momentum and Authority packages compared. Real prices, published openly, with delivery in 5 to 14 days from content handoff."
+        path="/pricing"
+      />
+      <JsonLd data={faqSchema} />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h1 className="text-foreground">

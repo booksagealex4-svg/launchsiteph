@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom"
 
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/shared/Reveal"
+import { Seo } from "@/components/shared/Seo"
 import { TemplateGalleryCard } from "@/components/gallery/TemplateGalleryCard"
 import type { GalleryTemplate } from "@/components/gallery/data"
 import { PaletteSwatches } from "@/components/template-detail/PaletteSwatches"
@@ -28,6 +29,12 @@ function toGalleryTemplate(t: TemplateRecord): GalleryTemplate {
 function NotFound() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-20 text-center md:px-8">
+      <Seo
+        title="Template not found | LaunchSite PH"
+        description="We couldn't find that template."
+        path="/templates"
+        noindex
+      />
       <h1 className="text-foreground">Template not found</h1>
       <p className="mx-auto mt-4 text-muted-foreground">
         We couldn&apos;t find that template. It may have been renamed or
@@ -58,6 +65,11 @@ export default function TemplateDetail() {
 
   return (
     <div className="py-14 md:py-20">
+      <Seo
+        title={`${template.name} Template for ${template.industry} | LaunchSite PH`}
+        description={`${template.tagline} ${template.description}`}
+        path={`/templates/${template.slug}`}
+      />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
           <ol className="flex items-center gap-2">

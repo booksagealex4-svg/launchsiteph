@@ -17,7 +17,19 @@
       "Bash(git config *)",
       "Bash(grep -iE \"^user-round\\\\.mjs$|^user\\\\.mjs$\")",
       "WebSearch",
-      "Bash(grep -iE \"^\\(send|message-circle|x\\)\\\\.mjs$\")"
+      "Bash(grep -iE \"^\\(send|message-circle|x\\)\\\\.mjs$\")",
+      "Read(//c/Program Files/Google/Chrome/Application/**)",
+      "Read(//c/Program Files \\\\\\(x86\\\\\\)/Google/Chrome/Application/**)",
+      "Bash(export CHROME_PATH=\"C:\\\\Program Files\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe\")",
+      "Bash(\"/c/Program Files/nodejs/npx.cmd\" lighthouse http://localhost:4173/ --only-categories=performance,accessibility --preset=desktop --output=json --output-path=./lighthouse-report.json --chrome-flags=\"--headless=new\" --quiet)",
+      "Bash(node -e ' *)",
+      "Bash('/c/Program Files/nodejs/node.exe' -e ' *)",
+      "Bash(\"/c/Program Files/nodejs/npx.cmd\" lighthouse http://localhost:4173/ --only-categories=performance,accessibility --output=json --output-path=./lighthouse-mobile-home.json --chrome-flags=\"--headless=new\" --quiet)",
+      "Bash(curl -s http://localhost:4173/)",
+      "Bash(\"/c/Program Files/nodejs/npx.cmd\" lighthouse http://localhost:4173/ --only-categories=performance,accessibility --output=json --output-path=./lighthouse-mobile-home-2.json --chrome-flags=\"--headless=new\" --quiet)",
+      "Bash(\"/c/Program Files/nodejs/npx.cmd\" lighthouse http://localhost:4173/pricing --only-categories=performance,accessibility --output=json --output-path=./lighthouse-mobile-pricing.json --chrome-flags=\"--headless=new\" --quiet)",
+      "Bash(cd \"C:\\\\Users\\\\Totti\\\\Documents\\\\Claude CODE\" && rm -f lighthouse-*.json lh-*.json lh2-*.json && git status --short)",
+      "Bash(pkill -f \"vite/bin/vite.js preview\")"
     ]
   }
 }

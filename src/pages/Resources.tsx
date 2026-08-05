@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react"
 
 import { Reveal } from "@/components/shared/Reveal"
+import { Seo } from "@/components/shared/Seo"
 import { articles, type ArticleCategory } from "@/data/articles"
 import { CategoryFilterBar } from "@/components/resources/CategoryFilterBar"
 import { ArticleCard } from "@/components/resources/ArticleCard"
@@ -18,6 +19,11 @@ export default function Resources() {
 
   return (
     <div className="py-14 md:py-20">
+      <Seo
+        title="Guides for Philippine Businesses Going Online | LaunchSite PH"
+        description="Plain-language guides on website costs, SEO basics, Google Business Profile setup and industry-specific checklists for Philippine businesses."
+        path="/resources"
+      />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h1 className="text-foreground">

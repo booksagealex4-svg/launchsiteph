@@ -3,6 +3,7 @@ import { UserRound } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/shared/Reveal"
+import { Seo } from "@/components/shared/Seo"
 import { ValuesGrid } from "@/components/about/ValuesGrid"
 import { CareerTimeline } from "@/components/about/CareerTimeline"
 import { ToolsStrip } from "@/components/about/ToolsStrip"
@@ -11,6 +12,11 @@ import { CredentialsRow } from "@/components/about/CredentialsRow"
 export default function About() {
   return (
     <div className="py-14 md:py-20">
+      <Seo
+        title="About — You're Hiring a Person, Not an Agency | LaunchSite PH"
+        description="Meet the person behind LaunchSite PH: 6 years in publishing and creative production, now building AI-assisted websites for Philippine professionals."
+        path="/about"
+      />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-12">
           <Reveal>

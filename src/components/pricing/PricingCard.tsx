@@ -21,7 +21,7 @@ export function PricingCard({ pkg }: { pkg: PackageRecord }) {
         </span>
       )}
 
-      <h3 className="font-heading text-foreground">{pkg.name}</h3>
+      <h2 className="font-heading text-2xl text-foreground">{pkg.name}</h2>
       <p className="mt-2 text-sm text-muted-foreground">{pkg.audience}</p>
 
       <div className="mt-6">

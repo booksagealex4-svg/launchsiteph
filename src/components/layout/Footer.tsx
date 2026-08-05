@@ -48,9 +48,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-heading text-sm font-semibold text-foreground">
+            <p className="font-heading text-sm font-semibold text-foreground">
               Services
-            </h3>
+            </p>
             <ul className="mt-4 flex flex-col gap-3">
               {serviceLinks.map((link) => (
                 <li key={link.label}>
@@ -66,9 +66,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-heading text-sm font-semibold text-foreground">
+            <p className="font-heading text-sm font-semibold text-foreground">
               Company
-            </h3>
+            </p>
             <ul className="mt-4 flex flex-col gap-3">
               {companyLinks.map((link) => (
                 <li key={link.label}>
@@ -84,9 +84,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-heading text-sm font-semibold text-foreground">
+            <p className="font-heading text-sm font-semibold text-foreground">
               Get in touch
-            </h3>
+            </p>
             <ul className="mt-4 flex flex-col gap-3 text-sm text-muted-foreground">
               <li>
                 <a

@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { ConsultantWidget } from "@/components/consultant/ConsultantWidget"
+import { CookieConsent } from "@/components/shared/CookieConsent"
 
 export function Layout() {
   return (
@@ -13,6 +14,7 @@ export function Layout() {
       </main>
       <Footer />
       <ConsultantWidget />
+      <CookieConsent />
     </div>
   )
 }

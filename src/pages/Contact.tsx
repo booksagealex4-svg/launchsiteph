@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/shared/Reveal"
+import { Seo } from "@/components/shared/Seo"
 import { InquiryForm } from "@/components/contact/InquiryForm"
 import { ContactPanel } from "@/components/contact/ContactPanel"
 
@@ -22,6 +23,11 @@ const faqItems = [
 export default function Contact() {
   return (
     <div className="py-14 md:py-20">
+      <Seo
+        title="Contact — Get a Free Website Quote | LaunchSite PH"
+        description="Tell us what you do and get a written quote with a fixed price and delivery date, usually within one business day."
+        path="/contact"
+      />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h1 className="text-foreground">

@@ -3,7 +3,9 @@ import { availableOnRequest } from "@/components/gallery/data"
 export function AvailableOnRequest() {
   return (
     <div className="rounded-[14px] border border-border bg-surface p-8 text-center">
-      <h3 className="text-foreground">Available on request</h3>
+      <h2 className="font-heading text-2xl text-foreground">
+        Available on request
+      </h2>
       <p className="mx-auto mt-2 text-muted-foreground">
         We adapt the closest flagship template to your industry, at no extra
         cost.

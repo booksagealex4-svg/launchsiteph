@@ -2,12 +2,18 @@ import { Link } from "react-router-dom"
 
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/shared/Reveal"
+import { Seo } from "@/components/shared/Seo"
 import { TemplateGallery } from "@/components/gallery/TemplateGallery"
 import { AvailableOnRequest } from "@/components/gallery/AvailableOnRequest"
 
 export default function Templates() {
   return (
     <div className="py-14 md:py-20">
+      <Seo
+        title="Website Templates for Philippine Businesses | LaunchSite PH"
+        description="Eight flagship website templates for clinics, law firms, restaurants, hotels and more — each adapted to your branding, content and industry."
+        path="/templates"
+      />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h1 className="text-foreground">

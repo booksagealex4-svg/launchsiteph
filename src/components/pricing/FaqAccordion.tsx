@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-const faqItems = [
+export const faqItems = [
   {
     question: 'What does "7 days" actually mean?',
     answer:

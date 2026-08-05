@@ -2,14 +2,23 @@ import { Link, useParams } from "react-router-dom"
 
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/shared/Reveal"
+import { Seo } from "@/components/shared/Seo"
+import { JsonLd } from "@/components/shared/JsonLd"
 import { ArticleCard } from "@/components/resources/ArticleCard"
 import { ArticleBody } from "@/components/resources/ArticleBody"
 import { TableOfContents } from "@/components/resources/TableOfContents"
 import { articles, getArticleBySlug } from "@/data/articles"
+import { SITE_URL } from "@/lib/site"
 
 function NotFound() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-20 text-center md:px-8">
+      <Seo
+        title="Article not found | LaunchSite PH"
+        description="We couldn't find that article."
+        path="/resources"
+        noindex
+      />
       <h1 className="text-foreground">Article not found</h1>
       <p className="mx-auto mt-4 text-muted-foreground">
         We couldn&apos;t find that article. It may have been renamed or
@@ -36,8 +45,31 @@ export default function ArticleDetail() {
     .filter((a) => a.category === article.category && a.slug !== article.slug)
     .slice(0, 3)
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.excerpt,
+    datePublished: article.publishDate,
+    author: {
+      "@type": "Organization",
+      name: "LaunchSite PH",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "LaunchSite PH",
+    },
+    mainEntityOfPage: `${SITE_URL}/resources/${article.slug}`,
+  }
+
   return (
     <div className="py-14 md:py-20">
+      <Seo
+        title={`${article.title} | LaunchSite PH`}
+        description={article.excerpt}
+        path={`/resources/${article.slug}`}
+      />
+      <JsonLd data={articleSchema} />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
           <ol className="flex items-center gap-2">
