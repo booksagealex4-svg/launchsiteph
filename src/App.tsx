@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react"
 import { Route, Routes } from "react-router-dom"
 
 import { Layout } from "@/components/layout/Layout"
+import { ScrollToTop } from "@/components/shared/ScrollToTop"
 import Home from "@/pages/Home"
 import Templates from "@/pages/Templates"
 import TemplateDetail from "@/pages/TemplateDetail"
@@ -32,6 +33,7 @@ const AdminClientForm = lazy(() => import("@/admin/pages/ClientForm"))
 function App() {
   return (
     <Suspense fallback={null}>
+      <ScrollToTop />
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />

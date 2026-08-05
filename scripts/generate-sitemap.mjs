@@ -22,12 +22,12 @@ function extractSlugs(filePath) {
 const templateSlugs = extractSlugs("src/data/templates.ts")
 const articleSlugs = extractSlugs("src/data/articles.ts")
 
-// /process is excluded — it's still a placeholder page with no real
-// content. /admin/* is excluded — private, disallowed in robots.txt.
+// /admin/* is excluded — private, disallowed in robots.txt.
 const staticRoutes = [
   "/",
   "/templates",
   "/pricing",
+  "/process",
   "/resources",
   "/about",
   "/contact",
