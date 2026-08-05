@@ -7,6 +7,7 @@ import { Select } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { FormField } from "@/components/contact/FormField"
 import { RadioOptions } from "@/components/contact/RadioOptions"
+import { BUSINESS_EMAIL } from "@/lib/site"
 
 const industries = [
   "Healthcare",
@@ -46,12 +47,35 @@ interface InquiryFormData {
 type FormErrors = Partial<Record<keyof InquiryFormData, string>>
 
 /**
- * Swap this implementation for a real endpoint (Formspree, mailto, or an
- * API route) before launch. Left as a stub so the rest of the form's
- * behaviour can be built and tested now.
+ * Sends the inquiry as a pre-filled email to BUSINESS_EMAIL via a mailto:
+ * link. No backend required — the visitor's own email client opens with
+ * the message ready to send. Swap for a proper form endpoint (Formspree,
+ * an API route) later if mailto's reliance on a configured mail client
+ * becomes a problem.
  */
-async function submitInquiry(_data: InquiryFormData): Promise<void> {
-  await new Promise((resolve) => setTimeout(resolve, 900))
+async function submitInquiry(data: InquiryFormData): Promise<void> {
+  const subject = `New inquiry from ${data.name} — ${data.businessName}`
+  const body = [
+    `Name: ${data.name}`,
+    `Business/practice: ${data.businessName}`,
+    `Industry: ${data.industry}`,
+    `Mobile: ${data.mobile}`,
+    `Email: ${data.email}`,
+    `Preferred contact method: ${data.preferredContact}`,
+    `Package interest: ${data.packageInterest}`,
+    `Template interest: ${data.templateInterest || "—"}`,
+    `Already has a website: ${data.hasWebsite}`,
+    "",
+    "Message:",
+    data.message || "(none)",
+  ].join("\n")
+
+  const mailtoUrl = `mailto:${BUSINESS_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+
+  // Brief delay so the "Sending..." state is visible before handing off
+  // to the visitor's email client.
+  await new Promise((resolve) => setTimeout(resolve, 400))
+  window.location.href = mailtoUrl
 }
 
 function buildInitialState(searchParams: URLSearchParams): InquiryFormData {
@@ -143,9 +167,11 @@ export function InquiryForm() {
   if (status === "success") {
     return (
       <div className="rounded-[14px] border border-border bg-surface p-8 text-center">
-        <h2 className="text-foreground">Thank you.</h2>
+        <h2 className="text-foreground">Almost there.</h2>
         <p className="mt-3 text-muted-foreground">
-          You will hear from us within one business day.
+          Your email app should have opened with your message ready. Hit
+          send there to complete your inquiry, and you will hear back
+          within one business day.
         </p>
       </div>
     )

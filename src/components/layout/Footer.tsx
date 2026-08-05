@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 
 import { Logo } from "@/components/shared/Logo"
 import { FacebookIcon, MessengerIcon } from "@/components/shared/SocialIcons"
+import { BUSINESS_EMAIL, BUSINESS_MOBILE_DISPLAY, BUSINESS_MOBILE_TEL } from "@/lib/site"
 
 const serviceLinks = [
   { to: "/templates", label: "Templates" },
@@ -91,13 +92,20 @@ export function Footer() {
             <ul className="mt-4 flex flex-col gap-3 text-sm text-muted-foreground">
               <li>
                 <a
-                  href="mailto:hello@launchsiteph.com"
+                  href={`mailto:${BUSINESS_EMAIL}`}
                   className="transition-colors hover:text-foreground"
                 >
-                  [email address]
+                  {BUSINESS_EMAIL}
                 </a>
               </li>
-              <li>N/A</li>
+              <li>
+                <a
+                  href={`tel:${BUSINESS_MOBILE_TEL}`}
+                  className="transition-colors hover:text-foreground"
+                >
+                  {BUSINESS_MOBILE_DISPLAY}
+                </a>
+              </li>
               <li>Cebu City, Philippines</li>
               <li>Mon&ndash;Sat, 9AM&ndash;6PM PHT</li>
             </ul>
@@ -107,15 +115,15 @@ export function Footer() {
         <div className="mt-14 flex flex-col gap-4 border-t border-border pt-8 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
           <p>&copy; {year} LaunchSite PH. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <a href="#" className="transition-colors hover:text-foreground">
+            <Link to="/privacy" className="transition-colors hover:text-foreground">
               Privacy Policy
-            </a>
-            <a href="#" className="transition-colors hover:text-foreground">
+            </Link>
+            <Link to="/terms" className="transition-colors hover:text-foreground">
               Terms
-            </a>
-            <a href="#" className="transition-colors hover:text-foreground">
+            </Link>
+            <Link to="/refund-policy" className="transition-colors hover:text-foreground">
               Refund Policy
-            </a>
+            </Link>
           </div>
         </div>
       </div>

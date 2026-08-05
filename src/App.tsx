@@ -17,6 +17,11 @@ import Contact from "@/pages/Contact"
 // so public visitors who never submit a referral don't pay for it.
 const Referral = lazy(() => import("@/pages/Referral"))
 
+// Lazy-loaded: low-traffic pages, kept out of the main bundle.
+const Privacy = lazy(() => import("@/pages/Privacy"))
+const Terms = lazy(() => import("@/pages/Terms"))
+const RefundPolicy = lazy(() => import("@/pages/RefundPolicy"))
+
 const AdminRoot = lazy(() =>
   import("@/admin/AdminRoot").then((m) => ({ default: m.AdminRoot }))
 )
@@ -51,6 +56,9 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/referral" element={<Referral />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/refund-policy" element={<RefundPolicy />} />
         </Route>
 
         <Route element={<AdminRoot />}>

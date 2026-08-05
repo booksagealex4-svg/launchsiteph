@@ -33,7 +33,12 @@
       "Bash(grep -iE \"^\\(gift|hand-coins|user-plus\\)\\\\.mjs$\")",
       "Bash(\"/c/Program Files/nodejs/node.exe\" node_modules/vite/bin/vite.js preview --port 4173)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:4173/)",
-      "Bash(curl -s http://localhost:4173/assets/index-CvaIfRWQ.js)"
+      "Bash(curl -s http://localhost:4173/assets/index-CvaIfRWQ.js)",
+      "Bash(find \"C:\\\\Users\\\\Totti\\\\AppData\\\\Local\\\\Temp\\\\claude\" -iname \"*.png\" -o -iname \"*.jpg\" -o -iname \"*.jpeg\" 2>/dev/null | grep -v node_modules | head -20)",
+      "Bash(grep -viE \"node_modules|AppData\\\\\\\\\\\\\\\\Local\\\\\\\\\\\\\\\\Packages\")",
+      "Bash(cp \"C:\\\\Users\\\\Totti\\\\Downloads\\\\pp.png\" \"C:\\\\Users\\\\Totti\\\\Documents\\\\Claude CODE\\\\src\\\\assets\\\\alex-portrait.png\" && ls -la \"C:\\\\Users\\\\Totti\\\\Documents\\\\Claude CODE\\\\src\\\\assets\")",
+      "Bash(where magick *)",
+      "Bash(where convert *)"
     ]
   }
 }

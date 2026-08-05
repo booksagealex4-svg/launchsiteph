@@ -32,6 +32,9 @@ const staticRoutes = [
   "/about",
   "/contact",
   "/referral",
+  "/privacy",
+  "/terms",
+  "/refund-policy",
 ]
 
 const routes = [

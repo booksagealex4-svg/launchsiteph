@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-import { UserRound } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/shared/Reveal"
@@ -7,7 +6,7 @@ import { Seo } from "@/components/shared/Seo"
 import { ValuesGrid } from "@/components/about/ValuesGrid"
 import { CareerTimeline } from "@/components/about/CareerTimeline"
 import { ToolsStrip } from "@/components/about/ToolsStrip"
-import { CredentialsRow } from "@/components/about/CredentialsRow"
+import alexPortrait from "@/assets/alex-portrait.jpg"
 
 export default function About() {
   return (
@@ -38,17 +37,16 @@ export default function About() {
                 aria-hidden="true"
                 className="absolute inset-0 -z-10 rounded-full bg-primary/20 blur-[80px]"
               />
-              <div className="flex aspect-[4/5] w-full items-center justify-center rounded-[14px] border border-border bg-surface">
-                <UserRound
-                  className="text-muted-foreground/40"
-                  size={64}
-                  strokeWidth={1}
-                  aria-hidden="true"
+              <div className="aspect-[4/5] w-full overflow-hidden rounded-[14px] border border-border bg-surface">
+                <img
+                  src={alexPortrait}
+                  alt="Alex, founder of LaunchSite PH"
+                  width={800}
+                  height={800}
+                  loading="eager"
+                  className="h-full w-full object-cover object-top"
                 />
               </div>
-              <p className="mt-3 text-center text-xs text-muted-foreground">
-                [Add your portrait photo here]
-              </p>
             </div>
           </Reveal>
         </div>
@@ -77,10 +75,6 @@ export default function About() {
 
         <Reveal className="mt-16 md:mt-20">
           <ToolsStrip />
-        </Reveal>
-
-        <Reveal className="mt-16 md:mt-20">
-          <CredentialsRow />
         </Reveal>
 
         <Reveal className="mt-16">

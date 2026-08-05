@@ -5,7 +5,7 @@ import { ProcessTimeline } from "@/components/sections/ProcessTimeline"
 import { Showcase } from "@/components/sections/Showcase"
 import { Seo } from "@/components/shared/Seo"
 import { JsonLd } from "@/components/shared/JsonLd"
-import { SITE_URL } from "@/lib/site"
+import { BUSINESS_EMAIL, BUSINESS_MOBILE_TEL, SITE_URL } from "@/lib/site"
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
@@ -14,7 +14,8 @@ const localBusinessSchema = {
   description:
     "AI-assisted, human-finished websites for Filipino businesses and licensed professionals. Fixed prices from PHP 10,000, delivered in as little as 7 days from content handoff.",
   url: SITE_URL,
-  email: "hello@launchsiteph.com",
+  email: BUSINESS_EMAIL,
+  telephone: BUSINESS_MOBILE_TEL,
   address: {
     "@type": "PostalAddress",
     addressLocality: "Cebu City",

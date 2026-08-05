@@ -2,24 +2,24 @@ import { Reveal } from "@/components/shared/Reveal"
 
 const milestones = [
   {
-    year: "[2015]",
-    title: "[Started in publishing]",
-    body: "[One line about this role]",
+    year: "2018–2020",
+    title: "Visual Artist",
+    body: "Far East Noble House Inc. — a foundation in visual design and creative production.",
   },
   {
-    year: "[2018]",
-    title: "[Moved into creative production]",
-    body: "[One line about this role]",
+    year: "2020–2024",
+    title: "Advisor & Marketing Officer",
+    body: "NDM Marketing Solutions — moved into strategy, brand advising and hands-on marketing.",
   },
   {
-    year: "[2022]",
-    title: "[Began working with international clients]",
-    body: "[One line about this role]",
+    year: "2024–2026",
+    title: "Marketing Supervisor",
+    body: "What Branding Solutions — led marketing execution and brand campaigns.",
   },
   {
-    year: "[2025]",
-    title: "[Started LaunchSite PH]",
-    body: "[One line about why]",
+    year: "Present",
+    title: "Freelance Marketing, VA & Web Development",
+    body: "Helping businesses promote and market themselves online — and launching LaunchSite PH.",
   },
 ]
 
