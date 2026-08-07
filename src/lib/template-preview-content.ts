@@ -7,7 +7,6 @@ import {
   Palmtree,
   Calculator,
   Mic,
-  Store,
   type LucideIcon,
 } from "lucide-react"
 
@@ -19,7 +18,6 @@ import emberHero from "@/assets/templates/ember-hero.jpg"
 import tidewaterHero from "@/assets/templates/tidewater-hero.jpg"
 import ledgerHero from "@/assets/templates/ledger-hero.jpg"
 import anthemHero from "@/assets/templates/anthem-hero.jpg"
-import sarisariHero from "@/assets/templates/sarisari-hero.jpg"
 
 export interface TemplatePreviewContent {
   badge: string
@@ -151,32 +149,3 @@ export const templatePreviewContent: Partial<Record<string, TemplatePreviewConte
     icon: Mic,
   },
 }
-
-// Sari-sari store / local retail preview — used only in the homepage hero
-// carousel, not a purchasable template slug. CTAs stay inquiry-based (no
-// "shop now" or cart) to match the no-payment-gateway, inquiries-only
-// positioning of the business itself.
-const sarisariPreview: TemplatePreviewContent = {
-  badge: "Sari-Sari Store",
-  headline: ["Tapat na serbisyo,", "for every suki."],
-  subtext:
-    "A modern site for your sari-sari store or neighborhood shop — friendly, fast and unmistakably local.",
-  primaryCta: "Get a Free Quote",
-  secondaryCta: "Our Products",
-  pages: ["Home", "About Us", "Products", "Services", "Contact Us"],
-  heroImage: sarisariHero,
-  bg: "#FDF8F0",
-  text: "#1B2A4A",
-  accent: "#CE1126",
-  icon: Store,
-}
-
-// Rotation shown in the homepage hero device mockup. Each entry pairs a
-// demo business name with real photo + copy content, cycled with a
-// crossfade in DeviceMockup.
-export const heroShowcaseContent: { name: string; content: TemplatePreviewContent }[] = [
-  { name: "Tindahan", content: sarisariPreview },
-  { name: "Meridian", content: templatePreviewContent.meridian! },
-  { name: "Ember", content: templatePreviewContent.ember! },
-  { name: "Anthem", content: templatePreviewContent.anthem! },
-]
