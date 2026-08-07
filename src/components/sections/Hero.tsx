@@ -29,7 +29,7 @@ export function Hero() {
 
           <Reveal delay={1}>
             <h1 className="text-foreground">
-              Your business deserves more than a Facebook page.
+              Your Business Deserves More Than a Facebook Page.
             </h1>
           </Reveal>
 

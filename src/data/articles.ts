@@ -27,7 +27,7 @@ export interface ArticleRecord {
 export const articles: ArticleRecord[] = [
   {
     slug: "website-needs-2026",
-    title: "What a small business website actually needs in 2026",
+    title: "What a Small Business Website Actually Needs in 2026",
     category: "Getting Started",
     excerpt:
       "Most sites fail on three basics before anything fancier matters. Here is what to get right first.",
@@ -62,7 +62,7 @@ export const articles: ArticleRecord[] = [
   },
   {
     slug: "website-cost-philippines",
-    title: "How much should a website cost in the Philippines?",
+    title: "How Much Should a Website Cost in the Philippines?",
     category: "Costs",
     excerpt:
       "Agency quotes swing wildly. Here is what actually drives the price, and a realistic range to expect.",
@@ -96,7 +96,7 @@ export const articles: ArticleRecord[] = [
   },
   {
     slug: "domain-hosting-explained",
-    title: "Domain and hosting, explained without jargon",
+    title: "Domain and Hosting, Explained Without Jargon",
     category: "Getting Started",
     excerpt:
       "Two terms that confuse almost everyone, explained in plain language with no technical background needed.",
@@ -122,7 +122,7 @@ export const articles: ArticleRecord[] = [
   },
   {
     slug: "google-business-profile-setup",
-    title: "Setting up your Google Business Profile the right way",
+    title: "Setting Up Your Google Business Profile the Right Way",
     category: "SEO and Google",
     excerpt:
       "For local searches, this often shows up before your website does. Here is how to set it up properly.",
@@ -153,7 +153,7 @@ export const articles: ArticleRecord[] = [
   },
   {
     slug: "facebook-page-not-enough",
-    title: "Why your Facebook page is not enough on its own",
+    title: "Why Your Facebook Page Is Not Enough on Its Own",
     category: "Getting Started",
     excerpt:
       "Facebook is the incumbent, not the enemy. Here is exactly where it falls short and how to fill the gap.",
@@ -183,7 +183,7 @@ export const articles: ArticleRecord[] = [
   },
   {
     slug: "clinic-dental-website-checklist",
-    title: "A website checklist for clinics and dental practices",
+    title: "A Website Checklist for Clinics and Dental Practices",
     category: "Industry Guides",
     excerpt:
       "What to include, what to leave out, and how to stay within professional advertising guidelines.",
@@ -215,7 +215,7 @@ export const articles: ArticleRecord[] = [
   },
   {
     slug: "restaurant-cafe-website-guide",
-    title: "What restaurants and cafes should put on their website",
+    title: "What Restaurants and Cafes Should Put on Their Website",
     category: "Industry Guides",
     excerpt:
       "Menu, photos and hours do more work than a long about page. Here is what actually earns a visit.",
@@ -246,7 +246,7 @@ export const articles: ArticleRecord[] = [
   },
   {
     slug: "seo-basics-local-business",
-    title: "SEO basics: what actually moves the needle for a local business",
+    title: "SEO Basics: What Actually Moves the Needle for a Local Business",
     category: "SEO and Google",
     excerpt:
       "No keyword stuffing, no shortcuts. Just the fundamentals that consistently help a local business get found.",

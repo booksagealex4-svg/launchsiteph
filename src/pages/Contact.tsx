@@ -31,7 +31,7 @@ export default function Contact() {
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h1 className="text-foreground">
-            Tell us what you do. We will tell you what it costs.
+            Tell Us What You Do. We Will Tell You What It Costs.
           </h1>
           <p className="mt-4 text-muted-foreground">
             Send a short message or book a free 20-minute call. You will get

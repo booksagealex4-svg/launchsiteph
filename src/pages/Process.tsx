@@ -26,7 +26,7 @@ export default function Process() {
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <Reveal className="mx-auto max-w-2xl text-center">
             <h1 className="text-foreground">
-              How your 7-day build actually works.
+              How Your 7-Day Build Actually Works.
             </h1>
             <p className="mt-4 text-muted-foreground">
               Every stage is dated in writing before you pay for anything.

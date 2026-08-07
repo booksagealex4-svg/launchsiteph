@@ -35,7 +35,7 @@ export default function Pricing() {
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h1 className="text-foreground">
-            Three packages. Real prices. No quote request required.
+            Three Packages. Real Prices. No Quote Request Required.
           </h1>
           <p className="mt-4 text-muted-foreground">
             Most agencies hide their pricing until you have sat through a

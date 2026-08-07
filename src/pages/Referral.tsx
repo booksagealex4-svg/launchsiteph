@@ -58,7 +58,7 @@ export default function Referral() {
 
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <h1 className="text-foreground">Refer a client. Earn PHP 1,000.</h1>
+          <h1 className="text-foreground">Refer a Client. Earn PHP 1,000.</h1>
           <p className="mt-4 text-muted-foreground">
             Know a business that needs a real website? Send them our way.
             When they become a paying client, you get paid too.

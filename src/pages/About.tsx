@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/shared/Reveal"
 import { Seo } from "@/components/shared/Seo"
 import { ValuesGrid } from "@/components/about/ValuesGrid"
-import { CareerTimeline } from "@/components/about/CareerTimeline"
 import { ToolsStrip } from "@/components/about/ToolsStrip"
+import { CertificateCarousel } from "@/components/about/CertificateCarousel"
 import alexPortrait from "@/assets/alex-portrait.jpg"
 
 export default function About() {
@@ -17,22 +17,56 @@ export default function About() {
         path="/about"
       />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-12">
+        <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-2 md:gap-12">
           <Reveal>
             <h1 className="text-foreground">
-              You are hiring a person, not an agency.
+              You Are Hiring a Person, Not an Agency.
             </h1>
+            <p className="mt-4 font-medium text-foreground">
+              Alex S. &mdash; Web Designer | AI Solutions Specialist | Creative
+              Publishing Professional
+            </p>
             <p className="mt-4 text-muted-foreground">
-              Alex. 6 years in publishing and creative production, including
-              work with international clients. I now build websites for
-              Philippine professionals using current AI tooling, which is
-              how a site that would cost PHP 40,000 elsewhere starts at PHP
-              10,000 here.
+              With over 6 years of experience in the book publishing industry
+              and 3 years as a visual artist, I specialize in creating
+              professional digital experiences that help authors,
+              professionals, and businesses establish a strong online
+              presence.
+            </p>
+            <p className="mt-4 text-muted-foreground">
+              Throughout my publishing career, I have worked closely with
+              authors from first-time writers to established professionals,
+              managing creative production and promotional campaigns. My
+              experience includes book cover design, author branding,
+              marketing materials, websites, promotional graphics, and
+              digital content that support successful book launches and
+              long-term author visibility.
+            </p>
+            <p className="mt-4 text-muted-foreground">
+              I specialize in building modern, responsive websites for
+              professionals, business owners, medical practitioners,
+              authors, and entrepreneurs who want a premium online presence
+              without the traditional agency price tag. By combining years
+              of creative experience with today&apos;s most advanced
+              AI-assisted development tools, I&apos;m able to deliver
+              polished, high-quality websites faster and more affordably.
+            </p>
+            <p className="mt-4 text-muted-foreground">
+              My approach is simple: create websites that are clean, modern,
+              fast, user-friendly, and designed to build credibility. Every
+              project is tailored to reflect the client&apos;s brand while
+              focusing on performance, functionality, and long-term value.
+            </p>
+            <p className="mt-4 text-muted-foreground">
+              Whether it&apos;s a professional portfolio, business website,
+              author platform, or custom web solution, my goal is to help
+              clients stand out through thoughtful design, strategic
+              planning, and innovative technology.
             </p>
           </Reveal>
 
           <Reveal delay={1}>
-            <div className="relative mx-auto max-w-sm">
+            <div className="relative mx-auto max-w-sm md:sticky md:top-24">
               <div
                 aria-hidden="true"
                 className="absolute inset-0 -z-10 rounded-full bg-primary/20 blur-[80px]"
@@ -52,6 +86,10 @@ export default function About() {
         </div>
 
         <Reveal className="mt-16 md:mt-20">
+          <CertificateCarousel />
+        </Reveal>
+
+        <Reveal className="mt-16 md:mt-20">
           <div className="mx-auto max-w-3xl rounded-[14px] border border-border bg-surface p-8 text-center md:p-10">
             <h2 className="text-foreground">Why solo is a feature</h2>
             <p className="mx-auto mt-3 text-muted-foreground">
@@ -65,13 +103,6 @@ export default function About() {
         <div className="mt-16 md:mt-20">
           <ValuesGrid />
         </div>
-
-        <Reveal className="mt-16 md:mt-20">
-          <h2 className="text-foreground">The journey so far.</h2>
-          <div className="mt-8 max-w-2xl">
-            <CareerTimeline />
-          </div>
-        </Reveal>
 
         <Reveal className="mt-16 md:mt-20">
           <ToolsStrip />

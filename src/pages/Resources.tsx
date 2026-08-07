@@ -27,7 +27,7 @@ export default function Resources() {
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h1 className="text-foreground">
-            Guides for Philippine businesses going online.
+            Guides for Philippine Businesses Going Online.
           </h1>
           <p className="mt-4 text-muted-foreground">
             Plain explanations of what a website actually needs, what it
