@@ -17,7 +17,7 @@ export default function About() {
       />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <Reveal>
-          <h1 className="text-foreground">
+          <h1 className="mx-auto max-w-3xl text-center text-foreground">
             You Are Hiring a Person, Not an Agency.
           </h1>
         </Reveal>
@@ -39,10 +39,10 @@ export default function About() {
                   className="h-full w-full object-cover object-top"
                 />
               </div>
-              <p className="mt-4 text-lg font-semibold text-foreground">
+              <p className="mt-4 text-center text-lg font-semibold text-foreground">
                 Alex S.
               </p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-center text-sm text-muted-foreground">
                 Web Designer | AI Solutions Specialist | Creative Publishing
                 Professional
               </p>
