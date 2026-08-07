@@ -5,7 +5,6 @@ import { Reveal } from "@/components/shared/Reveal"
 import { Seo } from "@/components/shared/Seo"
 import { ValuesGrid } from "@/components/about/ValuesGrid"
 import { ToolsStrip } from "@/components/about/ToolsStrip"
-import { CertificateCarousel } from "@/components/about/CertificateCarousel"
 import alexPortrait from "@/assets/alex-portrait.jpg"
 
 export default function About() {
@@ -17,16 +16,41 @@ export default function About() {
         path="/about"
       />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-2 md:gap-12">
+        <Reveal>
+          <h1 className="text-foreground">
+            You Are Hiring a Person, Not an Agency.
+          </h1>
+        </Reveal>
+
+        <div className="mt-8">
+          <Reveal delay={1}>
+            <div className="relative mx-auto mb-6 w-full max-w-xs md:float-right md:ml-10 md:w-72">
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 -z-10 rounded-full bg-primary/20 blur-[80px]"
+              />
+              <div className="aspect-[4/5] w-full overflow-hidden rounded-[14px] border border-border bg-surface">
+                <img
+                  src={alexPortrait}
+                  alt="Alex, founder of LaunchSite PH"
+                  width={800}
+                  height={800}
+                  loading="eager"
+                  className="h-full w-full object-cover object-top"
+                />
+              </div>
+              <p className="mt-4 text-lg font-semibold text-foreground">
+                Alex S.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Web Designer | AI Solutions Specialist | Creative Publishing
+                Professional
+              </p>
+            </div>
+          </Reveal>
+
           <Reveal>
-            <h1 className="text-foreground">
-              You Are Hiring a Person, Not an Agency.
-            </h1>
-            <p className="mt-4 font-medium text-foreground">
-              Alex S. &mdash; Web Designer | AI Solutions Specialist | Creative
-              Publishing Professional
-            </p>
-            <p className="mt-4 text-muted-foreground">
+            <p className="text-muted-foreground">
               With over 6 years of experience in the book publishing industry
               and 3 years as a visual artist, I specialize in creating
               professional digital experiences that help authors,
@@ -65,29 +89,8 @@ export default function About() {
             </p>
           </Reveal>
 
-          <Reveal delay={1}>
-            <div className="relative mx-auto max-w-sm md:sticky md:top-24">
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 -z-10 rounded-full bg-primary/20 blur-[80px]"
-              />
-              <div className="aspect-[4/5] w-full overflow-hidden rounded-[14px] border border-border bg-surface">
-                <img
-                  src={alexPortrait}
-                  alt="Alex, founder of LaunchSite PH"
-                  width={800}
-                  height={800}
-                  loading="eager"
-                  className="h-full w-full object-cover object-top"
-                />
-              </div>
-            </div>
-          </Reveal>
+          <div className="clear-both" />
         </div>
-
-        <Reveal className="mt-16 md:mt-20">
-          <CertificateCarousel />
-        </Reveal>
 
         <Reveal className="mt-16 md:mt-20">
           <div className="mx-auto max-w-3xl rounded-[14px] border border-border bg-surface p-8 text-center md:p-10">
