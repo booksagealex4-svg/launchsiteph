@@ -89,6 +89,36 @@ create trigger referrals_set_updated_at
 before update on referrals
 for each row execute function set_updated_at();
 
+-- Leads table — potential clients you're tracking before they sign on.
+-- Admin-only, same access pattern as clients (not fed by any public form).
+create table if not exists leads (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  profession text,
+  phone text,
+  email text,
+  address text,
+  source text,
+  status text not null default 'New',
+  notes text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table leads enable row level security;
+
+create policy "Authenticated users can manage leads"
+  on leads
+  for all
+  using (auth.role() = 'authenticated')
+  with check (auth.role() = 'authenticated');
+
+drop trigger if exists leads_set_updated_at on leads;
+
+create trigger leads_set_updated_at
+before update on leads
+for each row execute function set_updated_at();
+
 -- After running this, create your login user under
 -- Dashboard > Authentication > Users > Add user (email + password).
 -- That's the only account that will be able to sign in at /admin.

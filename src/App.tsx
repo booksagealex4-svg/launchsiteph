@@ -38,6 +38,8 @@ const AdminLayout = lazy(() =>
 const AdminLogin = lazy(() => import("@/admin/pages/Login"))
 const AdminDashboard = lazy(() => import("@/admin/pages/Dashboard"))
 const AdminClientForm = lazy(() => import("@/admin/pages/ClientForm"))
+const AdminLeads = lazy(() => import("@/admin/pages/Leads"))
+const AdminLeadForm = lazy(() => import("@/admin/pages/LeadForm"))
 const AdminReferrals = lazy(() => import("@/admin/pages/Referrals"))
 
 function App() {
@@ -68,6 +70,9 @@ function App() {
               <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/admin/clients/new" element={<AdminClientForm />} />
               <Route path="/admin/clients/:id" element={<AdminClientForm />} />
+              <Route path="/admin/leads" element={<AdminLeads />} />
+              <Route path="/admin/leads/new" element={<AdminLeadForm />} />
+              <Route path="/admin/leads/:id" element={<AdminLeadForm />} />
               <Route path="/admin/referrals" element={<AdminReferrals />} />
             </Route>
           </Route>

@@ -37,6 +37,41 @@ export const REFERRAL_STATUS_OPTIONS = [
   "Not Converted",
 ] as const
 
+export const LEAD_STATUS_OPTIONS = [
+  "New",
+  "Contacted",
+  "Qualified",
+  "Quoted",
+  "Converted",
+  "Lost",
+] as const
+
+export const LEAD_SOURCE_OPTIONS = [
+  "Website Inquiry",
+  "Referral",
+  "Facebook",
+  "Instagram",
+  "WhatsApp",
+  "Walk-in",
+  "Other",
+] as const
+
+export interface Lead {
+  id: string
+  name: string
+  profession: string | null
+  phone: string | null
+  email: string | null
+  address: string | null
+  source: (typeof LEAD_SOURCE_OPTIONS)[number] | null
+  status: (typeof LEAD_STATUS_OPTIONS)[number]
+  notes: string | null
+  created_at: string
+  updated_at: string
+}
+
+export type LeadInput = Omit<Lead, "id" | "created_at" | "updated_at">
+
 export interface Referral {
   id: string
   referrer_name: string

@@ -7,6 +7,7 @@ import { Logo } from "@/components/shared/Logo"
 
 const adminNavLinks = [
   { to: "/admin", label: "Clients" },
+  { to: "/admin/leads", label: "Leads" },
   { to: "/admin/referrals", label: "Referrals" },
 ]
 
