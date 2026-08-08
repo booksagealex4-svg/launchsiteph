@@ -1,6 +1,9 @@
 export const SITE_URL = "https://launchsiteph.com"
 export const SITE_NAME = "LaunchSite PH"
 export const BUSINESS_EMAIL = "hello@launchsiteph.com"
+// Personal address, shown alongside BUSINESS_EMAIL — not used for inquiry
+// routing (contact form, JSON-LD), which stays on BUSINESS_EMAIL.
+export const PERSONAL_EMAIL = "Alex.S@launchsiteph.com"
 export const BUSINESS_MOBILE_DISPLAY = "+63 997 396 8060"
 export const BUSINESS_MOBILE_TEL = "+639973968060"
 export const BUSINESS_WHATSAPP_URL = "https://wa.me/639973968060"

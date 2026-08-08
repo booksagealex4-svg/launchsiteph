@@ -9,6 +9,7 @@ import {
 import { WhatsAppIcon } from "@/components/contact/WhatsAppIcon"
 import {
   BUSINESS_EMAIL,
+  PERSONAL_EMAIL,
   BUSINESS_MOBILE_DISPLAY,
   BUSINESS_MOBILE_TEL,
   BUSINESS_FACEBOOK_URL,
@@ -131,6 +132,14 @@ export function Footer() {
                   className="transition-colors hover:text-foreground"
                 >
                   {BUSINESS_EMAIL}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${PERSONAL_EMAIL}`}
+                  className="transition-colors hover:text-foreground"
+                >
+                  {PERSONAL_EMAIL}
                 </a>
               </li>
               <li>

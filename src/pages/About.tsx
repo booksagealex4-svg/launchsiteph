@@ -5,6 +5,7 @@ import { Reveal } from "@/components/shared/Reveal"
 import { Seo } from "@/components/shared/Seo"
 import { ValuesGrid } from "@/components/about/ValuesGrid"
 import { ToolsStrip } from "@/components/about/ToolsStrip"
+import { PERSONAL_EMAIL } from "@/lib/site"
 import alexPortrait from "@/assets/alex-portrait.jpg"
 
 export default function About() {
@@ -46,6 +47,12 @@ export default function About() {
                 Web Designer | AI Solutions Specialist | Creative Publishing
                 Professional
               </p>
+              <a
+                href={`mailto:${PERSONAL_EMAIL}`}
+                className="mt-2 block text-center text-sm text-primary transition-colors hover:text-primary-hover"
+              >
+                {PERSONAL_EMAIL}
+              </a>
             </div>
           </Reveal>
 
