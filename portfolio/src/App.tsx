@@ -3,6 +3,7 @@ import { Sidebar } from '@/components/layout/Sidebar'
 import { VisitorCounter } from '@/components/VisitorCounter'
 import { HomePage } from '@/pages/HomePage'
 import { ProjectsPage } from '@/pages/ProjectsPage'
+import { ServicesPage } from '@/pages/ServicesPage'
 import { ContactPage } from '@/pages/ContactPage'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/services" element={<ServicesPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </main>
