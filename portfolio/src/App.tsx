@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { Sidebar } from '@/components/layout/Sidebar'
+import { ScrollToTop } from '@/components/ScrollToTop'
 import { VisitorCounter } from '@/components/VisitorCounter'
 import { HomePage } from '@/pages/HomePage'
 import { ProjectsPage } from '@/pages/ProjectsPage'
@@ -11,6 +12,7 @@ import { ContactPage } from '@/pages/ContactPage'
 function App() {
   return (
     <div className="min-h-screen bg-background">
+      <ScrollToTop />
       <Sidebar />
 
       <main className="flex flex-col p-4 lg:ml-[352px]">

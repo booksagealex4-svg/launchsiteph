@@ -69,6 +69,10 @@
 
   html {
     @apply scroll-smooth;
+    /* Prevents the browser from nudging scroll position to compensate for
+       above-the-fold layout shifts (e.g. font/content swap right after a
+       route change), which was fighting the route-change scroll reset. */
+    overflow-anchor: none;
   }
 
   body {

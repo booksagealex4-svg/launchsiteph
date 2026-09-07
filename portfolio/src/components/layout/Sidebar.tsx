@@ -14,7 +14,7 @@ const navLinks: NavLink[] = [
   { label: 'Services', to: '/services', icon: Briefcase },
   { label: 'Testimonials', to: '/testimonials', icon: Quote },
   { label: 'About', to: '/about', icon: CircleUserRound },
-  { label: 'Contact', href: '#contact', icon: Send },
+  { label: 'Contact', to: '/contact', icon: Send },
 ]
 
 const socials = [
