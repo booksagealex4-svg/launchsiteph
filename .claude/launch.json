@@ -6,6 +6,42 @@
       "runtimeExecutable": "C:\\Program Files\\nodejs\\node.exe",
       "runtimeArgs": ["node_modules/vite/bin/vite.js"],
       "port": 5173
+    },
+    {
+      "name": "author-crm-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "author-crm", "--", "--port", "5183"],
+      "port": 5183
+    },
+    {
+      "name": "colorado-lifestyle-medical-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "colorado-lifestyle-medical", "--", "--port", "5184"],
+      "port": 5184
+    },
+    {
+      "name": "author-leads-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "author-leads", "--", "--port", "5185"],
+      "port": 5185
+    },
+    {
+      "name": "william-h-lloyd-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "william-h-lloyd", "--", "--port", "5186"],
+      "port": 5186
+    },
+    {
+      "name": "author-academy-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "author-academy", "--", "--port", "5187"],
+      "port": 5187
+    },
+    {
+      "name": "portfolio-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "portfolio", "--", "--port", "5188"],
+      "port": 5188
     }
   ]
 }

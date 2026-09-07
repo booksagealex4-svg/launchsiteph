@@ -1,0 +1,52 @@
+import { KeyRound } from 'lucide-react'
+
+export function Hero() {
+  return (
+    <header
+      id="home"
+      className="relative overflow-hidden rounded-lg border border-slate-200/70 bg-[#fdfbf7] shadow-[0_1px_2px_rgba(15,23,42,0.03)]"
+    >
+      {/* Original abstract line-art background — organic, subtle, slow, reduced-motion safe */}
+      <svg
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.2]"
+        viewBox="0 0 1000 420"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+      >
+        <g className="animate-hero-drift-a" stroke="#1F6FEB" strokeWidth="1.1" fill="none">
+          <path d="M -100 60 C 120 -40, 260 140, 460 70 S 780 -30, 1120 90" />
+          <path d="M -60 320 C 180 260, 300 400, 520 330 S 860 260, 1080 360" opacity="0.7" />
+        </g>
+        <g className="animate-hero-drift-b" stroke="#7fd8c4" strokeWidth="1.1" fill="none">
+          <path d="M -80 180 C 160 260, 340 90, 600 190 S 900 300, 1100 170" />
+        </g>
+      </svg>
+
+      {/* Top utility bar */}
+      <div className="relative flex items-center justify-end px-6 pt-5 sm:px-8">
+        <a
+          href="#"
+          className="group inline-flex items-center gap-1.5 rounded-md bg-[#1F6FEB] px-3 py-1.5 text-[0.8rem] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1a5fc9] hover:shadow-[0_6px_14px_rgba(31,111,235,0.2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1F6FEB]"
+        >
+          <KeyRound className="h-[14px] w-[14px]" />
+          Client Portal
+        </a>
+      </div>
+
+      {/* Hero content */}
+      <div className="relative px-6 pt-6 pb-8 sm:px-8 sm:pb-10">
+        <p className="text-[0.65rem] font-medium tracking-[0.2em] text-[#1F6FEB] uppercase">
+          Personal Portfolio
+        </p>
+        <h1 className="mt-3 text-4xl leading-[1.08] font-extrabold tracking-tight text-[#122c52] sm:text-5xl lg:text-6xl">
+          <span className="block lg:inline">Build smarter.</span>{' '}
+          <span className="block lg:inline">Create better.</span>
+        </h1>
+        <p className="mt-4 max-w-md text-base leading-relaxed text-slate-600 sm:text-lg">
+          I create websites, digital experiences, and practical solutions designed to help
+          ideas become something useful, professional, and lasting.
+        </p>
+      </div>
+    </header>
+  )
+}
