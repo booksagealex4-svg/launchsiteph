@@ -1,4 +1,4 @@
-import { KeyRound } from 'lucide-react'
+import { ClientLoginButton } from '@/components/ClientLoginButton'
 
 export function Hero() {
   return (
@@ -24,13 +24,7 @@ export function Hero() {
 
       {/* Top utility bar */}
       <div className="relative flex items-center justify-end px-6 pt-3.5 sm:px-8">
-        <a
-          href="#"
-          className="group inline-flex items-center gap-1.5 rounded-md bg-[#1F6FEB] px-3 py-1.5 text-[0.8rem] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1a5fc9] hover:shadow-[0_6px_14px_rgba(31,111,235,0.2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1F6FEB]"
-        >
-          <KeyRound className="h-[14px] w-[14px]" />
-          Client Portal
-        </a>
+        <ClientLoginButton />
       </div>
 
       {/* Hero content */}

@@ -1,8 +1,9 @@
+import { Routes, Route } from 'react-router-dom'
 import { Sidebar } from '@/components/layout/Sidebar'
-import { Hero } from '@/components/sections/Hero'
-import { TechMarquee } from '@/components/sections/TechMarquee'
-import { BentoGrid } from '@/components/sections/BentoGrid'
 import { VisitorCounter } from '@/components/VisitorCounter'
+import { HomePage } from '@/pages/HomePage'
+import { ProjectsPage } from '@/pages/ProjectsPage'
+import { ContactPage } from '@/pages/ContactPage'
 
 function App() {
   return (
@@ -10,18 +11,11 @@ function App() {
       <Sidebar />
 
       <main className="flex flex-col p-4 lg:ml-[352px]">
-        <Hero />
-        <div className="mt-3">
-          <TechMarquee />
-        </div>
-
-        <div className="mt-4 rounded-lg border border-slate-300/60 bg-[#e9f1fb] p-3 pb-5 shadow-[0_2px_4px_rgba(15,23,42,0.04),0_16px_32px_rgba(15,23,42,0.05)] sm:p-4 sm:pb-6">
-          <BentoGrid />
-        </div>
-
-        <footer className="flex flex-col items-center gap-1 py-3 text-center text-xs text-muted-foreground">
-          <p>© Year Placeholder · Full Name Placeholder · All rights reserved</p>
-        </footer>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
       </main>
 
       <VisitorCounter />

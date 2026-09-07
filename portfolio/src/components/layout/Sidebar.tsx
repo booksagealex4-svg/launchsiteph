@@ -1,10 +1,16 @@
+import type { LucideIcon } from 'lucide-react'
 import { Home, FolderKanban, Briefcase, Quote, CircleUserRound, Send } from 'lucide-react'
+import { Link, useLocation } from 'react-router-dom'
 import { FaFacebookF, FaLinkedinIn, FaWhatsapp, FaEnvelope } from 'react-icons/fa6'
 import { cn } from '@/lib/utils'
 
-const navLinks = [
-  { label: 'Home', href: '#home', icon: Home, active: true },
-  { label: 'Projects', href: '#projects', icon: FolderKanban },
+type NavLink =
+  | { label: string; icon: LucideIcon; to: string; href?: undefined }
+  | { label: string; icon: LucideIcon; href: string; to?: undefined }
+
+const navLinks: NavLink[] = [
+  { label: 'Home', to: '/', icon: Home },
+  { label: 'Projects', to: '/projects', icon: FolderKanban },
   { label: 'Services', href: '#services', icon: Briefcase },
   { label: 'Testimonials', href: '#testimonials', icon: Quote },
   { label: 'About', href: '#about', icon: CircleUserRound },
@@ -21,19 +27,27 @@ const socials = [
 function VerifiedBadge() {
   return (
     <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
+      width="17"
+      height="17"
+      viewBox="0 0 17 17"
       fill="none"
       className="shrink-0"
       role="img"
       aria-label="Verified profile"
     >
-      <circle cx="8" cy="8" r="8" className="fill-blue-600" />
+      {/* Original scalloped seal silhouette — a generic 6-bump rounded polygon, not traced from any platform's badge artwork. */}
       <path
-        d="M4.75 8.15L6.9 10.3L11.25 5.7"
+        d="M16.1,8.5 L14.4,11.9 L12.3,15.1 L8.5,15.3 L4.7,15.1 L2.6,11.9 L0.9,8.5 L2.6,5.1 L4.7,1.9 L8.5,1.7 L12.3,1.9 L14.4,5.1 Z"
+        fill="#1656D8"
+        stroke="#8FB6FF"
+        strokeOpacity="0.45"
+        strokeWidth="0.6"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M5 8.75L7.35 11L12 6.2"
         stroke="white"
-        strokeWidth="1.6"
+        strokeWidth="1.9"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -42,6 +56,8 @@ function VerifiedBadge() {
 }
 
 export function Sidebar() {
+  const { pathname } = useLocation()
+
   return (
     <aside
       className={cn(
@@ -91,29 +107,37 @@ export function Sidebar() {
 
         {/* Nav links */}
         <nav aria-label="Primary" className="mt-3 flex flex-1 flex-col gap-0.5">
-          {navLinks.map(({ label, href, icon: Icon, active }) => (
-            <a
-              key={label}
-              href={href}
-              aria-current={active ? 'page' : undefined}
-              className={cn(
-                'group flex min-h-11 items-center gap-3 rounded-lg px-3 py-2 text-[0.875rem] font-medium tracking-[0.01em] transition-all duration-200 ease-out',
-                'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
-                active
-                  ? 'border border-blue-100 bg-blue-50 font-semibold text-blue-700'
-                  : 'border border-transparent text-slate-500 hover:translate-x-0.5 hover:bg-slate-50 hover:text-slate-900',
-              )}
-            >
-              <Icon
-                strokeWidth={2.25}
-                className={cn(
-                  'h-[18px] w-[18px] shrink-0 transition-colors',
-                  active ? 'text-blue-700' : 'text-slate-500 group-hover:text-blue-600',
-                )}
-              />
-              {label}
-            </a>
-          ))}
+          {navLinks.map((item) => {
+            const { label, icon: Icon } = item
+            const active = item.to !== undefined ? pathname === item.to : false
+            const itemClassName = cn(
+              'group flex min-h-11 items-center gap-3 rounded-lg px-3 py-2 text-[0.875rem] font-medium tracking-[0.01em] transition-all duration-200 ease-out',
+              'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
+              active
+                ? 'border border-blue-100 bg-blue-50 font-semibold text-blue-700'
+                : 'border border-transparent text-slate-500 hover:translate-x-0.5 hover:bg-slate-50 hover:text-slate-900',
+            )
+            const iconClassName = cn(
+              'h-[18px] w-[18px] shrink-0 transition-colors',
+              active ? 'text-blue-700' : 'text-slate-500 group-hover:text-blue-600',
+            )
+
+            if (item.to !== undefined) {
+              return (
+                <Link key={label} to={item.to} aria-current={active ? 'page' : undefined} className={itemClassName}>
+                  <Icon strokeWidth={2.25} className={iconClassName} />
+                  {label}
+                </Link>
+              )
+            }
+
+            return (
+              <a key={label} href={item.href} className={itemClassName}>
+                <Icon strokeWidth={2.25} className={iconClassName} />
+                {label}
+              </a>
+            )
+          })}
         </nav>
 
         <div className="mt-5 border-t border-slate-200/80 pt-3 text-center">
