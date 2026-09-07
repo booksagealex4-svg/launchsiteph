@@ -8,6 +8,7 @@ import {
   Layers,
   ArrowUpRight,
   ImageIcon,
+  Eye,
 } from 'lucide-react'
 import { FaWhatsapp, FaLinkedinIn } from 'react-icons/fa6'
 import { cn } from '@/lib/utils'
@@ -86,7 +87,7 @@ export function BentoGrid() {
   return (
     <section
       aria-label="Overview"
-      className="grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-4"
+      className="grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:items-stretch"
     >
       {/* Projects — dominant, top-left */}
       <CardShell id="projects" className="order-1 sm:col-span-2 lg:col-span-2">
@@ -126,7 +127,7 @@ export function BentoGrid() {
         <CardHeader icon={CircleUserRound} label="About" />
         <p className="mt-4 text-sm text-slate-500">Who I am and how I like to work.</p>
         <div
-          className="mt-5 flex h-24 w-full items-center justify-center rounded-md border border-slate-200 bg-slate-50 text-[0.65rem] font-medium tracking-wide text-slate-500 uppercase"
+          className="mt-5 flex min-h-24 w-full flex-1 items-center justify-center rounded-md border border-slate-200 bg-slate-50 text-[0.65rem] font-medium tracking-wide text-slate-500 uppercase"
           aria-label="Portrait placeholder"
         >
           Portrait
@@ -138,7 +139,7 @@ export function BentoGrid() {
       <CardShell id="contact" className="order-5 sm:order-3 lg:col-span-1">
         <CardHeader icon={Mail} label="Contact" tint="mint" />
         <p className="mt-4 text-sm text-slate-500">Reach out placeholder.</p>
-        <div className="mt-5 flex flex-col gap-2">
+        <div className="mt-5 flex flex-1 flex-col justify-center gap-3">
           {contactMethods.map(({ label, value, icon: Icon }) => (
             <a
               key={label}
@@ -158,26 +159,36 @@ export function BentoGrid() {
         </div>
       </CardShell>
 
-      {/* Credentials — smaller */}
-      <CardShell id="credentials" className="order-3 sm:order-4 lg:col-span-1">
-        <CardHeader icon={ShieldCheck} label="Credentials" />
-        <p className="mt-4 text-sm text-slate-500">Certifications and education placeholder.</p>
-        <div className="mt-5 flex items-center gap-3.5">
-          <div
-            className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 border-blue-200 bg-blue-50 text-[#1F6FEB]"
-            aria-label="Credential badge placeholder"
-          >
-            <ShieldCheck className="h-7 w-7" />
+      {/* Credentials — smaller, with a companion portal-preview CTA below it */}
+      <div className="order-3 flex flex-col gap-3 sm:order-4 lg:col-span-1 lg:self-start">
+        <CardShell id="credentials">
+          <CardHeader icon={ShieldCheck} label="Credentials" />
+          <p className="mt-4 text-sm text-slate-500">Certifications and education placeholder.</p>
+          <div className="mt-5 flex items-center gap-3.5">
+            <div
+              className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 border-blue-200 bg-blue-50 text-[#1F6FEB]"
+              aria-label="Credential badge placeholder"
+            >
+              <ShieldCheck className="h-7 w-7" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-slate-800">Credential Placeholder</p>
+              <p className="mt-0.5 text-xs leading-snug text-slate-500">Certification detail placeholder</p>
+            </div>
           </div>
-          <div>
-            <p className="text-sm font-semibold text-slate-800">Credential Placeholder</p>
-            <p className="mt-0.5 text-xs leading-snug text-slate-500">Certification detail placeholder</p>
-          </div>
-        </div>
-      </CardShell>
+        </CardShell>
+
+        <a
+          href="#"
+          className="flex items-center justify-center gap-2 rounded-md bg-[#1F6FEB] px-4 py-3 text-sm font-semibold text-white shadow-[0_1px_2px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1a5fc9] hover:shadow-[0_10px_20px_rgba(31,111,235,0.22)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1F6FEB]"
+        >
+          <Eye className="h-4 w-4 shrink-0" />
+          Preview Client Portal
+        </a>
+      </div>
 
       {/* Featured Services — wide, dominant */}
-      <CardShell id="services" className="order-4 sm:order-5 lg:col-span-3">
+      <CardShell id="services" className="order-4 sm:order-5 lg:col-span-3 lg:self-start">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <CardHeader icon={Layers} label="Featured Services" tint="mint" />

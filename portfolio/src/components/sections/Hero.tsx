@@ -23,7 +23,7 @@ export function Hero() {
       </svg>
 
       {/* Top utility bar */}
-      <div className="relative flex items-center justify-end px-6 pt-5 sm:px-8">
+      <div className="relative flex items-center justify-end px-6 pt-3.5 sm:px-8">
         <a
           href="#"
           className="group inline-flex items-center gap-1.5 rounded-md bg-[#1F6FEB] px-3 py-1.5 text-[0.8rem] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1a5fc9] hover:shadow-[0_6px_14px_rgba(31,111,235,0.2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1F6FEB]"
@@ -34,15 +34,15 @@ export function Hero() {
       </div>
 
       {/* Hero content */}
-      <div className="relative px-6 pt-6 pb-8 sm:px-8 sm:pb-10">
+      <div className="relative px-6 pt-3 pb-5 sm:px-8 sm:pb-6">
         <p className="text-[0.65rem] font-medium tracking-[0.2em] text-[#1F6FEB] uppercase">
           Personal Portfolio
         </p>
-        <h1 className="mt-3 text-4xl leading-[1.08] font-extrabold tracking-tight text-[#122c52] sm:text-5xl lg:text-6xl">
+        <h1 className="mt-2 text-4xl leading-[1.08] font-extrabold tracking-tight text-[#122c52] sm:text-5xl lg:text-[3rem]">
           <span className="block lg:inline">Build smarter.</span>{' '}
           <span className="block lg:inline">Create better.</span>
         </h1>
-        <p className="mt-4 max-w-md text-base leading-relaxed text-slate-600 sm:text-lg">
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg lg:max-w-none lg:pr-6">
           I create websites, digital experiences, and practical solutions designed to help
           ideas become something useful, professional, and lasting.
         </p>

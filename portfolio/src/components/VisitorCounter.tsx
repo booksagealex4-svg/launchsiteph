@@ -7,6 +7,13 @@ function formatCount(value: number | null): string {
   return value === null ? '—' : value.toLocaleString()
 }
 
+/**
+ * DEVELOPMENT / DEMO CONTENT ONLY — SHELL-R1 visual review phase.
+ * Not real analytics. Does not touch useVisitorStats / the real data adapter.
+ * Remove this override once real analytics data is connected.
+ */
+const DEMO_TOTAL_VISITS = 142
+
 export function VisitorCounter() {
   const [expanded, setExpanded] = useState(false)
   const stats = useVisitorStats()
@@ -61,7 +68,7 @@ export function VisitorCounter() {
 
         <dl className="mt-3 flex flex-col gap-2">
           {[
-            { label: 'Total visits', value: stats.totalVisits },
+            { label: 'Total visits', value: DEMO_TOTAL_VISITS },
             { label: 'Today', value: stats.todayVisits },
             { label: 'This week', value: stats.weekVisits },
           ].map(({ label, value }) => (
@@ -93,15 +100,15 @@ export function VisitorCounter() {
         onClick={() => setExpanded((v) => !v)}
         aria-expanded={expanded}
         aria-controls={panelId}
-        aria-label={`Site visits: ${stats.isLoading ? 'loading' : formatCount(stats.totalVisits)}. ${expanded ? 'Collapse' : 'Expand'} visitor statistics.`}
+        aria-label={`Site visits: ${stats.isLoading ? 'loading' : formatCount(DEMO_TOTAL_VISITS)}. ${expanded ? 'Collapse' : 'Expand'} visitor statistics.`}
         className="flex items-center gap-2 rounded-md bg-[#1F6FEB] px-4 py-2.5 text-sm font-medium text-white shadow-[0_8px_20px_rgba(31,111,235,0.25)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1a5fc9] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800"
       >
-        <span className="relative flex h-2 w-2 shrink-0">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/60" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+        <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500/70" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500 shadow-[0_0_4px_1px_rgba(239,68,68,0.7)]" />
         </span>
         <Eye className="h-4 w-4 shrink-0" aria-hidden="true" />
-        <span className="font-semibold">{stats.isLoading ? '···' : formatCount(stats.totalVisits)}</span>
+        <span className="font-semibold">{stats.isLoading ? '···' : formatCount(DEMO_TOTAL_VISITS)}</span>
         <span className="text-white/85">visits</span>
         {expanded ? (
           <ChevronDown className="h-4 w-4 shrink-0" aria-hidden="true" />
