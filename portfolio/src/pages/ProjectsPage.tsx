@@ -127,7 +127,7 @@ function CategoryTabs({
               'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
               isActive
                 ? 'border-[#1F6FEB] bg-[#1F6FEB] text-white shadow-[0_4px_10px_rgba(31,111,235,0.25)]'
-                : 'border-slate-200 bg-white text-slate-600 hover:border-blue-200 hover:bg-blue-50/50 hover:text-[#1F6FEB]',
+                : 'border-slate-300/70 bg-white text-slate-600 hover:border-blue-200 hover:bg-blue-50/50 hover:text-[#1F6FEB]',
             )}
           >
             <cat.icon className="h-4 w-4 shrink-0" />
@@ -173,7 +173,7 @@ export function ProjectsPage() {
   return (
     <>
       {/* Page header */}
-      <header className="relative overflow-hidden rounded-lg border border-slate-200/70 bg-[#fdfbf7] px-5 py-3.5 shadow-[0_1px_2px_rgba(15,23,42,0.03)] sm:px-6 sm:py-4">
+      <header className="relative overflow-hidden rounded-lg border border-slate-300/60 bg-[#fdfbf7] px-5 py-3.5 shadow-[0_1px_2px_rgba(15,23,42,0.03)] sm:px-6 sm:py-4">
         <svg
           className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.2]"
           viewBox="0 0 1000 140"
@@ -205,7 +205,7 @@ export function ProjectsPage() {
       </header>
 
       {/* Primary interactive showcase */}
-      <section className="mt-4 rounded-lg border border-slate-300/70 bg-white p-4 shadow-[0_1px_3px_rgba(15,23,42,0.06)] sm:p-5">
+      <section className="mt-4 rounded-lg border border-slate-300 bg-white p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
         <div className="grid gap-5 lg:grid-cols-[minmax(220px,1fr)_2.8fr] lg:items-stretch lg:gap-6">
           <div className="flex min-w-0 flex-col lg:h-full">
             <CategoryTabs active={activeId} onChange={setActiveId} panelId={panelId} />

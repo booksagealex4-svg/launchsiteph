@@ -26,8 +26,8 @@ function CardShell({
     <div
       id={id}
       className={cn(
-        'group relative flex flex-col overflow-hidden rounded-lg border border-slate-300/70 bg-white p-6',
-        'shadow-[0_1px_3px_rgba(15,23,42,0.06)] transition-all duration-200 ease-out',
+        'group relative flex flex-col overflow-hidden rounded-lg border border-slate-300 bg-white p-6',
+        'shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] transition-all duration-200 ease-out',
         'hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-[0_20px_36px_rgba(15,23,42,0.1)]',
         className,
       )}
@@ -93,7 +93,7 @@ export function BentoGrid() {
       <CardShell id="projects" className="order-1 sm:col-span-2 lg:col-span-2">
         <CardHeader icon={FolderKanban} label="Projects" />
         <p className="mt-4 text-sm text-slate-500">
-          Selected work placeholder — replace with real case studies.
+          Selected work placeholder: replace with real case studies.
         </p>
 
         <ul className="mt-5 flex flex-col divide-y divide-slate-100">
@@ -105,7 +105,7 @@ export function BentoGrid() {
                 className="flex items-center gap-4 rounded-md px-2 py-3 transition-colors duration-200 hover:bg-blue-50/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               >
                 <span
-                  className="flex h-12 w-16 shrink-0 flex-col items-center justify-center gap-0.5 rounded-md border border-slate-200 bg-slate-50 text-slate-300"
+                  className="flex h-12 w-16 shrink-0 flex-col items-center justify-center gap-0.5 rounded-md border border-slate-300/70 bg-slate-50 text-slate-300"
                   aria-hidden="true"
                 >
                   <ImageIcon className="h-4 w-4" />
@@ -127,7 +127,7 @@ export function BentoGrid() {
         <CardHeader icon={CircleUserRound} label="About" />
         <p className="mt-4 text-sm text-slate-500">Who I am and how I like to work.</p>
         <div
-          className="mt-5 flex min-h-24 w-full flex-1 items-center justify-center rounded-md border border-slate-200 bg-slate-50 text-[0.65rem] font-medium tracking-wide text-slate-500 uppercase"
+          className="mt-5 flex min-h-24 w-full flex-1 items-center justify-center rounded-md border border-slate-300/70 bg-slate-50 text-[0.65rem] font-medium tracking-wide text-slate-500 uppercase"
           aria-label="Portrait placeholder"
         >
           Portrait
@@ -193,7 +193,7 @@ export function BentoGrid() {
           <div>
             <CardHeader icon={Layers} label="Featured Services" tint="mint" />
             <p className="mt-4 max-w-md text-sm text-slate-500">
-              Services overview placeholder — summarize your core offering here.
+              Services overview placeholder: summarize your core offering here.
             </p>
           </div>
         </div>
@@ -202,7 +202,7 @@ export function BentoGrid() {
           {services.map(({ name, descriptor, icon: Icon }, i) => (
             <div
               key={name}
-              className="flex items-start gap-3.5 rounded-md border border-slate-200 px-4 py-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50/40 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)]"
+              className="flex items-start gap-3.5 rounded-md border border-slate-300/70 px-4 py-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50/40 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)]"
             >
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-blue-50 text-[#1F6FEB]">
                 <Icon className="h-[18px] w-[18px]" />

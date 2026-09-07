@@ -73,7 +73,7 @@ export function CategorySelector({
               'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
               isActive
                 ? 'border-[#1F6FEB] bg-[#1F6FEB] text-white shadow-[0_4px_10px_rgba(31,111,235,0.25)]'
-                : 'border-slate-200 bg-white text-slate-600 hover:border-blue-200 hover:bg-blue-50/50 hover:text-[#1F6FEB]',
+                : 'border-slate-300/70 bg-white text-slate-600 hover:border-blue-200 hover:bg-blue-50/50 hover:text-[#1F6FEB]',
             )}
           >
             <cat.icon className="h-4 w-4 shrink-0" />

@@ -101,7 +101,7 @@ export function VisitorCounter() {
         aria-expanded={expanded}
         aria-controls={panelId}
         aria-label={`Site visits: ${stats.isLoading ? 'loading' : formatCount(DEMO_TOTAL_VISITS)}. ${expanded ? 'Collapse' : 'Expand'} visitor statistics.`}
-        className="flex items-center gap-2 rounded-md bg-[#1F6FEB] px-4 py-2.5 text-sm font-medium text-white shadow-[0_8px_20px_rgba(31,111,235,0.25)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1a5fc9] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800"
+        className="flex items-center gap-2 rounded-md bg-[#102A43] px-4 py-2.5 text-sm font-medium text-white shadow-[0_8px_20px_rgba(16,42,67,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#0d2238] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
       >
         <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500/70" />

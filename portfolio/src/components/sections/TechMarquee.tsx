@@ -21,10 +21,10 @@ export function TechMarquee() {
   return (
     <section
       aria-label="Tools I work with"
-      className="marquee-track group relative flex flex-col overflow-hidden rounded-lg border border-slate-200/70 bg-white sm:flex-row sm:items-stretch"
+      className="marquee-track group relative flex flex-col overflow-hidden rounded-lg border border-slate-300/60 bg-white sm:flex-row sm:items-stretch"
     >
       {/* Static label area */}
-      <div className="flex shrink-0 flex-col justify-center gap-1 border-b border-slate-200/70 px-6 py-4 sm:w-[188px] sm:border-r sm:border-b-0">
+      <div className="flex shrink-0 flex-col justify-center gap-1 border-b border-slate-300/60 px-6 py-4 sm:w-[188px] sm:border-r sm:border-b-0">
         <p className="text-[0.65rem] font-semibold tracking-[0.14em] text-[#1F6FEB] uppercase">
           Daily Tools
         </p>
@@ -33,7 +33,7 @@ export function TechMarquee() {
 
       {/* Inner framed tool track */}
       <div className="relative flex-1 p-2 sm:p-3">
-        <div className="relative overflow-hidden rounded-md border border-slate-200/80 bg-[#f6f9fc] py-3.5">
+        <div className="relative overflow-hidden rounded-md border border-slate-300/70 bg-[#f6f9fc] py-3.5">
           <div
             className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#f6f9fc] to-transparent"
             aria-hidden="true"

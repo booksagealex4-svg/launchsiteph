@@ -10,7 +10,7 @@ export function HomePage() {
         <TechMarquee />
       </div>
 
-      <div className="mt-4 rounded-lg border border-slate-300/60 bg-[#e9f1fb] p-3 pb-5 shadow-[0_2px_4px_rgba(15,23,42,0.04),0_16px_32px_rgba(15,23,42,0.05)] sm:p-4 sm:pb-6">
+      <div className="mt-4 rounded-lg border border-slate-300/80 bg-[#e9f1fb] p-3 pb-5 shadow-[0_2px_4px_rgba(15,23,42,0.04),0_16px_32px_rgba(15,23,42,0.05)] sm:p-4 sm:pb-6">
         <BentoGrid />
       </div>
 

@@ -4,7 +4,7 @@ export function Hero() {
   return (
     <header
       id="home"
-      className="relative overflow-hidden rounded-lg border border-slate-200/70 bg-[#fdfbf7] shadow-[0_1px_2px_rgba(15,23,42,0.03)]"
+      className="relative overflow-hidden rounded-lg border border-slate-300/60 bg-[#fdfbf7] shadow-[0_1px_2px_rgba(15,23,42,0.03)]"
     >
       {/* Original abstract line-art background — organic, subtle, slow, reduced-motion safe */}
       <svg

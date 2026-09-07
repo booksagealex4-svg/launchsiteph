@@ -105,7 +105,7 @@ function TrustCard({
   accent: string
 }) {
   return (
-    <div className="relative flex flex-col gap-2.5 overflow-hidden rounded-lg border border-slate-200 bg-white p-4 pt-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)]">
+    <div className="relative flex flex-col gap-2.5 overflow-hidden rounded-lg border border-slate-300/70 bg-white p-4 pt-5 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)]">
       <span className="absolute inset-x-0 top-0 h-1" style={{ backgroundColor: accent }} aria-hidden="true" />
       <IconChip icon={icon} />
       <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
@@ -116,7 +116,7 @@ function TrustCard({
 
 function StepCard({ number, title, desc, icon: Icon }: { number: string; title: string; desc: string; icon: LucideIcon }) {
   return (
-    <div className="flex flex-col items-center gap-2 rounded-lg border border-slate-200 bg-white p-4 pt-5 text-center shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)]">
+    <div className="flex flex-col items-center gap-2 rounded-lg border border-slate-300/70 bg-white p-4 pt-5 text-center shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)]">
       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-[#1F6FEB] bg-white text-sm font-bold text-[#1F6FEB]">
         {number}
       </span>
@@ -133,10 +133,10 @@ function ProofCard({ label, icon: Icon }: { label: string; icon: LucideIcon }) {
   return (
     <a
       href="#"
-      className="group flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+      className="group flex flex-col overflow-hidden rounded-lg border border-slate-300/70 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
     >
       {/* Browser-chrome frame — same abstract placeholder language as the approved Projects/Services mockups */}
-      <div className="flex items-center gap-1.5 border-b border-slate-200 bg-slate-50 px-3 py-1.5">
+      <div className="flex items-center gap-1.5 border-b border-slate-300/70 bg-slate-50 px-3 py-1.5">
         <span className="h-[6px] w-[6px] rounded-full bg-slate-300" />
         <span className="h-[6px] w-[6px] rounded-full bg-slate-300" />
         <span className="h-[6px] w-[6px] rounded-full bg-slate-300" />
@@ -158,7 +158,7 @@ function ProofCard({ label, icon: Icon }: { label: string; icon: LucideIcon }) {
 
 function EmptyTestimonialCard() {
   return (
-    <div className="flex flex-col gap-3 rounded-lg border border-slate-200 bg-white p-4 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+    <div className="flex flex-col gap-3 rounded-lg border border-slate-300/70 bg-white p-4 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)]">
       <Quote className="h-5 w-5 text-blue-100" aria-hidden="true" />
       <div className="space-y-1.5">
         <div className="h-2 w-2/5 rounded-sm bg-slate-200" />
@@ -183,7 +183,7 @@ export function TestimonialsPage() {
   return (
     <>
       {/* Page header — same compact family as Projects/Services */}
-      <header className="relative overflow-hidden rounded-lg border border-slate-200/70 bg-[#fdfbf7] px-5 py-3.5 shadow-[0_1px_2px_rgba(15,23,42,0.03)] sm:px-6 sm:py-4">
+      <header className="relative overflow-hidden rounded-lg border border-slate-300/60 bg-[#fdfbf7] px-5 py-3.5 shadow-[0_1px_2px_rgba(15,23,42,0.03)] sm:px-6 sm:py-4">
         <svg
           className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.2]"
           viewBox="0 0 1000 140"
@@ -208,7 +208,7 @@ export function TestimonialsPage() {
             </h1>
             <p className="mt-1 max-w-2xl text-sm leading-snug text-slate-600 lg:max-w-none lg:pr-6">
               I believe credibility should come from clear communication, thoughtful work, and
-              real client feedback — never invented reviews.
+              real client feedback, never invented reviews.
             </p>
           </div>
 
@@ -217,7 +217,7 @@ export function TestimonialsPage() {
       </header>
 
       {/* Transparency note */}
-      <section className="mt-4 rounded-lg border border-blue-200/70 bg-white p-4 shadow-[0_1px_3px_rgba(15,23,42,0.06)] sm:p-5">
+      <section className="mt-4 rounded-lg border border-blue-200/70 bg-white p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
         <div className="flex items-start gap-3">
           <IconChip icon={ShieldCheck} />
           <div>
@@ -233,7 +233,7 @@ export function TestimonialsPage() {
       </section>
 
       {/* What You Can Expect */}
-      <section className="mt-4 rounded-lg border border-slate-300/70 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.06)]">
+      <section className="mt-4 rounded-lg border border-slate-300 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
         <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[#1F6FEB] uppercase">
           What You Can Expect
         </p>
@@ -245,7 +245,7 @@ export function TestimonialsPage() {
       </section>
 
       {/* How the Experience Works */}
-      <section className="mt-4 rounded-lg border border-slate-300/70 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.06)]">
+      <section className="mt-4 rounded-lg border border-slate-300 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
         <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[#1F6FEB] uppercase">
           How the Experience Works
         </p>
@@ -264,7 +264,7 @@ export function TestimonialsPage() {
       </section>
 
       {/* Proof Through the Work */}
-      <section className="mt-4 rounded-lg border border-slate-300/70 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.06)]">
+      <section className="mt-4 rounded-lg border border-slate-300 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
         <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[#1F6FEB] uppercase">
           Proof Through the Work
         </p>
@@ -276,7 +276,7 @@ export function TestimonialsPage() {
       </section>
 
       {/* Client Feedback — testimonial-ready empty state */}
-      <section className="mt-4 rounded-lg border border-slate-300/70 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.06)]">
+      <section className="mt-4 rounded-lg border border-slate-300 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
         <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[#1F6FEB] uppercase">
           Client Feedback
         </p>
@@ -288,7 +288,7 @@ export function TestimonialsPage() {
       </section>
 
       {/* Optional feedback submission CTA — a trust invitation, deliberately quieter than the project CTAs below */}
-      <section className="mt-4 rounded-lg border border-slate-200 bg-[#f7fafc] p-4 shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:p-5">
+      <section className="mt-4 rounded-lg border border-slate-300/70 bg-[#f7fafc] p-4 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)] sm:p-5">
         <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
           <div>
             <h3 className="text-sm font-bold text-slate-900">Worked with me before?</h3>
@@ -308,7 +308,7 @@ export function TestimonialsPage() {
       </section>
 
       {/* Bottom CTA — same action concepts approved on Projects/Services */}
-      <section className="mt-4 rounded-lg border border-slate-300/70 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.06)] sm:p-6">
+      <section className="mt-4 rounded-lg border border-slate-300 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-6">
         <div className="flex flex-col items-center gap-4 text-center">
           <p className="text-sm text-slate-500">Have an idea in mind? Let&apos;s bring it to life.</p>
           <div className="flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row">
