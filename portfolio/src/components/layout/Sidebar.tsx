@@ -27,27 +27,37 @@ const socials = [
 function VerifiedBadge() {
   return (
     <svg
-      width="17"
-      height="17"
-      viewBox="0 0 17 17"
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
       fill="none"
       className="shrink-0"
       role="img"
       aria-label="Verified profile"
     >
-      {/* Original scalloped seal silhouette — a generic 6-bump rounded polygon, not traced from any platform's badge artwork. */}
+      {/*
+        Original 8-facet seal silhouette (a regular octagon, not traced from
+        any platform's badge artwork) — layered for subtle depth:
+        deep-blue edge -> royal-blue body -> faint inner highlight ring -> check.
+      */}
       <path
-        d="M16.1,8.5 L14.4,11.9 L12.3,15.1 L8.5,15.3 L4.7,15.1 L2.6,11.9 L0.9,8.5 L2.6,5.1 L4.7,1.9 L8.5,1.7 L12.3,1.9 L14.4,5.1 Z"
-        fill="#1656D8"
-        stroke="#8FB6FF"
-        strokeOpacity="0.45"
-        strokeWidth="0.6"
-        strokeLinejoin="round"
+        d="M16.58,12.14 L12.14,16.58 L5.86,16.58 L1.42,12.14 L1.42,5.86 L5.86,1.42 L12.14,1.42 L16.58,5.86 Z"
+        fill="#123A8F"
       />
       <path
-        d="M5 8.75L7.35 11L12 6.2"
+        d="M15.93,11.87 L11.87,15.93 L6.13,15.93 L2.07,11.87 L2.07,6.13 L6.13,2.07 L11.87,2.07 L15.93,6.13 Z"
+        fill="#1E56D6"
+      />
+      <path
+        d="M15.1,11.53 L11.53,15.1 L6.47,15.1 L2.9,11.53 L2.9,6.47 L6.47,2.9 L11.53,2.9 L15.1,6.47 Z"
+        stroke="#8FC1FF"
+        strokeOpacity="0.55"
+        strokeWidth="0.6"
+      />
+      <path
+        d="M5.5 9.25L7.85 11.5L12.5 6.7"
         stroke="white"
-        strokeWidth="1.9"
+        strokeWidth="2.15"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
