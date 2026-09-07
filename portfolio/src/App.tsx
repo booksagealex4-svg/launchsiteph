@@ -4,6 +4,7 @@ import { VisitorCounter } from '@/components/VisitorCounter'
 import { HomePage } from '@/pages/HomePage'
 import { ProjectsPage } from '@/pages/ProjectsPage'
 import { ServicesPage } from '@/pages/ServicesPage'
+import { TestimonialsPage } from '@/pages/TestimonialsPage'
 import { ContactPage } from '@/pages/ContactPage'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/services" element={<ServicesPage />} />
+          <Route path="/testimonials" element={<TestimonialsPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </main>
