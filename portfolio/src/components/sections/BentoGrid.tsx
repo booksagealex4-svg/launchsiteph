@@ -73,28 +73,30 @@ const homeProjects: HomeProject[] = [
     title: 'IPA Author Directory',
     type: 'Author Directory / Web Platform',
     description:
-      'A professional author and book discovery platform designed to make profiles, books, and membership information easy to explore.',
+      'A professional author and book discovery platform designed to make author profiles, books, and membership information easy to explore.',
     thumbnail: null,
     href: '/projects',
     status: 'in-progress',
   },
   {
-    id: 'project-02',
-    title: 'Project 02',
-    type: 'Project type to be added',
-    description: '',
+    id: 'ipa-book-depository',
+    title: 'IPA Book Depository',
+    type: 'Book Discovery / Catalog Platform',
+    description:
+      'A digital book catalog designed to organize, showcase, and make published titles easier to discover through a clean and accessible browsing experience.',
     thumbnail: null,
     href: '/projects',
-    status: 'placeholder',
+    status: 'in-progress',
   },
   {
-    id: 'project-03',
-    title: 'Project 03',
-    type: 'Project type to be added',
-    description: '',
+    id: 'client-crm-portal',
+    title: 'Client CRM Portal',
+    type: 'CRM / Client Management Platform',
+    description:
+      'A client management workspace designed to organize contacts, projects, messages, files, payments, and progress updates in one clear and practical dashboard.',
     thumbnail: null,
     href: '/projects',
-    status: 'placeholder',
+    status: 'in-progress',
   },
 ]
 
