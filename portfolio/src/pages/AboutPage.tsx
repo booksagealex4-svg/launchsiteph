@@ -190,10 +190,10 @@ function AboutHeroCard() {
   const philippineTime = useLocalTimeString('Asia/Manila')
 
   return (
-    <section className="mt-4 rounded-lg border border-slate-300 bg-white p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
+    <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
       <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr] lg:gap-6">
         <div className="flex min-w-0 flex-col gap-3">
-          <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[#1F6FEB] uppercase">
+          <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">
             Multidisciplinary Freelancer
           </p>
           <h2 className="text-xl leading-snug font-extrabold text-slate-900 sm:text-2xl">
@@ -212,7 +212,7 @@ function AboutHeroCard() {
           </p>
 
           <div className="mt-2 border-t border-slate-200/70 pt-3">
-            <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[#1F6FEB] uppercase">
+            <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">
               More About Me
             </p>
             <p className="mt-1.5 text-[0.8rem] leading-relaxed text-slate-500">
@@ -229,8 +229,8 @@ function AboutHeroCard() {
           </div>
         </div>
 
-        <div className="flex min-w-0 flex-col rounded-lg border border-slate-300/70 bg-slate-50/60 p-4">
-          <p className="mb-1 text-[0.65rem] font-bold tracking-[0.12em] text-[#1F6FEB] uppercase">
+        <div className="flex min-w-0 flex-col rounded-lg border border-[var(--card-border-nested)] bg-[#F1F5F7] p-4">
+          <p className="mb-1 text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-nested)] uppercase">
             Working Context
           </p>
           <div className="divide-y divide-slate-200/70">
@@ -294,7 +294,7 @@ export function AboutPage() {
   return (
     <>
       {/* Page header — same compact family as Projects/Services/Testimonials */}
-      <header className="relative overflow-hidden rounded-lg border border-slate-300/60 bg-[#fdfbf7] px-5 py-3.5 shadow-[0_1px_2px_rgba(15,23,42,0.03)] sm:px-6 sm:py-4">
+      <header className="relative overflow-hidden rounded-lg border border-[var(--card-border-accent)] bg-[#fdfbf7] px-5 py-3.5 shadow-[0_1px_2px_rgba(15,23,42,0.03)] sm:px-6 sm:py-4">
         <svg
           className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.2]"
           viewBox="0 0 1000 140"
@@ -329,8 +329,8 @@ export function AboutPage() {
       <AboutHeroCard />
 
       {/* Certifications */}
-      <section className="mt-4 rounded-lg border border-slate-300 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
-        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[#1F6FEB] uppercase">Certifications</p>
+      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
+        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">Certifications</p>
         <p className="mt-0.5 text-sm text-slate-500">Continuous learning through LinkedIn Learning.</p>
         <div className="mt-3">
           <CertificationRail certifications={certifications} />
@@ -338,8 +338,8 @@ export function AboutPage() {
       </section>
 
       {/* What I Value */}
-      <section className="mt-4 rounded-lg border border-slate-300 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
-        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[#1F6FEB] uppercase">What I Value</p>
+      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
+        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">What I Value</p>
         <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {valueItems.map((item) => (
             <ValueCard key={item.title} {...item} />
@@ -348,8 +348,8 @@ export function AboutPage() {
       </section>
 
       {/* How I Work */}
-      <section className="mt-4 rounded-lg border border-slate-300 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
-        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[#1F6FEB] uppercase">How I Work</p>
+      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
+        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">How I Work</p>
         <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {workSteps.map((step) => (
             <WorkStepCard key={step.number} {...step} />
@@ -359,15 +359,15 @@ export function AboutPage() {
 
       {/* Tools & Capabilities — reuses the exact approved homepage marquee */}
       <section className="mt-4">
-        <p className="mb-3 text-[0.65rem] font-bold tracking-[0.12em] text-[#1F6FEB] uppercase">
+        <p className="mb-3 text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">
           Tools &amp; Capabilities
         </p>
         <TechMarquee />
       </section>
 
       {/* What I Can Bring to a Project */}
-      <section className="mt-4 rounded-lg border border-slate-300 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
-        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[#1F6FEB] uppercase">
+      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
+        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">
           What I Can Bring to a Project
         </p>
         <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -378,7 +378,7 @@ export function AboutPage() {
       </section>
 
       {/* Personal note — small editorial card, no fake quote styling */}
-      <section className="mt-4 rounded-lg border border-slate-300/70 bg-[#f7fafc] p-4 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)] sm:p-5">
+      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F1F5F7] p-4 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)] sm:p-5">
         <div className="flex items-start gap-3">
           <IconChip icon={PenLine} tint="mint" />
           <div>
@@ -392,7 +392,7 @@ export function AboutPage() {
       </section>
 
       {/* Bottom CTA — same action concepts approved on Projects/Services/Testimonials */}
-      <section className="mt-4 rounded-lg border border-slate-300 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-6">
+      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-6">
         <div className="flex flex-col items-center gap-4 text-center">
           <p className="text-sm text-slate-500">Have an idea in mind? Let&apos;s bring it to life.</p>
           <div className="flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row">
@@ -415,7 +415,7 @@ export function AboutPage() {
       </section>
 
       <footer className="flex flex-col items-center gap-1 py-3 text-center text-xs text-muted-foreground">
-        <p>© Year Placeholder · Full Name Placeholder · All rights reserved</p>
+        <p>© 2024–2026 Alexis Sarip. All rights reserved.</p>
       </footer>
     </>
   )

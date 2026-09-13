@@ -39,10 +39,10 @@
   /* Blue-only palette. No orange/warm accents anywhere in this project. */
   /* Page canvas — soft cool gray-blue, harmonizes with the light sidebar/hero/bento panels. */
   --background: #eef1f5;
-  --foreground: #1e293b;
+  --foreground: #183153;
   --surface: #0b0f1a;
   --surface-elevated: #10152370;
-  --border: #dde2ea;
+  --border: #c9d3df;
 
   --primary: #2563eb;
   --primary-hover: #3b82f6;
@@ -53,13 +53,18 @@
   --accent-foreground: #05070d;
 
   --muted: #0e1420;
-  --muted-foreground: #475569;
+  --muted-foreground: #5f7187;
 
   --card: #0c1120;
   --card-foreground: #e7ecf5;
 
   --ring: #3b82f6;
   --success: #22c55e;
+
+  /* Shared card-border hierarchy, used site-wide (public + portal + admin):
+     outer/primary card shells get the red accent, nested/inner cards get blue. */
+  --card-border-accent: #dc2626;
+  --card-border-nested: #2563eb;
 }
 
 @layer base {

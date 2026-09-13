@@ -199,7 +199,7 @@ function ServiceShowcase({
   const panelId = `showcase-${title.replace(/\s+/g, '-').toLowerCase()}`
 
   return (
-    <section className="rounded-lg border border-slate-300 bg-white p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
+    <section className="rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
       <div className="flex items-center gap-2.5">
         <IconChip icon={icon} tint={tint} />
         <div>
@@ -235,7 +235,7 @@ export function ServicesPage() {
   return (
     <>
       {/* Page header */}
-      <header className="relative overflow-hidden rounded-lg border border-slate-300/60 bg-[#fdfbf7] px-5 py-3.5 shadow-[0_1px_2px_rgba(15,23,42,0.03)] sm:px-6 sm:py-4">
+      <header className="relative overflow-hidden rounded-lg border border-[var(--card-border-accent)] bg-[#fdfbf7] px-5 py-3.5 shadow-[0_1px_2px_rgba(15,23,42,0.03)] sm:px-6 sm:py-4">
         <svg
           className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.2]"
           viewBox="0 0 1000 140"
@@ -267,7 +267,7 @@ export function ServicesPage() {
       </header>
 
       {/* Interactive showcase workspace */}
-      <div className="mt-4 rounded-lg border border-slate-300/80 bg-[#e9f1fb] p-3 shadow-[0_2px_4px_rgba(15,23,42,0.04),0_16px_32px_rgba(15,23,42,0.05)] sm:p-4">
+      <div className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#e9f1fb] p-3 shadow-[0_2px_4px_rgba(15,23,42,0.04),0_16px_32px_rgba(15,23,42,0.05)] sm:p-4">
         <div className="flex flex-col gap-4">
           <ServiceShowcase
             icon={Globe}
@@ -303,8 +303,8 @@ export function ServicesPage() {
       </div>
 
       {/* More Ways I Can Help */}
-      <section className="mt-4 rounded-lg border border-slate-300 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
-        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[#1F6FEB] uppercase">More Ways I Can Help</p>
+      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
+        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">More Ways I Can Help</p>
         <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {moreServices.map(({ name, descriptor, icon: Icon }) => (
             <a
@@ -324,7 +324,7 @@ export function ServicesPage() {
       </section>
 
       {/* Bottom CTA — same action concepts approved on Projects */}
-      <section className="mt-4 rounded-lg border border-slate-300 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-6">
+      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-6">
         <div className="flex flex-col items-center gap-4 text-center">
           <p className="text-sm text-slate-500">Have an idea in mind? Let&apos;s bring it to life.</p>
           <div className="flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row">
@@ -347,7 +347,7 @@ export function ServicesPage() {
       </section>
 
       <footer className="flex flex-col items-center gap-1 py-3 text-center text-xs text-muted-foreground">
-        <p>© Year Placeholder · Full Name Placeholder · All rights reserved</p>
+        <p>© 2024–2026 Alexis Sarip. All rights reserved.</p>
       </footer>
     </>
   )

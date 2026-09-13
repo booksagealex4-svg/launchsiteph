@@ -26,7 +26,7 @@ export function PortalReviewsPage() {
   return (
     <>
       {/* Compact header */}
-      <div className="rounded-lg border border-slate-300/60 bg-[#fdfbf7] px-5 py-4">
+      <div className="rounded-lg border border-[var(--card-border-accent)] bg-[#fdfbf7] px-5 py-4">
         <p className="text-[0.6rem] font-medium tracking-[0.2em] text-[#1F6FEB] uppercase">Reviews</p>
         <h1 className="mt-1 text-xl leading-snug font-extrabold text-[#122c52] sm:text-2xl">Review Your Project</h1>
         <p className="mt-0.5 text-sm text-slate-600">
@@ -35,7 +35,7 @@ export function PortalReviewsPage() {
       </div>
 
       {/* Review status summary */}
-      <div className="flex flex-col gap-2 rounded-lg border border-slate-300/60 bg-white px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-2 rounded-lg border border-[var(--card-border-accent)] bg-white px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <CardLabel>Ready for Review</CardLabel>
           <p className="mt-1 text-sm font-semibold text-slate-800">Project Preview Placeholder</p>

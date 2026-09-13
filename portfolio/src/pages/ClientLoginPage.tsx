@@ -14,7 +14,7 @@ export function ClientLoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-10 sm:px-6">
-      <div className="w-full max-w-[880px] overflow-hidden rounded-lg border border-slate-300/70 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.05),0_16px_40px_rgba(15,23,42,0.09)] lg:grid lg:grid-cols-[1fr_1fr]">
+      <div className="w-full max-w-[880px] overflow-hidden rounded-lg border border-[var(--card-border-accent)] bg-white shadow-[0_1px_2px_rgba(15,23,42,0.05),0_16px_40px_rgba(15,23,42,0.09)] lg:grid lg:grid-cols-[1fr_1fr]">
         {/* Supporting brand panel — desktop/tablet only */}
         <div className="hidden flex-col justify-center gap-4 bg-[#0f1f3d] px-10 py-12 text-white lg:flex">
           <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white">

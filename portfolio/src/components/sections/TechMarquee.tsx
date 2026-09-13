@@ -21,10 +21,10 @@ export function TechMarquee() {
   return (
     <section
       aria-label="Tools I work with"
-      className="marquee-track group relative flex flex-col overflow-hidden rounded-lg border border-slate-300/60 bg-white sm:flex-row sm:items-stretch"
+      className="marquee-track group relative flex flex-col overflow-hidden rounded-lg border border-[#B8C6D5] bg-[#F7F9FB] sm:flex-row sm:items-stretch"
     >
-      {/* Static label area */}
-      <div className="flex shrink-0 flex-col justify-center gap-1 border-b border-slate-300/60 px-6 py-4 sm:w-[188px] sm:border-r sm:border-b-0">
+      {/* Static label area — visually distinct surface from the scrolling track */}
+      <div className="flex shrink-0 flex-col justify-center gap-1 border-b border-[#B8C6D5] bg-[#F1F5F7] px-6 py-4 sm:w-[188px] sm:border-r sm:border-b-0">
         <p className="text-[0.65rem] font-semibold tracking-[0.14em] text-[#1F6FEB] uppercase">
           Daily Tools
         </p>
@@ -33,21 +33,21 @@ export function TechMarquee() {
 
       {/* Inner framed tool track */}
       <div className="relative flex-1 p-2 sm:p-3">
-        <div className="relative overflow-hidden rounded-md border border-slate-300/70 bg-[#f6f9fc] py-3.5">
+        <div className="relative overflow-hidden rounded-md border border-[#B8C6D5] bg-[#EEF3F6] py-3.5">
           <div
-            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#f6f9fc] to-transparent"
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#EEF3F6] to-transparent"
             aria-hidden="true"
           />
           <div
-            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#f6f9fc] to-transparent"
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#EEF3F6] to-transparent"
             aria-hidden="true"
           />
 
-          <div className="animate-marquee flex w-max items-stretch divide-x divide-slate-200/80">
+          <div className="animate-marquee flex w-max items-stretch divide-x divide-[#C7D2DD]">
             {items.map(({ name, icon: Icon, color }, i) => (
               <span key={`${name}-${i}`} className="flex items-center gap-2 px-5 whitespace-nowrap">
                 <Icon className="h-[18px] w-[18px] shrink-0" style={{ color }} />
-                <span className="text-sm font-medium text-slate-700">{name}</span>
+                <span className="text-sm font-semibold text-[#172033]">{name}</span>
               </span>
             ))}
           </div>

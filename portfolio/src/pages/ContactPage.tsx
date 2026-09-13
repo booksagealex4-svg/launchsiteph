@@ -127,7 +127,7 @@ export function ContactPage() {
   return (
     <>
       {/* Page header — same compact family as Projects/Services/Testimonials/About */}
-      <header className="relative overflow-hidden rounded-lg border border-slate-300/60 bg-[#fdfbf7] px-5 py-3.5 shadow-[0_1px_2px_rgba(15,23,42,0.03)] sm:px-6 sm:py-4">
+      <header className="relative overflow-hidden rounded-lg border border-[var(--card-border-accent)] bg-[#fdfbf7] px-5 py-3.5 shadow-[0_1px_2px_rgba(15,23,42,0.03)] sm:px-6 sm:py-4">
         <svg
           className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.2]"
           viewBox="0 0 1000 140"
@@ -159,7 +159,7 @@ export function ContactPage() {
       </header>
 
       {/* Main contact workspace */}
-      <section className="mt-4 rounded-lg border border-slate-300 bg-white p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
+      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
         <div className="grid gap-6 lg:grid-cols-[7fr_3fr]">
           {/* Left — simple, calm inquiry form */}
           <form onSubmit={handleSubmit} className="flex min-w-0 flex-col gap-5">
@@ -272,7 +272,7 @@ export function ContactPage() {
           </form>
 
           {/* Right — quiet, supportive trust panel */}
-          <div className="flex min-w-0 flex-col gap-4 rounded-lg border border-slate-300/70 bg-slate-50/60 p-4">
+          <div className="flex min-w-0 flex-col gap-4 rounded-lg border border-[var(--card-border-nested)] bg-[#F1F5F7] p-4">
             <div>
               <p className="mb-1.5 text-[0.65rem] font-bold tracking-[0.12em] text-[#1F6FEB] uppercase">
                 Get in Touch
@@ -332,7 +332,7 @@ export function ContactPage() {
       </section>
 
       <footer className="flex flex-col items-center gap-1 py-3 text-center text-xs text-muted-foreground">
-        <p>© Year Placeholder · Full Name Placeholder · All rights reserved</p>
+        <p>© 2024–2026 Alexis Sarip. All rights reserved.</p>
       </footer>
     </>
   )

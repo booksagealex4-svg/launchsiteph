@@ -7,12 +7,12 @@ import { cn } from '@/lib/utils'
 
 export function IconChip({ icon: Icon, tint = 'blue' }: { icon: LucideIcon; tint?: 'blue' | 'mint' | 'amber' }) {
   const tintClasses = {
-    blue: 'bg-blue-50 text-[#1F6FEB]',
-    mint: 'bg-[#eafaf4] text-[#1f9d7c]',
-    amber: 'bg-amber-50 text-amber-600',
+    blue: 'border-[#93B4E8] bg-[#E6F0FF] text-[#1D4ED8]',
+    mint: 'border-[#8FD4B4] bg-[#D9F3E8] text-[#0E8F5E]',
+    amber: 'border-amber-300 bg-amber-50 text-amber-600',
   }
   return (
-    <span className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-md', tintClasses[tint])}>
+    <span className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-md border', tintClasses[tint])}>
       <Icon className="h-[18px] w-[18px]" />
     </span>
   )
@@ -36,7 +36,7 @@ export function CardShell({ id, className, children }: { id?: string; className?
     <section
       id={id}
       className={cn(
-        'rounded-lg border border-slate-300/70 bg-white p-4 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)] sm:p-5',
+        'rounded-lg border border-[var(--card-border-accent)] bg-[#F6F8FA] p-4 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)] sm:p-5',
         className,
       )}
     >

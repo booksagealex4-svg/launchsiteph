@@ -14,7 +14,7 @@ export function PortalProjectPage() {
   return (
     <>
       {/* Compact header */}
-      <div className="rounded-lg border border-slate-300/60 bg-[#fdfbf7] px-5 py-4">
+      <div className="rounded-lg border border-[var(--card-border-accent)] bg-[#fdfbf7] px-5 py-4">
         <p className="text-[0.6rem] font-medium tracking-[0.2em] text-[#1F6FEB] uppercase">Project</p>
         <h1 className="mt-1 text-xl leading-snug font-extrabold text-[#122c52] sm:text-2xl">Your Project</h1>
         <p className="mt-0.5 text-sm text-slate-600">Everything important about your project, in one place.</p>

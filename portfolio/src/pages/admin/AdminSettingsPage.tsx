@@ -148,7 +148,7 @@ export function AdminSettingsPage() {
   return (
     <form onSubmit={handleSave} className="flex flex-col gap-4">
       {/* Compact header */}
-      <div className="rounded-lg border border-slate-300/60 bg-[#fdfbf7] px-5 py-4">
+      <div className="rounded-lg border border-[var(--card-border-accent)] bg-[#fdfbf7] px-5 py-4">
         <p className="text-[0.6rem] font-medium tracking-[0.2em] text-[#1F6FEB] uppercase">Settings</p>
         <h1 className="mt-1 text-xl leading-snug font-extrabold text-[#122c52] sm:text-2xl">Admin Settings</h1>
         <p className="mt-0.5 max-w-[56ch] text-sm text-slate-600">
@@ -474,7 +474,7 @@ export function AdminSettingsPage() {
           ) : null}
 
           {/* Save behavior */}
-          <div className="flex flex-wrap items-center gap-3 rounded-lg border border-slate-300/60 bg-white px-5 py-4">
+          <div className="flex flex-wrap items-center gap-3 rounded-lg border border-[var(--card-border-accent)] bg-white px-5 py-4">
             <button
               type="submit"
               className="flex min-h-11 items-center justify-center rounded-md bg-[#1F6FEB] px-5 text-sm font-semibold text-white shadow-[0_4px_14px_rgba(31,111,235,0.25)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1a5fc9] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"

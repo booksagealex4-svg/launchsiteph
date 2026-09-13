@@ -160,7 +160,7 @@ export function AdminClientsPage() {
   return (
     <>
       {/* Compact header */}
-      <div className="flex flex-col gap-3 rounded-lg border border-slate-300/60 bg-[#fdfbf7] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 rounded-lg border border-[var(--card-border-accent)] bg-[#fdfbf7] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-[0.6rem] font-medium tracking-[0.2em] text-[#1F6FEB] uppercase">Clients</p>
           <h1 className="mt-1 text-xl leading-snug font-extrabold text-[#122c52] sm:text-2xl">Client CRM</h1>

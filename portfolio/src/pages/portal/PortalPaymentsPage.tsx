@@ -86,7 +86,7 @@ export function PortalPaymentsPage() {
   return (
     <>
       {/* Compact header */}
-      <div className="rounded-lg border border-slate-300/60 bg-[#fdfbf7] px-5 py-4">
+      <div className="rounded-lg border border-[var(--card-border-accent)] bg-[#fdfbf7] px-5 py-4">
         <p className="text-[0.6rem] font-medium tracking-[0.2em] text-[#1F6FEB] uppercase">Payments</p>
         <h1 className="mt-1 text-xl leading-snug font-extrabold text-[#122c52] sm:text-2xl">Make a Payment</h1>
         <p className="mt-0.5 text-sm text-slate-600">
@@ -163,7 +163,7 @@ export function PortalPaymentsPage() {
       </CardShell>
 
       {/* Security / trust language */}
-      <div className="flex items-start gap-3 rounded-lg border border-slate-200 bg-slate-50/60 px-5 py-4">
+      <div className="flex items-start gap-3 rounded-lg border border-[var(--card-border-accent)] bg-slate-50/60 px-5 py-4">
         <IconChip icon={ShieldCheck} tint="mint" />
         <p className="text-sm leading-relaxed text-slate-600">
           Payment is completed through the selected external provider. This portal does not

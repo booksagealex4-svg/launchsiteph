@@ -13,7 +13,7 @@ export function PortalMessagesPage() {
   return (
     <>
       {/* Compact header */}
-      <div className="rounded-lg border border-slate-300/60 bg-[#fdfbf7] px-5 py-4">
+      <div className="rounded-lg border border-[var(--card-border-accent)] bg-[#fdfbf7] px-5 py-4">
         <p className="text-[0.6rem] font-medium tracking-[0.2em] text-[#1F6FEB] uppercase">Messages</p>
         <h1 className="mt-1 text-xl leading-snug font-extrabold text-[#122c52] sm:text-2xl">Project Messages</h1>
         <p className="mt-0.5 text-sm text-slate-600">
@@ -22,7 +22,7 @@ export function PortalMessagesPage() {
       </div>
 
       {/* Latest activity — small context row */}
-      <div className="flex items-center gap-3 rounded-lg border border-slate-300/60 bg-white px-5 py-4">
+      <div className="flex items-center gap-3 rounded-lg border border-[var(--card-border-accent)] bg-white px-5 py-4">
         <IconChip icon={MessageCircle} tint="mint" />
         <div className="min-w-0">
           <CardLabel>Latest Activity</CardLabel>

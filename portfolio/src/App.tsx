@@ -29,13 +29,18 @@ import { AdminAnalyticsPage } from '@/pages/admin/AdminAnalyticsPage'
 import { AdminActivityPage } from '@/pages/admin/AdminActivityPage'
 import { AdminSettingsPage } from '@/pages/admin/AdminSettingsPage'
 
-/** Unchanged public-site chrome, only relocated so it wraps public routes via <Outlet />. */
+/**
+ * Public-site chrome. The fluid-marble image is applied ONCE here as the
+ * shared canvas for the whole public shell — the sidebar and main workspace
+ * are translucent surfaces layered on top of this single background, so the
+ * image reads as one continuous canvas with no seam at the sidebar boundary.
+ */
 function PublicLayout() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[url('/home-fluid-background.avif')] bg-cover bg-center bg-fixed">
       <Sidebar />
 
-      <main className="flex flex-col p-4 lg:ml-[352px]">
+      <main className="relative z-0 flex flex-col bg-white/30 p-4 lg:ml-[336px]">
         <Outlet />
       </main>
 

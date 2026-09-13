@@ -9,7 +9,7 @@ export function PortalOverviewPage() {
   return (
     <>
       {/* Compact top bar */}
-      <div className="flex items-center justify-between rounded-lg border border-slate-300/60 bg-white px-4 py-2.5">
+      <div className="flex items-center justify-between rounded-lg border border-[var(--card-border-accent)] bg-white px-4 py-2.5">
         <p className="text-sm font-semibold text-slate-700">Portal Overview</p>
         <div className="flex items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-md text-slate-400" aria-label="Notifications placeholder">
@@ -22,7 +22,7 @@ export function PortalOverviewPage() {
       </div>
 
       {/* Welcome header */}
-      <div className="flex flex-col gap-3 rounded-lg border border-slate-300/60 bg-[#fdfbf7] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 rounded-lg border border-[var(--card-border-accent)] bg-[#fdfbf7] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-xl leading-snug font-extrabold text-[#122c52] sm:text-2xl">Welcome back, Client Name</h1>
           <p className="mt-0.5 text-sm text-slate-600">Here&apos;s the latest update on your project.</p>
