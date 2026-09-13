@@ -41,13 +41,20 @@ import { ClientLoginButton } from '@/components/ClientLoginButton'
 import { MockupCarousel, type MockupSlide } from '@/components/projects/MockupCarousel'
 import { cn } from '@/lib/utils'
 
-function buildSlides(kind: MockupSlide['kind'], prefix: string, accent: string, count: number): MockupSlide[] {
+function buildSlides(
+  kind: MockupSlide['kind'],
+  prefix: string,
+  accent: string,
+  count: number,
+  caption?: { title: string; type: string; description: string },
+): MockupSlide[] {
   return Array.from({ length: count }, (_, i) => ({
     id: `${prefix}-${i}`,
     kind,
     variant: (((i % 4) + 1) as 1 | 2 | 3 | 4),
     accent,
     label: `${prefix} preview ${i + 1}`,
+    ...caption,
   }))
 }
 
@@ -57,65 +64,198 @@ interface ShowcaseCategory extends SelectorCategory {
   slides: MockupSlide[]
 }
 
+/** Every slide in a category shares the same real, honest description for that service option. */
 function withSlides(
   kind: MockupSlide['kind'],
-  items: { id: string; label: string; icon: LucideIcon }[],
+  sectionType: string,
+  items: { id: string; label: string; icon: LucideIcon; description: string }[],
   count: number,
 ): ShowcaseCategory[] {
-  return items.map((item, i) => ({
-    ...item,
-    slides: buildSlides(kind, item.label, blueMint[i % blueMint.length], count),
+  return items.map(({ id, label, icon, description }, i) => ({
+    id,
+    label,
+    icon,
+    slides: buildSlides(kind, label, blueMint[i % blueMint.length], count, { title: label, type: sectionType, description }),
   }))
 }
 
 const websiteCategories = withSlides(
   'website',
+  'Website',
   [
-    { id: 'authors', label: 'Authors', icon: BookOpen },
-    { id: 'cafes', label: 'Cafes', icon: Coffee },
-    { id: 'restaurants', label: 'Restaurants', icon: UtensilsCrossed },
-    { id: 'bakeries', label: 'Bakeries', icon: Cookie },
-    { id: 'barber-shops', label: 'Barber Shops', icon: Scissors },
-    { id: 'real-estate', label: 'Real Estate', icon: Building2 },
-    { id: 'doctors', label: 'Doctors', icon: Stethoscope },
-    { id: 'automotive', label: 'Automotive', icon: Car },
-    { id: 'online-shops', label: 'Online Shops', icon: ShoppingBag },
-    { id: 'other-business', label: 'Other Business', icon: Briefcase },
+    {
+      id: 'authors',
+      label: 'Authors',
+      icon: BookOpen,
+      description: 'Professional author websites for books, biography, media, events, and reader information.',
+    },
+    {
+      id: 'cafes',
+      label: 'Cafes',
+      icon: Coffee,
+      description: 'Clean, inviting websites for menus, location details, opening hours, and customer information.',
+    },
+    {
+      id: 'restaurants',
+      label: 'Restaurants',
+      icon: UtensilsCrossed,
+      description: 'Professional restaurant sites for menus, reservations, contact details, and location information.',
+    },
+    {
+      id: 'bakeries',
+      label: 'Bakeries',
+      icon: Cookie,
+      description: 'Warm, polished websites for products, custom orders, location details, and inquiries.',
+    },
+    {
+      id: 'barber-shops',
+      label: 'Barber Shops',
+      icon: Scissors,
+      description: 'Modern service websites for pricing, booking information, services, and contact details.',
+    },
+    {
+      id: 'real-estate',
+      label: 'Real Estate',
+      icon: Building2,
+      description: 'Professional property-focused websites for listings, agent information, inquiries, and contact details.',
+    },
+    {
+      id: 'doctors',
+      label: 'Doctors',
+      icon: Stethoscope,
+      description: 'Clear, professional informational websites for services, clinic details, appointments, and patient guidance.',
+    },
+    {
+      id: 'automotive',
+      label: 'Automotive',
+      icon: Car,
+      description: 'Professional automotive websites for services, inventory or offerings, business information, and inquiries.',
+    },
+    {
+      id: 'online-shops',
+      label: 'Online Shops',
+      icon: ShoppingBag,
+      description: 'Product-focused websites designed to make browsing, product information, and customer actions clear.',
+    },
+    {
+      id: 'other-business',
+      label: 'Other Business',
+      icon: Briefcase,
+      description: 'Custom websites designed around the specific needs, audience, and goals of your business.',
+    },
   ],
   7,
 )
 
 const webAppCategories = withSlides(
   'dashboard',
+  'Web App',
   [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'client-management', label: 'Client Management', icon: Users },
-    { id: 'booking-system', label: 'Booking System', icon: CalendarCheck },
-    { id: 'inventory', label: 'Inventory', icon: Package },
-    { id: 'member-portal', label: 'Member Portal', icon: IdCard },
-    { id: 'admin-panel', label: 'Admin Panel', icon: Settings },
+    {
+      id: 'dashboard',
+      label: 'Dashboard',
+      icon: LayoutDashboard,
+      description: 'A clear workspace for viewing important information, updates, tasks, and activity in one place.',
+    },
+    {
+      id: 'client-management',
+      label: 'Client Management',
+      icon: Users,
+      description: 'A practical system for organizing client details, projects, communication, and progress.',
+    },
+    {
+      id: 'booking-system',
+      label: 'Booking System',
+      icon: CalendarCheck,
+      description: 'A structured booking experience for appointments, schedules, availability, and customer requests.',
+    },
+    {
+      id: 'inventory',
+      label: 'Inventory',
+      icon: Package,
+      description: 'A simple way to organize products, stock information, availability, and updates.',
+    },
+    {
+      id: 'member-portal',
+      label: 'Member Portal',
+      icon: IdCard,
+      description: 'A private online space where members can access information, files, updates, and account features.',
+    },
+    {
+      id: 'admin-panel',
+      label: 'Admin Panel',
+      icon: Settings,
+      description: 'A centralized workspace for managing content, users, records, and important site operations.',
+    },
   ],
   6,
 )
 
 const trackerCategories = withSlides(
   'dashboard',
+  'Client Workspace',
   [
-    { id: 'project-tracker', label: 'Project Tracker', icon: ListChecks },
-    { id: 'client-portal', label: 'Client Portal', icon: KeyRound },
-    { id: 'author-portal', label: 'Author Portal', icon: BookUser },
-    { id: 'progress-dashboard', label: 'Progress Dashboard', icon: TrendingUp },
-    { id: 'file-workspace', label: 'File Workspace', icon: FolderOpen },
-    { id: 'custom-tracker', label: 'Custom Tracker', icon: Sliders },
+    {
+      id: 'project-tracker',
+      label: 'Project Tracker',
+      icon: ListChecks,
+      description: 'A simple workspace for following project stages, updates, tasks, and progress.',
+    },
+    {
+      id: 'client-portal',
+      label: 'Client Portal',
+      icon: KeyRound,
+      description: 'A private client area for project updates, messages, files, reviews, and important information.',
+    },
+    {
+      id: 'author-portal',
+      label: 'Author Portal',
+      icon: BookUser,
+      description: 'A dedicated workspace for authors to follow publishing-related projects, files, updates, and communication.',
+    },
+    {
+      id: 'progress-dashboard',
+      label: 'Progress Dashboard',
+      icon: TrendingUp,
+      description: 'A clear visual overview of project status, milestones, updates, and next steps.',
+    },
+    {
+      id: 'file-workspace',
+      label: 'File Workspace',
+      icon: FolderOpen,
+      description: 'An organized area for accessing, reviewing, and sharing project-related files.',
+    },
+    {
+      id: 'custom-tracker',
+      label: 'Custom Tracker',
+      icon: Sliders,
+      description: 'A tailored tracking workspace designed around the specific workflow or information you need.',
+    },
   ],
   6,
 )
 
 const moreServices = [
-  { name: 'Mobile App Creation', descriptor: 'Short descriptor placeholder', icon: Smartphone },
-  { name: 'Automation', descriptor: 'Short descriptor placeholder', icon: Zap },
-  { name: 'Social Media Solutions', descriptor: 'Short descriptor placeholder', icon: Share2 },
-  { name: 'Custom Digital Project', descriptor: 'Short descriptor placeholder', icon: Puzzle },
+  {
+    name: 'Mobile App Creation',
+    descriptor: 'Simple mobile-focused solutions designed around a specific workflow, service, or user need.',
+    icon: Smartphone,
+  },
+  {
+    name: 'Automation',
+    descriptor: 'Practical workflow automation to reduce repetitive steps and make common tasks easier to manage.',
+    icon: Zap,
+  },
+  {
+    name: 'Social Media Solutions',
+    descriptor: 'Digital support for organizing social media content, links, presentation, and online presence.',
+    icon: Share2,
+  },
+  {
+    name: 'Custom Digital Project',
+    descriptor: 'A flexible option for ideas that do not fit neatly into a standard website, web app, or portal.',
+    icon: Puzzle,
+  },
 ]
 
 function IconChip({ icon: Icon, tint = 'blue' }: { icon: LucideIcon; tint?: 'blue' | 'mint' }) {
@@ -138,26 +278,32 @@ function IconChip({ icon: Icon, tint = 'blue' }: { icon: LucideIcon; tint?: 'blu
 function WebsiteIdeaBar() {
   const [value, setValue] = useState('')
   return (
-    <div className="flex items-center gap-1.5 rounded-md border border-slate-300/70 bg-white p-1 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)] transition-colors duration-200 focus-within:border-blue-300">
-      <label htmlFor="website-idea-input" className="sr-only">
-        Describe the website you have in mind
-      </label>
-      <input
-        id="website-idea-input"
-        type="text"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        placeholder="Describe the website idea you have in mind…"
-        className="min-w-0 flex-1 bg-transparent px-2.5 py-1.5 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none"
-      />
-      <button
-        type="button"
-        aria-label="Send message"
-        className="flex shrink-0 items-center gap-1.5 rounded-md bg-gradient-to-r from-[#1F6FEB] to-[#0d9488] px-3.5 py-1.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_6px_14px_rgba(13,148,136,0.3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
-      >
-        <Send className="h-3.5 w-3.5" />
-        Send
-      </button>
+    <div>
+      <p className="text-xs font-semibold text-slate-700">Have a different idea?</p>
+      <p className="mt-0.5 text-xs text-slate-500">
+        Tell me what you have in mind, even if it does not fit one of the options above.
+      </p>
+      <div className="mt-2 flex items-center gap-1.5 rounded-md border border-slate-300/70 bg-white p-1 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)] transition-colors duration-200 focus-within:border-blue-300">
+        <label htmlFor="website-idea-input" className="sr-only">
+          Describe the website you have in mind
+        </label>
+        <input
+          id="website-idea-input"
+          type="text"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="Describe the website idea you have in mind…"
+          className="min-w-0 flex-1 bg-transparent px-2.5 py-1.5 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none"
+        />
+        <button
+          type="button"
+          aria-label="Send message"
+          className="flex shrink-0 items-center gap-1.5 rounded-md bg-gradient-to-r from-[#1F6FEB] to-[#0d9488] px-3.5 py-1.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_6px_14px_rgba(13,148,136,0.3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+        >
+          <Send className="h-3.5 w-3.5" />
+          Send
+        </button>
+      </div>
     </div>
   )
 }
@@ -272,7 +418,7 @@ export function ServicesPage() {
           <ServiceShowcase
             icon={Globe}
             title="Advanced Website Design"
-            subtext="Polished homepage builds tailored to your niche."
+            subtext="Professional, responsive websites designed around your business, audience, and goals — with clear navigation, polished layouts, and an easy user experience."
             categories={websiteCategories}
             rightFooter={<WebsiteIdeaBar />}
           />
@@ -280,7 +426,7 @@ export function ServicesPage() {
             icon={LayoutDashboard}
             tint="mint"
             title="Web App Creation"
-            subtext="Interfaces and tools built around how your business runs."
+            subtext="Custom web-based tools designed to help organize information, simplify workflows, and make everyday business tasks easier to manage."
             categories={webAppCategories}
             footer={
               <ServiceCTA to="/contact?intent=web-app" icon={Code2}>
@@ -291,7 +437,7 @@ export function ServicesPage() {
           <ServiceShowcase
             icon={KeyRound}
             title="Personal Tracker / Client Portal"
-            subtext="A private workspace for clients to follow progress and stay updated."
+            subtext="Private, easy-to-use workspaces that help clients and teams follow progress, access files, review updates, and stay organized."
             categories={trackerCategories}
             footer={
               <ServiceCTA to="/contact?intent=tracker" icon={Rocket}>
