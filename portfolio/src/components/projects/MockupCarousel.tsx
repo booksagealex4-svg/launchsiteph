@@ -8,6 +8,10 @@ export interface MockupSlide {
   variant: 1 | 2 | 3 | 4
   accent: string
   label: string
+  /** Present only for real, named projects — abstract filler slides omit these. */
+  title?: string
+  type?: string
+  description?: string
 }
 
 /**
@@ -255,7 +259,11 @@ export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; a
                 <button
                   type="button"
                   onClick={(e) => openExpanded(slide, e)}
-                  aria-label={`Enlarge preview: ${slide.label}`}
+                  aria-label={
+                    slide.title
+                      ? `Enlarge preview: ${slide.title} — ${slide.type}`
+                      : `Enlarge preview: ${slide.label}`
+                  }
                   tabIndex={i === index ? 0 : -1}
                   className="group relative h-full w-full overflow-hidden rounded-sm border border-slate-200 bg-white transition-shadow duration-200 hover:shadow-[0_4px_14px_rgba(15,23,42,0.1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
                 >
@@ -266,6 +274,12 @@ export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; a
                       Preview larger
                     </span>
                   </span>
+                  {slide.title && (
+                    <span className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col border-t border-slate-200 bg-white/92 px-2.5 py-1.5 text-left backdrop-blur-sm">
+                      <span className="truncate text-xs font-semibold text-slate-800">{slide.title}</span>
+                      <span className="truncate text-[0.65rem] text-slate-500">{slide.type}</span>
+                    </span>
+                  )}
                 </button>
               </div>
             ))}
@@ -313,7 +327,11 @@ export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; a
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={`Enlarged preview: ${expandedSlide.label}`}
+          aria-label={
+            expandedSlide.title
+              ? `Enlarged preview: ${expandedSlide.title} — ${expandedSlide.type}`
+              : `Enlarged preview: ${expandedSlide.label}`
+          }
           className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-6"
           onClick={closeExpanded}
         >
@@ -322,12 +340,19 @@ export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; a
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50 px-4 py-2.5">
-              <span className="text-sm font-medium text-slate-600">{expandedSlide.label}</span>
+              {expandedSlide.title ? (
+                <span className="min-w-0">
+                  <span className="block truncate text-sm font-semibold text-slate-800">{expandedSlide.title}</span>
+                  <span className="block truncate text-xs text-slate-500">{expandedSlide.type}</span>
+                </span>
+              ) : (
+                <span className="text-sm font-medium text-slate-600">{expandedSlide.label}</span>
+              )}
               <button
                 type="button"
                 onClick={closeExpanded}
                 aria-label="Close enlarged preview"
-                className="flex h-7 w-7 items-center justify-center rounded-md text-slate-400 transition-colors duration-200 hover:bg-slate-200 hover:text-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-slate-400 transition-colors duration-200 hover:bg-slate-200 hover:text-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -335,6 +360,11 @@ export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; a
             <div className="aspect-video">
               <MiniMockup slide={expandedSlide} large />
             </div>
+            {expandedSlide.description && (
+              <p className="border-t border-slate-200 px-4 py-3 text-sm leading-relaxed text-slate-600">
+                {expandedSlide.description}
+              </p>
+            )}
           </div>
         </div>
       )}

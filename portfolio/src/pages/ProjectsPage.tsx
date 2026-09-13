@@ -19,6 +19,72 @@ function buildSlides(kind: MockupSlide['kind'], prefix: string, accents: string[
 
 const blueMint = ['#1F6FEB', '#1f9d7c', '#2563eb', '#0ea5e9', '#4f46e5', '#14b8a6']
 
+interface RealProject {
+  id: string
+  title: string
+  type: string
+  description: string
+  status: 'in-progress' | 'ready'
+  thumbnail: string | null
+  category: 'website' | 'webapp'
+  href: string
+}
+
+// Real, approved case studies (same three entries as the homepage). No screenshots
+// exist yet, so each still renders through the existing abstract preview treatment —
+// only the identifying text (title/type/description) is real. Replace `thumbnail`
+// with a real asset path (e.g. "/projects/ipa-author-directory.png") once supplied.
+const realProjects: RealProject[] = [
+  {
+    id: 'ipa-author-directory',
+    title: 'IPA Author Directory',
+    type: 'Author Directory / Web Platform',
+    description:
+      'A professional author and book discovery platform designed to make author profiles, books, and membership information easy to explore.',
+    status: 'in-progress',
+    thumbnail: null,
+    category: 'website',
+    href: '/projects',
+  },
+  {
+    id: 'ipa-book-depository',
+    title: 'IPA Book Depository',
+    type: 'Book Discovery / Catalog Platform',
+    description:
+      'A digital book catalog designed to organize, showcase, and make published titles easier to discover through a clean and accessible browsing experience.',
+    status: 'in-progress',
+    thumbnail: null,
+    category: 'website',
+    href: '/projects',
+  },
+  {
+    id: 'client-crm-portal',
+    title: 'Client CRM Portal',
+    type: 'CRM / Client Management Platform',
+    description:
+      'A client management workspace designed to organize contacts, projects, messages, files, payments, and progress updates in one clear and practical dashboard.',
+    status: 'in-progress',
+    thumbnail: null,
+    category: 'webapp',
+    href: '/projects',
+  },
+]
+
+function realProjectSlide(project: RealProject, kind: MockupSlide['kind'], accent: string, variant: 1 | 2 | 3 | 4): MockupSlide {
+  return {
+    id: project.id,
+    kind,
+    variant,
+    accent,
+    label: project.title,
+    title: project.title,
+    type: project.type,
+    description: project.description,
+  }
+}
+
+const [ipaAuthorDirectory, ipaBookDepository, clientCrmPortal] = realProjects
+
 interface Category {
   id: string
   label: string
@@ -33,14 +99,21 @@ const categories: Category[] = [
     label: 'Website',
     icon: Globe,
     carouselLabel: 'Website project previews',
-    slides: buildSlides('website', 'Website', blueMint, 7),
+    slides: [
+      realProjectSlide(ipaAuthorDirectory, 'website', blueMint[0], 1),
+      realProjectSlide(ipaBookDepository, 'website', blueMint[1], 2),
+      ...buildSlides('website', 'Website', blueMint, 7),
+    ],
   },
   {
     id: 'webapp',
     label: 'Web App',
     icon: AppWindow,
     carouselLabel: 'Web app project previews',
-    slides: buildSlides('dashboard', 'Web app', blueMint, 6),
+    slides: [
+      realProjectSlide(clientCrmPortal, 'dashboard', blueMint[0], 1),
+      ...buildSlides('dashboard', 'Web app', blueMint, 6),
+    ],
   },
   {
     id: 'tracker',
