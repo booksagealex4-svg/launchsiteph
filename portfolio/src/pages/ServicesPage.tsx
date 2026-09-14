@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import {
@@ -34,6 +34,8 @@ import {
   ArrowUpRight,
   Send,
   Code2,
+  Expand,
+  X,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { CategorySelector, type SelectorCategory } from '@/components/CategorySelector'
@@ -60,22 +62,67 @@ function buildSlides(
 
 const blueMint = ['#1F6FEB', '#1f9d7c', '#2563eb', '#0ea5e9', '#4f46e5', '#14b8a6']
 
+/** Real, generated concept-mockup assets — see portfolio/public/mockups/services/. These are
+ *  illustrative sample concepts, not completed client projects; every caption that uses one
+ *  says "Concept Mockup" explicitly (see MockupCarousel). */
+const mockupImage = {
+  authorMaraEllison: '/mockups/services/author-mara-ellison.png',
+  cafeBrewBloom: '/mockups/services/cafe-brew-bloom.png',
+  restaurantSavoryTable: '/mockups/services/restaurant-savory-table.png',
+  bakeryHearthCrumb: '/mockups/services/bakery-hearth-crumb.png',
+  barberNorthline: '/mockups/services/barber-northline.png',
+  realEstateCrestpoint: '/mockups/services/real-estate-crestpoint.png',
+  medicalHarborClinic: '/mockups/services/medical-harbor-clinic.png',
+  automotiveApexAuto: '/mockups/services/automotive-apex-auto.png',
+  ecommerceMaisoncart: '/mockups/services/ecommerce-maisoncart.png',
+  crmFlowdesk: '/mockups/services/crm-flowdesk.png',
+  bookingSchedulesync: '/mockups/services/booking-schedulesync.png',
+  clientPortalProjectflow: '/mockups/services/client-portal-projectflow.png',
+  personalTrackerDailypath: '/mockups/services/personal-tracker-dailypath.png',
+  automationAutobridge: '/mockups/services/automation-autobridge.png',
+  socialSociallift: '/mockups/services/social-sociallift.png',
+  customTailoredSystems: '/mockups/services/custom-tailored-systems.png',
+} as const
+
+interface ConceptImage {
+  src: string
+  alt: string
+  previewTitle: string
+  previewType: string
+}
+
 interface ShowcaseCategory extends SelectorCategory {
   slides: MockupSlide[]
 }
 
-/** Every slide in a category shares the same real, honest description for that service option. */
+/** Categories with a real `image` get a single real concept-mockup slide (visible immediately,
+ *  no extra clicks); categories without one keep the existing abstract filler slides unchanged. */
 function withSlides(
   kind: MockupSlide['kind'],
   sectionType: string,
-  items: { id: string; label: string; icon: LucideIcon; description: string }[],
+  items: { id: string; label: string; icon: LucideIcon; description: string; image?: ConceptImage }[],
   count: number,
 ): ShowcaseCategory[] {
-  return items.map(({ id, label, icon, description }, i) => ({
+  return items.map(({ id, label, icon, description, image }, i) => ({
     id,
     label,
     icon,
-    slides: buildSlides(kind, label, blueMint[i % blueMint.length], count, { title: label, type: sectionType, description }),
+    slides: image
+      ? [
+          {
+            id: `${id}-concept`,
+            kind,
+            variant: 1,
+            accent: blueMint[i % blueMint.length],
+            label: `${label} concept preview`,
+            title: image.previewTitle,
+            type: image.previewType,
+            description,
+            image: image.src,
+            imageAlt: image.alt,
+          },
+        ]
+      : buildSlides(kind, label, blueMint[i % blueMint.length], count, { title: label, type: sectionType, description }),
   }))
 }
 
@@ -88,54 +135,108 @@ const websiteCategories = withSlides(
       label: 'Authors',
       icon: BookOpen,
       description: 'Professional author websites for books, biography, media, events, and reader information.',
+      image: {
+        src: mockupImage.authorMaraEllison,
+        alt: 'Concept mockup for an author website',
+        previewTitle: 'Author Website Concept',
+        previewType: 'Author / Books / Personal Brand',
+      },
     },
     {
       id: 'cafes',
       label: 'Cafes',
       icon: Coffee,
       description: 'Clean, inviting websites for menus, location details, opening hours, and customer information.',
+      image: {
+        src: mockupImage.cafeBrewBloom,
+        alt: 'Concept mockup for a café website',
+        previewTitle: 'Café Website Concept',
+        previewType: 'Café / Menu / Reservations',
+      },
     },
     {
       id: 'restaurants',
       label: 'Restaurants',
       icon: UtensilsCrossed,
       description: 'Professional restaurant sites for menus, reservations, contact details, and location information.',
+      image: {
+        src: mockupImage.restaurantSavoryTable,
+        alt: 'Concept mockup for a restaurant website',
+        previewTitle: 'Restaurant Website Concept',
+        previewType: 'Restaurant / Menu / Reservations',
+      },
     },
     {
       id: 'bakeries',
       label: 'Bakeries',
       icon: Cookie,
       description: 'Warm, polished websites for products, custom orders, location details, and inquiries.',
+      image: {
+        src: mockupImage.bakeryHearthCrumb,
+        alt: 'Concept mockup for a bakery website',
+        previewTitle: 'Bakery Website Concept',
+        previewType: 'Bakery / Products / Ordering',
+      },
     },
     {
       id: 'barber-shops',
       label: 'Barber Shops',
       icon: Scissors,
       description: 'Modern service websites for pricing, booking information, services, and contact details.',
+      image: {
+        src: mockupImage.barberNorthline,
+        alt: 'Concept mockup for a barber shop website',
+        previewTitle: 'Barber Shop Website Concept',
+        previewType: 'Barber / Services / Booking',
+      },
     },
     {
       id: 'real-estate',
       label: 'Real Estate',
       icon: Building2,
       description: 'Professional property-focused websites for listings, agent information, inquiries, and contact details.',
+      image: {
+        src: mockupImage.realEstateCrestpoint,
+        alt: 'Concept mockup for a real estate website',
+        previewTitle: 'Real Estate Website Concept',
+        previewType: 'Real Estate / Listings / Agents',
+      },
     },
     {
       id: 'doctors',
       label: 'Doctors',
       icon: Stethoscope,
       description: 'Clear, professional informational websites for services, clinic details, appointments, and patient guidance.',
+      image: {
+        src: mockupImage.medicalHarborClinic,
+        alt: 'Concept mockup for a medical clinic website',
+        previewTitle: 'Medical Website Concept',
+        previewType: 'Clinic / Services / Appointments',
+      },
     },
     {
       id: 'automotive',
       label: 'Automotive',
       icon: Car,
       description: 'Professional automotive websites for services, inventory or offerings, business information, and inquiries.',
+      image: {
+        src: mockupImage.automotiveApexAuto,
+        alt: 'Concept mockup for an automotive service website',
+        previewTitle: 'Automotive Website Concept',
+        previewType: 'Auto Care / Services / Scheduling',
+      },
     },
     {
       id: 'online-shops',
       label: 'Online Shops',
       icon: ShoppingBag,
       description: 'Product-focused websites designed to make browsing, product information, and customer actions clear.',
+      image: {
+        src: mockupImage.ecommerceMaisoncart,
+        alt: 'Concept mockup for an online shop website',
+        previewTitle: 'Online Shop Concept',
+        previewType: 'E-Commerce / Products / Shopping',
+      },
     },
     {
       id: 'other-business',
@@ -156,18 +257,36 @@ const webAppCategories = withSlides(
       label: 'Dashboard',
       icon: LayoutDashboard,
       description: 'A clear workspace for viewing important information, updates, tasks, and activity in one place.',
+      image: {
+        src: mockupImage.crmFlowdesk,
+        alt: 'Concept mockup for a business dashboard',
+        previewTitle: 'Business Dashboard Concept',
+        previewType: 'Dashboard / Analytics / Workflow',
+      },
     },
     {
       id: 'client-management',
       label: 'Client Management',
       icon: Users,
       description: 'A practical system for organizing client details, projects, communication, and progress.',
+      image: {
+        src: mockupImage.crmFlowdesk,
+        alt: 'Concept mockup for a CRM dashboard',
+        previewTitle: 'CRM Platform Concept',
+        previewType: 'CRM / Leads / Client Management',
+      },
     },
     {
       id: 'booking-system',
       label: 'Booking System',
       icon: CalendarCheck,
       description: 'A structured booking experience for appointments, schedules, availability, and customer requests.',
+      image: {
+        src: mockupImage.bookingSchedulesync,
+        alt: 'Concept mockup for a booking system',
+        previewTitle: 'Booking System Concept',
+        previewType: 'Scheduling / Appointments / Clients',
+      },
     },
     {
       id: 'inventory',
@@ -180,12 +299,24 @@ const webAppCategories = withSlides(
       label: 'Member Portal',
       icon: IdCard,
       description: 'A private online space where members can access information, files, updates, and account features.',
+      image: {
+        src: mockupImage.clientPortalProjectflow,
+        alt: 'Concept mockup for a member portal',
+        previewTitle: 'Member Portal Concept',
+        previewType: 'Portal / Files / Communication',
+      },
     },
     {
       id: 'admin-panel',
       label: 'Admin Panel',
       icon: Settings,
       description: 'A centralized workspace for managing content, users, records, and important site operations.',
+      image: {
+        src: mockupImage.crmFlowdesk,
+        alt: 'Concept mockup for an admin dashboard',
+        previewTitle: 'Admin Dashboard Concept',
+        previewType: 'Admin / Analytics / Management',
+      },
     },
   ],
   6,
@@ -200,12 +331,24 @@ const trackerCategories = withSlides(
       label: 'Project Tracker',
       icon: ListChecks,
       description: 'A simple workspace for following project stages, updates, tasks, and progress.',
+      image: {
+        src: mockupImage.clientPortalProjectflow,
+        alt: 'Concept mockup for a project tracker',
+        previewTitle: 'Project Tracker Concept',
+        previewType: 'Progress / Tasks / Updates',
+      },
     },
     {
       id: 'client-portal',
       label: 'Client Portal',
       icon: KeyRound,
       description: 'A private client area for project updates, messages, files, reviews, and important information.',
+      image: {
+        src: mockupImage.clientPortalProjectflow,
+        alt: 'Concept mockup for a client portal',
+        previewTitle: 'Client Portal Concept',
+        previewType: 'Messages / Files / Reviews / Payments',
+      },
     },
     {
       id: 'author-portal',
@@ -218,12 +361,24 @@ const trackerCategories = withSlides(
       label: 'Progress Dashboard',
       icon: TrendingUp,
       description: 'A clear visual overview of project status, milestones, updates, and next steps.',
+      image: {
+        src: mockupImage.clientPortalProjectflow,
+        alt: 'Concept mockup for a progress dashboard',
+        previewTitle: 'Progress Dashboard Concept',
+        previewType: 'Milestones / Progress / Updates',
+      },
     },
     {
       id: 'file-workspace',
       label: 'File Workspace',
       icon: FolderOpen,
       description: 'An organized area for accessing, reviewing, and sharing project-related files.',
+      image: {
+        src: mockupImage.clientPortalProjectflow,
+        alt: 'Concept mockup for a file workspace',
+        previewTitle: 'File Workspace Concept',
+        previewType: 'Files / Reviews / Collaboration',
+      },
     },
     {
       id: 'custom-tracker',
@@ -235,26 +390,57 @@ const trackerCategories = withSlides(
   6,
 )
 
-const moreServices = [
+interface MoreService {
+  name: string
+  descriptor: string
+  icon: LucideIcon
+  image?: ConceptImage
+}
+
+const moreServices: MoreService[] = [
   {
     name: 'Mobile App Creation',
     descriptor: 'Simple mobile-focused solutions designed around a specific workflow, service, or user need.',
     icon: Smartphone,
+    image: {
+      src: mockupImage.personalTrackerDailypath,
+      alt: 'Concept mockup for a mobile app',
+      previewTitle: 'Mobile App Concept',
+      previewType: 'Habits / Progress / Mobile Experience',
+    },
   },
   {
     name: 'Automation',
     descriptor: 'Practical workflow automation to reduce repetitive steps and make common tasks easier to manage.',
     icon: Zap,
+    image: {
+      src: mockupImage.automationAutobridge,
+      alt: 'Concept mockup for an automation platform',
+      previewTitle: 'Automation Platform Concept',
+      previewType: 'Automation / Integrations / Workflows',
+    },
   },
   {
     name: 'Social Media Solutions',
     descriptor: 'Digital support for organizing social media content, links, presentation, and online presence.',
     icon: Share2,
+    image: {
+      src: mockupImage.socialSociallift,
+      alt: 'Concept mockup for a social media management platform',
+      previewTitle: 'Social Media Platform Concept',
+      previewType: 'Content / Scheduling / Analytics',
+    },
   },
   {
     name: 'Custom Digital Project',
     descriptor: 'A flexible option for ideas that do not fit neatly into a standard website, web app, or portal.',
     icon: Puzzle,
+    image: {
+      src: mockupImage.customTailoredSystems,
+      alt: 'Concept mockup for a custom digital system',
+      previewTitle: 'Custom Digital System Concept',
+      previewType: 'Custom / Digital / Tailored Solution',
+    },
   },
 ]
 
@@ -378,6 +564,17 @@ function ServiceShowcase({
 }
 
 export function ServicesPage() {
+  const [expandedMoreService, setExpandedMoreService] = useState<MoreService | null>(null)
+
+  useEffect(() => {
+    if (!expandedMoreService) return
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setExpandedMoreService(null)
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [expandedMoreService])
+
   return (
     <>
       {/* Page header */}
@@ -452,22 +649,90 @@ export function ServicesPage() {
       <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
         <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">More Ways I Can Help</p>
         <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {moreServices.map(({ name, descriptor, icon: Icon }) => (
-            <Link
-              key={name}
-              to="/contact?intent=project"
-              className="group flex items-center gap-3 rounded-md border border-slate-300/70 p-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
-            >
-              <IconChip icon={Icon} />
-              <span className="min-w-0 flex-1">
-                <span className="block text-sm font-semibold text-slate-800">{name}</span>
-                <span className="block text-xs text-slate-500">{descriptor}</span>
-              </span>
-              <ArrowUpRight className="h-4 w-4 shrink-0 text-slate-300 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#1F6FEB]" />
-            </Link>
-          ))}
+          {moreServices.map((service) => {
+            const { name, descriptor, icon: Icon, image } = service
+            return (
+              <div
+                key={name}
+                className="group relative flex items-center gap-3 rounded-md border border-slate-300/70 p-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)]"
+              >
+                {image ? (
+                  <button
+                    type="button"
+                    onClick={() => setExpandedMoreService(service)}
+                    aria-label={`Enlarge preview: ${image.previewTitle}`}
+                    className="relative z-10 h-11 w-11 shrink-0 overflow-hidden rounded-md border border-[var(--card-border-nested)]/50 bg-slate-50 transition-colors duration-200 hover:border-[var(--card-border-nested)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                  >
+                    <img src={image.src} alt={image.alt} loading="lazy" className="h-full w-full object-cover object-top" />
+                    <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-slate-900/0 transition-colors duration-200 group-hover:bg-slate-900/10">
+                      <Expand className="h-3.5 w-3.5 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+                    </span>
+                  </button>
+                ) : (
+                  <IconChip icon={Icon} />
+                )}
+                <Link
+                  to="/contact?intent=project"
+                  className="static min-w-0 flex-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 focus-visible:outline-none"
+                >
+                  <span className="absolute inset-0" aria-hidden="true" />
+                  <span className="block text-sm font-semibold text-slate-800">{name}</span>
+                  <span className="block text-xs text-slate-500">{descriptor}</span>
+                </Link>
+                <ArrowUpRight className="pointer-events-none h-4 w-4 shrink-0 text-slate-300 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#1F6FEB]" />
+              </div>
+            )
+          })}
         </div>
       </section>
+
+      {/* Enlarged preview for "More Ways I Can Help" — same visual language as MockupCarousel's
+          lightbox (title/label header, Concept Mockup trust note, object-contain image, Escape
+          to close), kept as a small local modal since this grid isn't a carousel. */}
+      {expandedMoreService?.image && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Enlarged preview: ${expandedMoreService.image.previewTitle}`}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-6"
+          onClick={() => setExpandedMoreService(null)}
+        >
+          <div
+            className="relative w-full max-w-2xl overflow-hidden rounded-lg border border-slate-200 bg-white shadow-[0_24px_64px_rgba(15,23,42,0.35)]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50 px-4 py-2.5">
+              <span className="min-w-0">
+                <span className="block text-[0.6rem] font-semibold tracking-wide text-[#1F6FEB] uppercase">
+                  Concept Mockup
+                </span>
+                <span className="block truncate text-sm font-semibold text-slate-800">
+                  {expandedMoreService.image.previewTitle}
+                </span>
+                <span className="block truncate text-xs text-slate-500">{expandedMoreService.image.previewType}</span>
+              </span>
+              <button
+                type="button"
+                onClick={() => setExpandedMoreService(null)}
+                aria-label="Close enlarged preview"
+                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-slate-400 transition-colors duration-200 hover:bg-slate-200 hover:text-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="aspect-video bg-slate-50">
+              <img
+                src={expandedMoreService.image.src}
+                alt={expandedMoreService.image.alt}
+                className="h-full w-full object-contain"
+              />
+            </div>
+            <p className="border-t border-slate-200 px-4 py-3 text-sm leading-relaxed text-slate-600">
+              {expandedMoreService.descriptor}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Bottom CTA — same action concepts approved on Projects */}
       <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-6">

@@ -12,6 +12,10 @@ export interface MockupSlide {
   title?: string
   type?: string
   description?: string
+  /** Real generated concept-mockup image — when set, replaces the abstract MiniMockup
+   *  render entirely (thumbnail + enlarged view) and shows a "Concept Mockup" trust badge. */
+  image?: string
+  imageAlt?: string
 }
 
 /**
@@ -265,9 +269,28 @@ export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; a
                       : `Enlarge preview: ${slide.label}`
                   }
                   tabIndex={i === index ? 0 : -1}
-                  className="group relative h-full w-full overflow-hidden rounded-sm border border-slate-200 bg-white transition-shadow duration-200 hover:shadow-[0_4px_14px_rgba(15,23,42,0.1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                  className={cn(
+                    'group relative h-full w-full overflow-hidden rounded-sm border bg-white transition-shadow duration-200 hover:shadow-[0_4px_14px_rgba(15,23,42,0.1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
+                    slide.image
+                      ? 'border-[var(--card-border-nested)]/50 hover:border-[var(--card-border-nested)]'
+                      : 'border-slate-200',
+                  )}
                 >
-                  <MiniMockup slide={slide} />
+                  {slide.image ? (
+                    <img
+                      src={slide.image}
+                      alt={slide.imageAlt ?? ''}
+                      loading="lazy"
+                      className="h-full w-full bg-slate-50 object-cover object-top"
+                    />
+                  ) : (
+                    <MiniMockup slide={slide} />
+                  )}
+                  {slide.image && (
+                    <span className="pointer-events-none absolute top-1.5 left-1.5 rounded-full bg-white/90 px-2 py-0.5 text-[0.55rem] font-semibold tracking-wide text-slate-600 uppercase shadow-sm">
+                      Concept Mockup
+                    </span>
+                  )}
                   <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-slate-900/0 transition-colors duration-200 group-hover:bg-slate-900/5">
                     <span className="flex items-center gap-1.5 rounded-md bg-white/95 px-2.5 py-1 text-xs font-medium text-slate-600 opacity-0 shadow-sm transition-opacity duration-200 group-hover:opacity-100">
                       <Expand className="h-3.5 w-3.5" />
@@ -342,6 +365,11 @@ export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; a
             <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50 px-4 py-2.5">
               {expandedSlide.title ? (
                 <span className="min-w-0">
+                  {expandedSlide.image && (
+                    <span className="block text-[0.6rem] font-semibold tracking-wide text-[#1F6FEB] uppercase">
+                      Concept Mockup
+                    </span>
+                  )}
                   <span className="block truncate text-sm font-semibold text-slate-800">{expandedSlide.title}</span>
                   <span className="block truncate text-xs text-slate-500">{expandedSlide.type}</span>
                 </span>
@@ -357,8 +385,16 @@ export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; a
                 <X className="h-4 w-4" />
               </button>
             </div>
-            <div className="aspect-video">
-              <MiniMockup slide={expandedSlide} large />
+            <div className="aspect-video bg-slate-50">
+              {expandedSlide.image ? (
+                <img
+                  src={expandedSlide.image}
+                  alt={expandedSlide.imageAlt ?? ''}
+                  className="h-full w-full object-contain"
+                />
+              ) : (
+                <MiniMockup slide={expandedSlide} large />
+              )}
             </div>
             {expandedSlide.description && (
               <p className="border-t border-slate-200 px-4 py-3 text-sm leading-relaxed text-slate-600">
