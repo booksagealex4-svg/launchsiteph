@@ -365,13 +365,16 @@ export function AboutPage() {
       {/* Certifications */}
       <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
         <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">
-          LinkedIn Learning Certifications
+          LinkedIn Learning
         </p>
-        <p className="mt-0.5 text-sm text-slate-500">
-          A selection of completed LinkedIn Learning courses related to AI, digital marketing, sales
-          strategy, and digital productivity.
+        <h2 className="mt-1 text-lg font-extrabold text-slate-900 sm:text-xl">
+          Professional Learning &amp; Certifications
+        </h2>
+        <p className="mt-1 text-sm text-slate-500">
+          Documented LinkedIn Learning course completions covering artificial intelligence,
+          digital marketing, sales strategy, productivity, and practical digital workflows.
         </p>
-        <div className="mt-3">
+        <div className="mt-4">
           <CertificationRail certifications={certifications} />
         </div>
       </section>

@@ -8,6 +8,8 @@ export interface Certification {
   certificateId?: string
   credentialUrl?: string
   status?: 'completed' | 'in-progress' | 'planned'
+  /** Drives the category icon shown on the certificate card. */
+  category?: 'ai' | 'marketing' | 'sales' | 'productivity'
 }
 
 /**
@@ -28,6 +30,7 @@ export const certifications: Certification[] = [
     credentialUrl:
       'https://www.linkedin.com/learning/certificates/d2c3926d80ff6ad3394ad67300096af203c318017f7215f7ab2129e5c96eedab',
     status: 'completed',
+    category: 'marketing',
   },
   {
     id: 'cert-ai-audience-strategy-adobe',
@@ -41,6 +44,7 @@ export const certifications: Certification[] = [
     credentialUrl:
       'https://www.linkedin.com/learning/certificates/cb9110c10ac3740943280854673ae3dcb020b1fd0938fcab41cb1119bf4a3ad3',
     status: 'completed',
+    category: 'marketing',
   },
   {
     id: 'cert-sales-strategy-ai-automation',
@@ -53,6 +57,7 @@ export const certifications: Certification[] = [
     credentialUrl:
       'https://www.linkedin.com/learning/certificates/daa720138e4a4a92f6070e36cb43ed7465a46bd6894e0d9d50ae9938633e11f2',
     status: 'completed',
+    category: 'sales',
   },
   {
     id: 'cert-ai-driven-sales-professional',
@@ -65,6 +70,7 @@ export const certifications: Certification[] = [
     credentialUrl:
       'https://www.linkedin.com/learning/certificates/58251ba53d31264f4118f4024d94476f886d23e56738901cc7c3c3e155167d88',
     status: 'completed',
+    category: 'sales',
   },
   {
     id: 'cert-learning-copilot-chat-basic',
@@ -77,6 +83,7 @@ export const certifications: Certification[] = [
     credentialUrl:
       'https://www.linkedin.com/learning/certificates/0cb22e4edf4e50cb271344f0637f2f203af485d55617a2540bdc29ca11922829',
     status: 'completed',
+    category: 'productivity',
   },
   {
     id: 'cert-what-is-generative-ai',
@@ -89,5 +96,6 @@ export const certifications: Certification[] = [
     credentialUrl:
       'https://www.linkedin.com/learning/certificates/aab7a25c4dfd4bb6b65f89e73cc2b290b6aea9fa8969d6e1e4a84762eec39489',
     status: 'completed',
+    category: 'ai',
   },
 ]
