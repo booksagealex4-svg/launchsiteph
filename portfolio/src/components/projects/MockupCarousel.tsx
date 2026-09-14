@@ -16,6 +16,9 @@ export interface MockupSlide {
    *  render entirely (thumbnail + enlarged view) and shows a "Concept Mockup" trust badge. */
   image?: string
   imageAlt?: string
+  /** Overrides the default "Concept Mockup" badge text/tone — e.g. "In Progress" for a real
+   *  project that doesn't have a generated concept image. Shown even without `image`. */
+  badge?: string
 }
 
 /**
@@ -286,9 +289,14 @@ export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; a
                   ) : (
                     <MiniMockup slide={slide} />
                   )}
-                  {slide.image && (
-                    <span className="pointer-events-none absolute top-1.5 left-1.5 rounded-full bg-white/90 px-2 py-0.5 text-[0.55rem] font-semibold tracking-wide text-slate-600 uppercase shadow-sm">
-                      Concept Mockup
+                  {(slide.image || slide.badge) && (
+                    <span
+                      className={cn(
+                        'pointer-events-none absolute top-1.5 left-1.5 rounded-full px-2 py-0.5 text-[0.55rem] font-semibold tracking-wide uppercase shadow-sm',
+                        slide.badge ? 'bg-[#eafaf4] text-[#1f9d7c]' : 'bg-white/90 text-slate-600',
+                      )}
+                    >
+                      {slide.badge ?? 'Concept Mockup'}
                     </span>
                   )}
                   <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-slate-900/0 transition-colors duration-200 group-hover:bg-slate-900/5">
@@ -365,9 +373,14 @@ export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; a
             <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50 px-4 py-2.5">
               {expandedSlide.title ? (
                 <span className="min-w-0">
-                  {expandedSlide.image && (
-                    <span className="block text-[0.6rem] font-semibold tracking-wide text-[#1F6FEB] uppercase">
-                      Concept Mockup
+                  {(expandedSlide.image || expandedSlide.badge) && (
+                    <span
+                      className={cn(
+                        'block text-[0.6rem] font-semibold tracking-wide uppercase',
+                        expandedSlide.badge ? 'text-[#1f9d7c]' : 'text-[#1F6FEB]',
+                      )}
+                    >
+                      {expandedSlide.badge ?? 'Concept Mockup'}
                     </span>
                   )}
                   <span className="block truncate text-sm font-semibold text-slate-800">{expandedSlide.title}</span>

@@ -19,6 +19,20 @@ function buildSlides(kind: MockupSlide['kind'], prefix: string, accents: string[
 
 const blueMint = ['#1F6FEB', '#1f9d7c', '#2563eb', '#0ea5e9', '#4f46e5', '#14b8a6']
 
+/** Curated concept-mockup assets — same real files already committed under
+ *  portfolio/public/mockups/services/ for the Services page. Reused here (not
+ *  duplicated) for a selective, portfolio-style Concept Portfolio section. */
+const mockupImage = {
+  authorMaraEllison: '/mockups/services/author-mara-ellison.png',
+  cafeBrewBloom: '/mockups/services/cafe-brew-bloom.png',
+  realEstateCrestpoint: '/mockups/services/real-estate-crestpoint.png',
+  medicalHarborClinic: '/mockups/services/medical-harbor-clinic.png',
+  crmFlowdesk: '/mockups/services/crm-flowdesk.png',
+  clientPortalProjectflow: '/mockups/services/client-portal-projectflow.png',
+  automationAutobridge: '/mockups/services/automation-autobridge.png',
+  socialSociallift: '/mockups/services/social-sociallift.png',
+} as const
+
 interface RealProject {
   id: string
   title: string
@@ -70,6 +84,11 @@ const realProjects: RealProject[] = [
   },
 ]
 
+const statusLabel: Record<RealProject['status'], string> = {
+  'in-progress': 'In Progress',
+  ready: 'Current Project',
+}
+
 function realProjectSlide(project: RealProject, kind: MockupSlide['kind'], accent: string, variant: 1 | 2 | 3 | 4): MockupSlide {
   return {
     id: project.id,
@@ -80,6 +99,111 @@ function realProjectSlide(project: RealProject, kind: MockupSlide['kind'], accen
     title: project.title,
     type: project.type,
     description: project.description,
+    badge: statusLabel[project.status],
+  }
+}
+
+interface ConceptDefinition {
+  id: string
+  image: string
+  imageAlt: string
+  title: string
+  type: string
+  description: string
+}
+
+/** Curated concept mockups — illustrative sample concepts, not completed client work. Every
+ *  slide built from these always shows the "Concept Mockup" trust badge (see MockupCarousel). */
+const concepts: Record<
+  'author' | 'cafe' | 'realEstate' | 'medical' | 'crm' | 'clientPortal' | 'automation' | 'social',
+  ConceptDefinition
+> = {
+  author: {
+    id: 'concept-author',
+    image: mockupImage.authorMaraEllison,
+    imageAlt: 'Concept mockup for an author website',
+    title: 'Author Website Concept',
+    type: 'Author / Books / Personal Brand',
+    description:
+      'A polished author website concept designed to showcase books, biography, events, media, and reader-facing information in one professional experience.',
+  },
+  cafe: {
+    id: 'concept-cafe',
+    image: mockupImage.cafeBrewBloom,
+    imageAlt: 'Concept mockup for a café website',
+    title: 'Café Website Concept',
+    type: 'Café / Menu / Reservations',
+    description:
+      'A warm, hospitality-focused website concept designed around menus, reservations, location details, and an inviting customer experience.',
+  },
+  realEstate: {
+    id: 'concept-real-estate',
+    image: mockupImage.realEstateCrestpoint,
+    imageAlt: 'Concept mockup for a real estate website',
+    title: 'Real Estate Website Concept',
+    type: 'Real Estate / Listings / Agents',
+    description:
+      'A premium real estate website concept featuring property discovery, listings, agent visibility, neighborhood information, and clear inquiry paths.',
+  },
+  medical: {
+    id: 'concept-medical',
+    image: mockupImage.medicalHarborClinic,
+    imageAlt: 'Concept mockup for a medical website',
+    title: 'Medical Website Concept',
+    type: 'Clinic / Services / Appointments',
+    description:
+      'A professional healthcare website concept focused on patient trust, service discovery, appointment access, and clear medical information.',
+  },
+  crm: {
+    id: 'concept-crm',
+    image: mockupImage.crmFlowdesk,
+    imageAlt: 'Concept mockup for a CRM platform',
+    title: 'CRM Platform Concept',
+    type: 'CRM / Leads / Client Management',
+    description:
+      'A client-management platform concept designed to organize leads, conversations, deals, tasks, and business activity in one clear dashboard.',
+  },
+  clientPortal: {
+    id: 'concept-client-portal',
+    image: mockupImage.clientPortalProjectflow,
+    imageAlt: 'Concept mockup for a client portal',
+    title: 'Client Portal Concept',
+    type: 'Projects / Files / Reviews / Payments',
+    description:
+      'A client portal concept designed to keep project progress, communication, files, approvals, and payments organized in one workspace.',
+  },
+  automation: {
+    id: 'concept-automation',
+    image: mockupImage.automationAutobridge,
+    imageAlt: 'Concept mockup for an automation platform',
+    title: 'Automation Platform Concept',
+    type: 'Automation / Integrations / Workflows',
+    description:
+      'An automation-platform concept designed around workflow automation, integrations, operational visibility, and scalable digital processes.',
+  },
+  social: {
+    id: 'concept-social',
+    image: mockupImage.socialSociallift,
+    imageAlt: 'Concept mockup for a social media platform',
+    title: 'Social Media Platform Concept',
+    type: 'Content / Scheduling / Analytics',
+    description:
+      'A social media platform concept built around content planning, publishing, scheduling, analytics, and campaign visibility.',
+  },
+}
+
+function conceptSlide(concept: ConceptDefinition, kind: MockupSlide['kind'], accent: string): MockupSlide {
+  return {
+    id: concept.id,
+    kind,
+    variant: 1,
+    accent,
+    label: concept.title,
+    title: concept.title,
+    type: concept.type,
+    description: concept.description,
+    image: concept.image,
+    imageAlt: concept.imageAlt,
   }
 }
 
@@ -102,7 +226,10 @@ const categories: Category[] = [
     slides: [
       realProjectSlide(ipaAuthorDirectory, 'website', blueMint[0], 1),
       realProjectSlide(ipaBookDepository, 'website', blueMint[1], 2),
-      ...buildSlides('website', 'Website', blueMint, 7),
+      conceptSlide(concepts.author, 'website', blueMint[2]),
+      conceptSlide(concepts.cafe, 'website', blueMint[3]),
+      conceptSlide(concepts.realEstate, 'website', blueMint[4]),
+      conceptSlide(concepts.medical, 'website', blueMint[5]),
     ],
   },
   {
@@ -112,7 +239,8 @@ const categories: Category[] = [
     carouselLabel: 'Web app project previews',
     slides: [
       realProjectSlide(clientCrmPortal, 'dashboard', blueMint[0], 1),
-      ...buildSlides('dashboard', 'Web app', blueMint, 6),
+      conceptSlide(concepts.crm, 'dashboard', blueMint[1]),
+      conceptSlide(concepts.clientPortal, 'dashboard', blueMint[2]),
     ],
   },
   {
@@ -134,7 +262,7 @@ const categories: Category[] = [
     label: 'Custom Digital Project',
     icon: Layers,
     carouselLabel: 'Custom digital project previews',
-    slides: buildSlides('generic', 'Custom digital project', ['#1f9d7c'], 5),
+    slides: [conceptSlide(concepts.automation, 'generic', blueMint[0]), conceptSlide(concepts.social, 'generic', blueMint[1])],
   },
   {
     id: 'future-project',
@@ -277,9 +405,44 @@ export function ProjectsPage() {
         </div>
       </header>
 
-      {/* Primary interactive showcase */}
+      {/* Current Projects — real, ongoing work, kept clearly separate from the concept
+          portfolio below. Each card is its own single-slide carousel so it reuses the exact
+          same enlarge/lightbox behavior, with an "In Progress" badge (not "Concept Mockup"). */}
       <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
-        <div className="grid gap-5 lg:grid-cols-[minmax(220px,1fr)_2.8fr] lg:items-stretch lg:gap-6">
+        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">
+          Current Projects
+        </p>
+        <p className="mt-0.5 text-sm text-slate-500">Real, ongoing work currently in development.</p>
+
+        <div className="mt-3.5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <MockupCarousel
+            slides={[realProjectSlide(ipaAuthorDirectory, 'website', blueMint[0], 1)]}
+            ariaLabel="IPA Author Directory preview"
+          />
+          <MockupCarousel
+            slides={[realProjectSlide(ipaBookDepository, 'website', blueMint[1], 2)]}
+            ariaLabel="IPA Book Depository preview"
+          />
+          <MockupCarousel
+            slides={[realProjectSlide(clientCrmPortal, 'dashboard', blueMint[2], 1)]}
+            ariaLabel="Client CRM Portal preview"
+          />
+        </div>
+      </section>
+
+      {/* Concept Portfolio — the existing category browser, now populated with curated real
+          concept mockups (mixed with the current projects above where relevant) instead of
+          abstract filler, for categories without a dedicated asset. */}
+      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
+        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">
+          Concept Portfolio
+        </p>
+        <p className="mt-0.5 text-sm text-slate-500">
+          A curated set of concept mockups showing range across websites, web apps, and digital
+          platforms.
+        </p>
+
+        <div className="mt-3.5 grid gap-5 lg:grid-cols-[minmax(220px,1fr)_2.8fr] lg:items-stretch lg:gap-6">
           <div className="flex min-w-0 flex-col lg:h-full">
             <CategoryTabs active={activeId} onChange={setActiveId} panelId={panelId} />
             <ProjectCTAs />
