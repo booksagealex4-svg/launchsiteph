@@ -38,7 +38,7 @@ export function HomeToolsMarquee() {
         <p className="text-sm font-semibold text-[#111827]">Tools I Work With</p>
       </div>
 
-      <div className="relative flex-1 p-1.5">
+      <div className="relative min-w-0 flex-1 p-1.5">
         <div className="relative h-full overflow-hidden rounded-md border border-[var(--card-border-accent)] bg-white py-2.5">
           <div
             className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-white to-transparent"

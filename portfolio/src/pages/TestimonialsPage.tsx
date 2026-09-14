@@ -131,8 +131,8 @@ function StepCard({ number, title, desc, icon: Icon }: { number: string; title: 
 
 function ProofCard({ label, icon: Icon }: { label: string; icon: LucideIcon }) {
   return (
-    <a
-      href="#"
+    <Link
+      to="/projects"
       className="group flex flex-col overflow-hidden rounded-lg border border-slate-300/70 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
     >
       {/* Browser-chrome frame — same abstract placeholder language as the approved Projects/Services mockups */}
@@ -152,7 +152,7 @@ function ProofCard({ label, icon: Icon }: { label: string; icon: LucideIcon }) {
         <span className="text-sm font-semibold text-slate-700">{label}</span>
         <ArrowUpRight className="h-4 w-4 shrink-0 text-slate-300 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#1F6FEB]" />
       </div>
-    </a>
+    </Link>
   )
 }
 
@@ -297,13 +297,13 @@ export function TestimonialsPage() {
               hear it.
             </p>
           </div>
-          <a
-            href="#"
+          <Link
+            to="/contact?intent=message"
             className="flex shrink-0 items-center justify-center gap-1.5 rounded-md border border-[#1F6FEB]/25 bg-white px-3.5 py-2 text-sm font-semibold text-[#1F6FEB] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#1F6FEB]/50 hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
           >
             <Send className="h-3.5 w-3.5 shrink-0" />
             Share Feedback
-          </a>
+          </Link>
         </div>
       </section>
 

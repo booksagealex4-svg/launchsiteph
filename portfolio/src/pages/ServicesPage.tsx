@@ -453,9 +453,9 @@ export function ServicesPage() {
         <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">More Ways I Can Help</p>
         <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {moreServices.map(({ name, descriptor, icon: Icon }) => (
-            <a
+            <Link
               key={name}
-              href="#"
+              to="/contact?intent=project"
               className="group flex items-center gap-3 rounded-md border border-slate-300/70 p-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
             >
               <IconChip icon={Icon} />
@@ -464,7 +464,7 @@ export function ServicesPage() {
                 <span className="block text-xs text-slate-500">{descriptor}</span>
               </span>
               <ArrowUpRight className="h-4 w-4 shrink-0 text-slate-300 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#1F6FEB]" />
-            </a>
+            </Link>
           ))}
         </div>
       </section>

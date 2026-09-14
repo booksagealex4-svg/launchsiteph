@@ -13,6 +13,8 @@ import {
   Eye,
 } from 'lucide-react'
 import { FaWhatsapp, FaLinkedinIn } from 'react-icons/fa6'
+import { Link } from 'react-router-dom'
+import { certifications } from '@/data/certifications'
 import { cn } from '@/lib/utils'
 
 function CardShell({
@@ -28,7 +30,7 @@ function CardShell({
     <div
       id={id}
       className={cn(
-        'group relative flex flex-col overflow-hidden rounded-lg border border-slate-300 bg-[#F6F9FA] p-5',
+        'group relative flex min-w-0 flex-col overflow-hidden rounded-lg border border-slate-300 bg-[#F6F9FA] p-5',
         'shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] transition-all duration-200 ease-out',
         'hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-[0_20px_36px_rgba(15,23,42,0.1)]',
         className,
@@ -118,10 +120,12 @@ const services = [
   },
 ]
 
+// Same real values used by the sidebar's social icons and the FAQ/Contact page.
 const contactMethods = [
   {
     label: 'Email',
-    value: 'email@placeholder.com',
+    value: 'booksage.alex5@gmail.com',
+    href: 'mailto:booksage.alex5@gmail.com',
     icon: Mail,
     color: '#D6362F',
     iconBg: '#FBEEEC',
@@ -131,7 +135,8 @@ const contactMethods = [
   },
   {
     label: 'WhatsApp',
-    value: '+00 000 000 0000',
+    value: '+63 909 643 9567',
+    href: 'https://wa.me/639096439567',
     icon: FaWhatsapp,
     color: '#1A9F4D',
     iconBg: '#E9FAF0',
@@ -141,7 +146,8 @@ const contactMethods = [
   },
   {
     label: 'LinkedIn',
-    value: '/in/placeholder',
+    value: 'Alexis Sarip',
+    href: 'https://www.linkedin.com/in/alexis-sarip-a46442428/',
     icon: FaLinkedinIn,
     color: '#0A66C2',
     iconBg: '#EAF3FC',
@@ -163,9 +169,7 @@ export function BentoGrid() {
         className="order-1 border-[var(--card-border-accent)] bg-[#F4F7F9] sm:col-span-2 lg:col-span-2"
       >
         <CardHeader icon={FolderKanban} label="Projects" />
-        <p className="mt-3 text-sm text-slate-500">
-          Selected work placeholder: replace with real case studies.
-        </p>
+        <p className="mt-3 text-sm text-slate-500">A few of the projects I&apos;m building.</p>
 
         <ul className="mt-4 flex flex-col gap-2">
           {homeProjects.map((project) => (
@@ -205,24 +209,27 @@ export function BentoGrid() {
       <CardShell id="about" className="order-2 border-[var(--card-border-accent)] bg-[#F4F7F9] lg:col-span-1">
         <CardHeader icon={UserRound} label="About" />
         <p className="mt-3 text-sm text-slate-500">Who I am and how I like to work.</p>
-        <div
-          className="mt-4 flex min-h-20 w-full flex-1 items-center justify-center rounded-md border border-[#C7D0DA] bg-[#F1F4F7] text-[0.65rem] font-medium tracking-wide text-slate-500 uppercase"
-          aria-label="Portrait placeholder"
-        >
-          Portrait
+        <div className="mt-4 min-h-20 w-full flex-1 overflow-hidden rounded-md border border-[#C7D0DA] bg-[#F1F4F7]">
+          <img
+            src="/alexis-sarip-profile.png"
+            alt="Alexis Sarip"
+            className="h-full w-full object-cover"
+          />
         </div>
-        <p className="mt-2.5 text-xs text-slate-500">Short profile summary placeholder</p>
+        <p className="mt-2.5 text-xs text-slate-500">Freelance digital creator based in the Philippines.</p>
       </CardShell>
 
       {/* Contact — medium */}
       <CardShell id="contact" className="order-5 border-[var(--card-border-accent)] bg-[#F4F7F9] sm:order-3 lg:col-span-1">
         <CardHeader icon={Mail} label="Contact" />
-        <p className="mt-3 text-sm text-slate-500">Reach out placeholder.</p>
+        <p className="mt-3 text-sm text-slate-500">A few quick ways to reach me directly.</p>
         <div className="mt-4 flex flex-1 flex-col justify-center gap-2.5">
-          {contactMethods.map(({ label, value, icon: Icon, color, iconBg, iconBorder, hoverBg, hoverBorder }) => (
+          {contactMethods.map(({ label, value, href, icon: Icon, color, iconBg, iconBorder, hoverBg, hoverBorder }) => (
             <a
               key={label}
-              href="#"
+              href={href}
+              target={href.startsWith('http') ? '_blank' : undefined}
+              rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
               aria-label={label}
               style={{ '--hover-bg': hoverBg, '--hover-border': hoverBorder } as CSSProperties}
               className="group/row flex items-center gap-3 rounded-md border border-[var(--card-border-nested)] bg-white/70 px-2.5 py-2 transition-all duration-200 ease-out hover:-translate-y-px hover:border-[var(--hover-border)] hover:bg-[var(--hover-bg)] hover:shadow-[0_3px_8px_rgba(15,23,42,0.05)] focus-visible:-translate-y-px focus-visible:border-[var(--hover-border)] focus-visible:bg-[var(--hover-bg)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
@@ -245,7 +252,7 @@ export function BentoGrid() {
       </CardShell>
 
       {/* Credentials — smaller, with a companion portal-preview CTA below it */}
-      <div className="order-3 flex flex-col gap-3 sm:order-4 lg:col-span-1 lg:justify-between">
+      <div className="order-3 flex min-w-0 flex-col gap-3 sm:order-4 lg:col-span-1 lg:justify-between">
         <CardShell id="credentials" className="border-[var(--card-border-accent)] bg-[#F4F7F9]">
           <CardHeader icon={ShieldCheck} label="Credentials" />
           <p className="mt-4 text-sm text-slate-500">
@@ -254,24 +261,26 @@ export function BentoGrid() {
           <div className="mt-5 flex items-center gap-3.5 rounded-md border border-[var(--card-border-nested)] bg-white/70 px-3 py-3">
             <div
               className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-[#93B4E8] bg-[#E6F0FF] text-[#1D4ED8]"
-              aria-label="Credential badge placeholder"
+              aria-hidden="true"
             >
               <ShieldCheck className="h-6 w-6" />
             </div>
-            <div>
-              <p className="text-sm font-semibold text-slate-900">Credential Placeholder 01</p>
-              <p className="mt-0.5 text-xs leading-snug text-slate-500">Certification detail placeholder</p>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold text-slate-900">{certifications[0].title}</p>
+              <p className="mt-0.5 truncate text-xs leading-snug text-slate-500">
+                {certifications[0].issuer} · {certifications[0].date}
+              </p>
             </div>
           </div>
         </CardShell>
 
-        <a
-          href="#"
+        <Link
+          to="/client-login"
           className="flex items-center justify-center gap-2 rounded-md bg-[#1F6FEB] px-4 py-3 text-sm font-semibold text-white shadow-[0_1px_2px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1a5fc9] hover:shadow-[0_10px_20px_rgba(31,111,235,0.22)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1F6FEB]"
         >
           <Eye className="h-4 w-4 shrink-0" />
           Preview Client Portal
-        </a>
+        </Link>
       </div>
 
       {/* Featured Services — wide, dominant */}

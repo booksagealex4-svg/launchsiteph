@@ -32,7 +32,7 @@ export function TechMarquee() {
       </div>
 
       {/* Inner framed tool track */}
-      <div className="relative flex-1 p-2 sm:p-3">
+      <div className="relative min-w-0 flex-1 p-2 sm:p-3">
         <div className="relative overflow-hidden rounded-md border border-[#B8C6D5] bg-[#EEF3F6] py-3.5">
           <div
             className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#EEF3F6] to-transparent"
