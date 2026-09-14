@@ -11,8 +11,6 @@ import {
   Reply,
   Eye,
   ShieldCheck,
-  Palette,
-  TrendingUp,
   Ear,
   ClipboardList,
   Hammer,
@@ -44,38 +42,79 @@ const profileDetails: { label: string; value: string; icon: LucideIcon }[] = [
 const valueItems: { title: string; desc: string; icon: LucideIcon }[] = [
   {
     title: 'Clarity',
-    desc: 'Ideas and updates are communicated in plain, straightforward terms.',
+    desc: 'I believe digital experiences should be easy to understand, even for people who are not highly technical.',
     icon: Eye,
   },
   {
-    title: 'Reliability',
-    desc: 'Timelines and commitments are treated as things to be kept.',
+    title: 'Practicality',
+    desc: 'I focus on solutions that are useful, manageable, and relevant to the real needs of the project.',
+    icon: Hammer,
+  },
+  {
+    title: 'Communication',
+    desc: 'Clear updates and straightforward communication help projects stay organized and reduce confusion.',
+    icon: MessageCircle,
+  },
+  {
+    title: 'Consistency',
+    desc: 'I value clean structure, dependable design systems, and experiences that feel intentional from beginning to end.',
     icon: ShieldCheck,
-  },
-  {
-    title: 'Thoughtful Design',
-    desc: 'Every decision is weighed against how the work will actually be used.',
-    icon: Palette,
-  },
-  {
-    title: 'Continuous Improvement',
-    desc: 'Skills and process are refined project after project.',
-    icon: TrendingUp,
   },
 ]
 
 const workSteps: { number: string; title: string; desc: string; icon: LucideIcon }[] = [
-  { number: '01', title: 'Listen', desc: 'Understanding what you need before proposing how to build it.', icon: Ear },
-  { number: '02', title: 'Plan', desc: 'Mapping the approach so there are no surprises along the way.', icon: ClipboardList },
-  { number: '03', title: 'Build', desc: 'Turning the plan into a working, polished result.', icon: Hammer },
-  { number: '04', title: 'Refine', desc: 'Adjusting based on feedback until it feels right.', icon: Sparkles },
+  {
+    number: '01',
+    title: 'Understand the Goal',
+    desc: 'Start by understanding what the project needs to accomplish and who will use it.',
+    icon: Ear,
+  },
+  {
+    number: '02',
+    title: 'Plan the Experience',
+    desc: 'Organize the information, layout, navigation, and key actions before adding unnecessary complexity.',
+    icon: ClipboardList,
+  },
+  {
+    number: '03',
+    title: 'Build and Refine',
+    desc: 'Create the solution step by step, review the experience, and improve details as the project develops.',
+    icon: Hammer,
+  },
+  {
+    number: '04',
+    title: 'Keep It Clear',
+    desc: 'Present progress, feedback, and next steps in a way that is easy to follow.',
+    icon: Sparkles,
+  },
 ]
 
 const strengthItems: { title: string; desc: string; icon: LucideIcon }[] = [
-  { title: 'Web Design', desc: 'Clean, professional homepage builds tailored to a niche.', icon: Globe },
-  { title: 'Interactive Prototypes', desc: 'Clickable previews that show an idea before it is built.', icon: Layers },
-  { title: 'Client Portals', desc: 'Private workspaces for clients to track progress.', icon: KeyRound },
-  { title: 'Digital Workflows', desc: 'Practical tools and systems built around how a business runs.', icon: Workflow },
+  {
+    title: 'Professional Website Design',
+    desc: "Clean, responsive websites designed around the client's audience and goals.",
+    icon: Globe,
+  },
+  {
+    title: 'Web App & Portal Concepts',
+    desc: 'Practical dashboards, client portals, trackers, and web-based management tools.',
+    icon: KeyRound,
+  },
+  {
+    title: 'Clear User Experience',
+    desc: 'Layouts and navigation designed to be understandable and easy to use.',
+    icon: Layers,
+  },
+  {
+    title: 'Organized Project Communication',
+    desc: 'A structured approach to updates, revisions, files, and project progress.',
+    icon: MessageCircle,
+  },
+  {
+    title: 'Digital Problem-Solving',
+    desc: 'A practical approach to turning ideas or workflow problems into usable digital solutions.',
+    icon: Workflow,
+  },
 ]
 
 function IconChip({
@@ -200,15 +239,15 @@ function AboutHeroCard() {
             Hi, I&apos;m Alex.
           </h2>
           <p className="text-sm leading-relaxed text-slate-600">
-            I&apos;m a freelancer based in the Philippines with a broad interest in building
-            useful digital experiences. My work spans websites, web apps, client portals,
-            trackers, digital workflows, automation, and creative projects.
+            I&apos;m Alexis Sarip, a freelance digital creator and web developer based in the
+            Philippines. I build professional websites, web applications, client portals, and
+            practical digital systems designed to make information easier to understand, manage,
+            and use.
           </p>
           <p className="text-sm leading-relaxed text-slate-600">
-            I enjoy working across different parts of a project, from planning and visual
-            design to implementation, refinement, and client-facing tools. Rather than focusing
-            on only one discipline, I bring together multiple skills to help turn ideas into
-            practical, polished digital experiences.
+            My work combines visual design, user experience, and practical problem-solving. I
+            focus on creating digital experiences that feel clear, organized, professional, and
+            approachable — especially for clients who may not be highly technical.
           </p>
 
           <div className="mt-2 border-t border-slate-200/70 pt-3">
@@ -216,15 +255,15 @@ function AboutHeroCard() {
               More About Me
             </p>
             <p className="mt-1.5 text-[0.8rem] leading-relaxed text-slate-500">
-              I enjoy learning how different digital tools, systems, and creative processes work
-              together. That curiosity is a big part of how I approach projects. I like
-              understanding the full picture, not just one piece of it.
+              My background includes several years of work in book publishing, client
+              communication, project coordination, digital design, and production support. Over
+              time, I became increasingly involved in building websites, online tools, and
+              digital workflows that could make everyday work simpler and more organized.
             </p>
             <p className="mt-2 text-[0.8rem] leading-relaxed text-slate-500">
-              I&apos;m also comfortable adapting to different types of work and client needs.
-              Whether the project involves design, development, digital organization, or
-              something more custom, I like finding practical ways to turn an idea into something
-              clear, useful, and presentable.
+              Today, I continue to combine those experiences through freelance digital work —
+              helping turn ideas into useful websites, portals, dashboards, and online experiences
+              that are easier for people to navigate and understand.
             </p>
           </div>
         </div>
@@ -236,17 +275,12 @@ function AboutHeroCard() {
           <div className="divide-y divide-slate-200/70">
             <TrustRow
               label="Certified Skills"
-              value="LinkedIn Learning certified"
-              micro="AI and digital skills"
+              value="LinkedIn Learning"
+              micro="AI and digital skills training"
               icon={Award}
             />
-            <TrustRow label="Response Time" value="Replies within 24 hours" icon={Reply} />
-            <TrustRow
-              label="Remote Work"
-              value="Available across time zones"
-              micro="Remote collaboration welcome"
-              icon={Globe2}
-            />
+            <TrustRow label="Replies" value="Usually within 24 hours" icon={Reply} />
+            <TrustRow label="Availability" value="Remote" icon={Globe2} />
             <TrustRow
               label="Location"
               value={
@@ -330,8 +364,13 @@ export function AboutPage() {
 
       {/* Certifications */}
       <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
-        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">Certifications</p>
-        <p className="mt-0.5 text-sm text-slate-500">Continuous learning through LinkedIn Learning.</p>
+        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">
+          LinkedIn Learning Certifications
+        </p>
+        <p className="mt-0.5 text-sm text-slate-500">
+          A selection of completed LinkedIn Learning courses related to AI, digital marketing, sales
+          strategy, and digital productivity.
+        </p>
         <div className="mt-3">
           <CertificationRail certifications={certifications} />
         </div>
@@ -384,8 +423,10 @@ export function AboutPage() {
           <div>
             <h3 className="text-sm font-bold text-slate-900">A simple approach.</h3>
             <p className="mt-1 text-sm leading-relaxed text-slate-600">
-              Good work should be clear, useful, and easy to understand, both for the client and
-              the people who will eventually use it.
+              I enjoy projects where design and practical problem-solving come together. I
+              don&apos;t believe every digital solution needs to be complicated. Often, the best
+              experience is the one that makes things easier, clearer, and more comfortable for
+              the people using it.
             </p>
           </div>
         </div>
