@@ -26,7 +26,6 @@ import {
   Mail,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { ClientLoginButton } from '@/components/ClientLoginButton'
 import { TechMarquee } from '@/components/sections/TechMarquee'
 import { CertificationRail } from '@/components/CertificationRail'
 import { certifications } from '@/data/certifications'
@@ -345,8 +344,10 @@ export function AboutPage() {
 
         <div className="relative flex items-start justify-between gap-4">
           <div>
-            <p className="text-[0.6rem] font-medium tracking-[0.2em] text-[#1F6FEB] uppercase">About</p>
-            <h1 className="mt-1 text-2xl leading-[1.15] font-extrabold tracking-tight text-[#122c52] sm:text-3xl lg:text-[2rem]">
+            <span className="inline-flex items-center rounded-md bg-[#128C4A] px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.14em] whitespace-nowrap text-white uppercase shadow-[0_1px_2px_rgba(15,23,42,0.15)]">
+              About
+            </span>
+            <h1 className="mt-2 text-2xl leading-[1.15] font-extrabold tracking-tight text-[#122c52] sm:text-3xl lg:text-[2rem]">
               A little about the person behind the work.
             </h1>
             <p className="mt-1 max-w-2xl text-sm leading-snug text-slate-600 lg:max-w-none lg:pr-6">
@@ -355,7 +356,13 @@ export function AboutPage() {
             </p>
           </div>
 
-          <ClientLoginButton />
+          <Link
+            to="/contact?intent=message"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-[#1F6FEB] px-3 py-1.5 text-[0.8rem] font-semibold whitespace-nowrap text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1a5fc9] hover:shadow-[0_6px_14px_rgba(31,111,235,0.2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1F6FEB]"
+          >
+            <Mail className="h-[14px] w-[14px]" />
+            Contact Me
+          </Link>
         </div>
       </header>
 
