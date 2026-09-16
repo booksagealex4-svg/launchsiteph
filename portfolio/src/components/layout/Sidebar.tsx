@@ -13,7 +13,7 @@ const navLinks: NavLink[] = [
   { label: 'Home', to: '/', icon: Home },
   { label: 'Projects', to: '/projects', icon: FolderKanban },
   { label: 'Services', to: '/services', icon: Briefcase },
-  { label: 'Testimonials', to: '/testimonials', icon: Quote },
+  { label: 'How It Works', to: '/testimonials', icon: Quote },
   { label: 'About', to: '/about', icon: CircleUserRound },
   { label: 'FAQs / Contact', to: '/contact', icon: Send },
 ]
