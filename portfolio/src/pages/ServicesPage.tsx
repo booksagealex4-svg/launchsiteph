@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { ReactNode } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import {
@@ -25,23 +25,20 @@ import {
   FolderOpen,
   Sliders,
   Smartphone,
-  Zap,
+  Workflow,
   Share2,
-  Puzzle,
+  Layers,
   Globe,
   Rocket,
   FileText,
   ArrowUpRight,
   Send,
   Code2,
-  Expand,
-  X,
   Mail,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { CategorySelector, type SelectorCategory } from '@/components/CategorySelector'
 import { MockupCarousel, type MockupSlide } from '@/components/projects/MockupCarousel'
-import { cn } from '@/lib/utils'
 
 function buildSlides(
   kind: MockupSlide['kind'],
@@ -87,10 +84,6 @@ const mockupImage = {
   crmFlowdesk: '/mockups/services/crm-flowdesk.png',
   bookingSchedulesync: '/mockups/services/booking-schedulesync.png',
   clientPortalProjectflow: '/mockups/services/client-portal-projectflow.png',
-  personalTrackerDailypath: '/mockups/services/personal-tracker-dailypath.png',
-  automationAutobridge: '/mockups/services/automation-autobridge.png',
-  socialSociallift: '/mockups/services/social-sociallift.png',
-  customTailoredSystems: '/mockups/services/custom-tailored-systems.png',
 } as const
 
 interface ConceptImage {
@@ -528,7 +521,6 @@ interface MoreService {
   name: string
   descriptor: string
   icon: LucideIcon
-  image?: ConceptImage
 }
 
 const moreServices: MoreService[] = [
@@ -536,60 +528,23 @@ const moreServices: MoreService[] = [
     name: 'Mobile App Creation',
     descriptor: 'Simple mobile-focused solutions designed around a specific workflow, service, or user need.',
     icon: Smartphone,
-    image: {
-      src: mockupImage.personalTrackerDailypath,
-      alt: 'Concept mockup for a mobile app',
-      previewTitle: 'Mobile App Concept',
-      previewType: 'Habits / Progress / Mobile Experience',
-    },
   },
   {
     name: 'Automation',
-    descriptor: 'Practical workflow automation to reduce repetitive steps and make common tasks easier to manage.',
-    icon: Zap,
-    image: {
-      src: mockupImage.automationAutobridge,
-      alt: 'Concept mockup for an automation platform',
-      previewTitle: 'Automation Platform Concept',
-      previewType: 'Automation / Integrations / Workflows',
-    },
+    descriptor: 'Practical workflow automation that reduces repetitive steps and makes common tasks easier to manage.',
+    icon: Workflow,
   },
   {
     name: 'Social Media Solutions',
     descriptor: 'Digital support for organizing social media content, links, presentation, and online presence.',
     icon: Share2,
-    image: {
-      src: mockupImage.socialSociallift,
-      alt: 'Concept mockup for a social media management platform',
-      previewTitle: 'Social Media Platform Concept',
-      previewType: 'Content / Scheduling / Analytics',
-    },
   },
   {
     name: 'Custom Digital Project',
-    descriptor: 'A flexible option for ideas that do not fit neatly into a standard website, web app, or portal.',
-    icon: Puzzle,
-    image: {
-      src: mockupImage.customTailoredSystems,
-      alt: 'Concept mockup for a custom digital system',
-      previewTitle: 'Custom Digital System Concept',
-      previewType: 'Custom / Digital / Tailored Solution',
-    },
+    descriptor: 'A flexible solution for ideas that do not fit neatly into a standard website, web app, or portal.',
+    icon: Layers,
   },
 ]
-
-function IconChip({ icon: Icon, tint = 'blue' }: { icon: LucideIcon; tint?: 'blue' | 'mint' }) {
-  return (
-    <span
-      className={cn(
-        'flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-white shadow-[0_1px_2px_rgba(15,23,42,0.15)]',
-        tint === 'blue' ? 'bg-[#1F6FEB]' : 'bg-[#0d9488]',
-      )}
-    >
-      <Icon className="h-[18px] w-[18px]" />
-    </span>
-  )
-}
 
 /**
  * Compact non-functional inquiry bar for niches not covered by the selector
@@ -649,8 +604,7 @@ function ServiceCTA({ to, icon: Icon, children }: { to: string; icon: LucideIcon
 }
 
 function ServiceShowcase({
-  icon,
-  tint = 'blue',
+  icon: Icon,
   title,
   subtext,
   categories,
@@ -658,7 +612,6 @@ function ServiceShowcase({
   rightFooter,
 }: {
   icon: LucideIcon
-  tint?: 'blue' | 'mint'
   title: string
   subtext: string
   categories: ShowcaseCategory[]
@@ -671,12 +624,10 @@ function ServiceShowcase({
 
   return (
     <section className="rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
-      <div className="flex items-center gap-2.5">
-        <IconChip icon={icon} tint={tint} />
-        <span className="inline-flex items-center rounded-md bg-[#128C4A] px-3 py-1.5 text-sm font-bold text-white shadow-[0_1px_2px_rgba(15,23,42,0.15)] sm:text-base">
-          {title}
-        </span>
-      </div>
+      <span className="inline-flex items-center gap-2 rounded-md bg-[#128C4A] px-3 py-1.5 text-sm font-bold text-white shadow-[0_1px_2px_rgba(15,23,42,0.15)] sm:text-base">
+        <Icon className="h-[18px] w-[18px] shrink-0" />
+        {title}
+      </span>
       <div className="mt-3 rounded-md border border-[#BFDCF3] bg-[#EAF3FC] px-3 py-2.5">
         <p className="text-sm leading-relaxed text-slate-700">{subtext}</p>
       </div>
@@ -712,17 +663,6 @@ function ServiceShowcase({
 }
 
 export function ServicesPage() {
-  const [expandedMoreService, setExpandedMoreService] = useState<MoreService | null>(null)
-
-  useEffect(() => {
-    if (!expandedMoreService) return
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') setExpandedMoreService(null)
-    }
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [expandedMoreService])
-
   return (
     <>
       {/* Page header */}
@@ -777,7 +717,6 @@ export function ServicesPage() {
           />
           <ServiceShowcase
             icon={LayoutDashboard}
-            tint="mint"
             title="Web App Creation"
             subtext="Custom web-based tools designed to help organize information, simplify workflows, and make everyday business tasks easier to manage."
             categories={webAppCategories}
@@ -803,97 +742,36 @@ export function ServicesPage() {
 
       {/* More Ways I Can Help */}
       <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
-        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">More Ways I Can Help</p>
-        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {moreServices.map((service) => {
-            const { name, descriptor, icon: Icon, image } = service
-            return (
-              <div
-                key={name}
-                className="group relative flex items-center gap-3 rounded-md border border-slate-300/70 p-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)]"
+        <span className="inline-flex items-center rounded-md bg-[#128C4A] px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.14em] text-white uppercase shadow-[0_1px_2px_rgba(15,23,42,0.15)]">
+          More Ways I Can Help
+        </span>
+        <div className="mt-4 grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+          {moreServices.map(({ name, descriptor, icon: Icon }) => (
+            <div
+              key={name}
+              className="group relative flex items-start gap-3.5 rounded-lg border border-[var(--card-border-nested)]/40 bg-white p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--card-border-nested)] hover:shadow-[0_10px_24px_rgba(15,23,42,0.08)] focus-within:-translate-y-0.5 focus-within:border-[var(--card-border-nested)] focus-within:shadow-[0_10px_24px_rgba(15,23,42,0.08)]"
+            >
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-[#1F6FEB] text-white shadow-[0_2px_8px_rgba(31,111,235,0.28)]">
+                <Icon className="h-6 w-6" aria-hidden="true" />
+              </span>
+              <Link
+                to="/contact?intent=project"
+                className="static min-w-0 flex-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 focus-visible:outline-none"
               >
-                {image ? (
-                  <button
-                    type="button"
-                    onClick={() => setExpandedMoreService(service)}
-                    aria-label={`Enlarge preview: ${image.previewTitle}`}
-                    className="relative z-10 h-11 w-11 shrink-0 overflow-hidden rounded-md border border-[var(--card-border-nested)]/50 bg-slate-50 transition-colors duration-200 hover:border-[var(--card-border-nested)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
-                  >
-                    <img src={image.src} alt={image.alt} loading="lazy" className="h-full w-full object-cover object-top" />
-                    <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-slate-900/0 transition-colors duration-200 group-hover:bg-slate-900/10">
-                      <Expand className="h-3.5 w-3.5 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
-                    </span>
-                  </button>
-                ) : (
-                  <IconChip icon={Icon} />
-                )}
-                <Link
-                  to="/contact?intent=project"
-                  className="static min-w-0 flex-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 focus-visible:outline-none"
-                >
-                  <span className="absolute inset-0" aria-hidden="true" />
-                  <span className="block text-sm font-semibold text-slate-800">{name}</span>
-                  <span className="block text-xs text-slate-500">{descriptor}</span>
-                </Link>
-                <ArrowUpRight className="pointer-events-none h-4 w-4 shrink-0 text-slate-300 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#1F6FEB]" />
-              </div>
-            )
-          })}
+                <span className="absolute inset-0" aria-hidden="true" />
+                <span className="block text-sm font-bold text-slate-800">{name}</span>
+                <span className="mt-1 block text-xs leading-relaxed text-slate-500">{descriptor}</span>
+              </Link>
+              <ArrowUpRight className="pointer-events-none mt-1 h-4 w-4 shrink-0 text-slate-300 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#1F6FEB]" />
+            </div>
+          ))}
         </div>
       </section>
-
-      {/* Enlarged preview for "More Ways I Can Help" — same visual language as MockupCarousel's
-          lightbox (title/label header, Concept Mockup trust note, object-contain image, Escape
-          to close), kept as a small local modal since this grid isn't a carousel. */}
-      {expandedMoreService?.image && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Enlarged preview: ${expandedMoreService.image.previewTitle}`}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-6"
-          onClick={() => setExpandedMoreService(null)}
-        >
-          <div
-            className="relative w-full max-w-2xl overflow-hidden rounded-lg border border-slate-200 bg-white shadow-[0_24px_64px_rgba(15,23,42,0.35)]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50 px-4 py-2.5">
-              <span className="min-w-0">
-                <span className="block text-[0.6rem] font-semibold tracking-wide text-[#1F6FEB] uppercase">
-                  Concept Mockup
-                </span>
-                <span className="block truncate text-sm font-semibold text-slate-800">
-                  {expandedMoreService.image.previewTitle}
-                </span>
-                <span className="block truncate text-xs text-slate-500">{expandedMoreService.image.previewType}</span>
-              </span>
-              <button
-                type="button"
-                onClick={() => setExpandedMoreService(null)}
-                aria-label="Close enlarged preview"
-                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-slate-400 transition-colors duration-200 hover:bg-slate-200 hover:text-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-            <div className="aspect-video bg-slate-50">
-              <img
-                src={expandedMoreService.image.src}
-                alt={expandedMoreService.image.alt}
-                className="h-full w-full object-contain"
-              />
-            </div>
-            <p className="border-t border-slate-200 px-4 py-3 text-sm leading-relaxed text-slate-600">
-              {expandedMoreService.descriptor}
-            </p>
-          </div>
-        </div>
-      )}
 
       {/* Bottom CTA — same action concepts approved on Projects */}
       <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-6">
         <div className="flex flex-col items-center gap-4 text-center">
-          <p className="text-sm text-slate-500">Have an idea in mind? Let&apos;s bring it to life.</p>
+          <p className="text-base font-semibold text-slate-700">Have an idea in mind? Let&apos;s bring it to life.</p>
           <div className="flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row">
             <Link
               to="/contact?intent=project"
