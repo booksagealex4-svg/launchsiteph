@@ -1,22 +1,23 @@
 import type { ComponentType, CSSProperties } from 'react'
-import { Bot, Code2, Palette } from 'lucide-react'
 import { SiClaude, SiClaudecode, SiGithub, SiVercel, SiSupabase, SiReact, SiTypescript } from 'react-icons/si'
+import { OpenAiIcon, CanvaIcon, VsCodeIcon } from '@/components/icons/BrandIcons'
 
-// Real brand logo + official brand hex (per simple-icons) wherever a licensed mark exists.
-// OpenAI/ChatGPT, Canva, and VS Code have no freely-licensable mark in simple-icons (their
-// trademarks aren't cleared for inclusion), so those three keep a generic icon — but every
-// color below is still each brand's real, current hex, not an approximation.
-const tools: { name: string; icon: ComponentType<{ className?: string; style?: CSSProperties }>; color: string }[] = [
-  { name: 'ChatGPT', icon: Bot, color: '#000000' },
+// Real brand logo + official brand hex (per simple-icons) for every tool. OpenAI/ChatGPT
+// and Canva use locally-stored brand marks (see components/icons/BrandIcons.tsx) because
+// the installed react-icons/si snapshot has no licensed glyph for them; VS Code has no
+// simple-icons entry at all, so it uses the official multi-tone mark from Devicon
+// (public/icons/vscode.svg) instead of a generic substitute.
+const tools: { name: string; icon: ComponentType<{ className?: string; style?: CSSProperties }>; color?: string }[] = [
+  { name: 'ChatGPT', icon: OpenAiIcon, color: '#412991' },
   { name: 'Claude', icon: SiClaude, color: '#D97757' },
   { name: 'Claude Code', icon: SiClaudecode, color: '#D97757' },
-  { name: 'VS Code', icon: Code2, color: '#007ACC' },
-  { name: 'GitHub', icon: SiGithub, color: '#24292f' },
-  { name: 'Canva', icon: Palette, color: '#7d2ae8' },
-  { name: 'Vercel', icon: SiVercel, color: '#111111' },
-  { name: 'Supabase', icon: SiSupabase, color: '#3ecf8e' },
-  { name: 'React', icon: SiReact, color: '#149eca' },
-  { name: 'TypeScript', icon: SiTypescript, color: '#3178c6' },
+  { name: 'VS Code', icon: VsCodeIcon },
+  { name: 'GitHub', icon: SiGithub, color: '#181717' },
+  { name: 'Canva', icon: CanvaIcon, color: '#00C4CC' },
+  { name: 'Vercel', icon: SiVercel, color: '#000000' },
+  { name: 'Supabase', icon: SiSupabase, color: '#3FCF8E' },
+  { name: 'React', icon: SiReact, color: '#61DAFB' },
+  { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
 ]
 
 /**
@@ -34,7 +35,7 @@ export function HomeToolsMarquee() {
       className="marquee-track flex items-stretch overflow-hidden rounded-lg border border-[var(--card-border-accent)] bg-[#EEF4F8]"
     >
       <div className="flex shrink-0 flex-col justify-center gap-0.5 border-r border-[#E8B4B4] px-5 py-2.5 sm:w-[168px]">
-        <p className="text-[0.62rem] font-semibold tracking-[0.14em] text-[#1F6FEB] uppercase">Daily Tools</p>
+        <p className="text-[0.62rem] font-bold tracking-[0.14em] text-[#128C4A] uppercase">Daily Tools</p>
         <p className="text-sm font-semibold text-[#111827]">Tools I Work With</p>
       </div>
 
