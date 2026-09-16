@@ -71,7 +71,7 @@ export function Sidebar() {
             <h1 className="text-lg font-semibold text-slate-900">Alexis Sarip</h1>
             <img src="/alexis-verified-badge.png" alt="Verified" className="h-5 w-5 shrink-0 object-contain" />
           </div>
-          <p className="mt-0.5 text-sm text-slate-500">@alexisbuilds</p>
+          <p className="mt-0.5 text-sm text-slate-500">@alexbuilds</p>
         </div>
 
         {/* Social icons */}
