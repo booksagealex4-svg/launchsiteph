@@ -15,6 +15,7 @@ import {
   ArrowUpRight,
   ImageIcon,
   Clock,
+  Sparkles,
   Eye,
 } from 'lucide-react'
 import { FaWhatsapp, FaLinkedinIn } from 'react-icons/fa6'
@@ -234,6 +235,14 @@ export function BentoGrid() {
             </li>
           ))}
         </ul>
+
+        <div className="mt-3 flex items-center justify-center gap-1.5 rounded-md border border-[#BFDCF3] bg-[#EAF3FC] px-3 py-2 text-xs font-medium text-[#1F6FEB]">
+          <Sparkles className="h-3.5 w-3.5 shrink-0" />
+          <span>
+            <span className="font-bold text-[#123E91]">Free</span> concept mockup available for every project
+            idea.
+          </span>
+        </div>
       </CardShell>
 
       {/* Credentials — medium (professional-credibility summary, distinct from the small
