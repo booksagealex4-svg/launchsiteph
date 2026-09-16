@@ -1,10 +1,9 @@
 import { useRef, useState } from 'react'
 import type { LucideIcon } from 'lucide-react'
-import { Globe, AppWindow, Activity, Boxes, Layers, Sparkles, Rocket, FileText } from 'lucide-react'
+import { Globe, AppWindow, Activity, Boxes, Layers, Sparkles, Rocket, FileText, Mail } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { MockupCarousel, type MockupSlide } from '@/components/projects/MockupCarousel'
-import { TechMarquee } from '@/components/sections/TechMarquee'
-import { ClientLoginButton } from '@/components/ClientLoginButton'
+import { HomeToolsMarquee } from '@/components/sections/HomeToolsMarquee'
 import { cn } from '@/lib/utils'
 
 function buildSlides(kind: MockupSlide['kind'], prefix: string, accents: string[], count: number): MockupSlide[] {
@@ -40,14 +39,14 @@ interface RealProject {
   description: string
   status: 'in-progress' | 'ready'
   thumbnail: string | null
+  imageAlt: string
   category: 'website' | 'webapp'
   href: string
 }
 
-// Real, approved case studies (same three entries as the homepage). No screenshots
-// exist yet, so each still renders through the existing abstract preview treatment —
-// only the identifying text (title/type/description) is real. Replace `thumbnail`
-// with a real asset path (e.g. "/projects/ipa-author-directory.png") once supplied.
+// Real, approved case studies (same three entries as the homepage). Each now has a
+// dedicated local interface-concept preview under public/mockups/projects/current/ —
+// an illustrative concept of the interface, not a screenshot of live functionality.
 const realProjects: RealProject[] = [
   {
     id: 'ipa-author-directory',
@@ -56,7 +55,8 @@ const realProjects: RealProject[] = [
     description:
       'A professional author and book discovery platform designed to make author profiles, books, and membership information easy to explore.',
     status: 'in-progress',
-    thumbnail: null,
+    thumbnail: '/mockups/projects/current/ipa-author-directory.svg',
+    imageAlt: 'Interface concept preview of the IPA Author Directory — an author discovery platform with profile cards and browsing',
     category: 'website',
     href: '/projects',
   },
@@ -67,7 +67,8 @@ const realProjects: RealProject[] = [
     description:
       'A digital book catalog designed to organize, showcase, and make published titles easier to discover through a clean and accessible browsing experience.',
     status: 'in-progress',
-    thumbnail: null,
+    thumbnail: '/mockups/projects/current/ipa-book-depository.svg',
+    imageAlt: 'Interface concept preview of the IPA Book Depository — a book catalog with browsing and filtering',
     category: 'website',
     href: '/projects',
   },
@@ -78,7 +79,8 @@ const realProjects: RealProject[] = [
     description:
       'A client management workspace designed to organize contacts, projects, messages, files, payments, and progress updates in one clear and practical dashboard.',
     status: 'in-progress',
-    thumbnail: null,
+    thumbnail: '/mockups/projects/current/client-crm-portal.svg',
+    imageAlt: 'Interface concept preview of the Client CRM Portal — a client management dashboard with workspace panels',
     category: 'webapp',
     href: '/projects',
   },
@@ -100,6 +102,8 @@ function realProjectSlide(project: RealProject, kind: MockupSlide['kind'], accen
     type: project.type,
     description: project.description,
     badge: statusLabel[project.status],
+    image: project.thumbnail ?? undefined,
+    imageAlt: project.imageAlt,
   }
 }
 
@@ -223,13 +227,16 @@ const categories: Category[] = [
     label: 'Website',
     icon: Globe,
     carouselLabel: 'Website project previews',
+    // Strongest, most visually polished concepts lead; the two real, ongoing
+    // projects (already shown in full in the Current Projects section above)
+    // follow at the end of this browsing carousel.
     slides: [
-      realProjectSlide(ipaAuthorDirectory, 'website', blueMint[0], 1),
-      realProjectSlide(ipaBookDepository, 'website', blueMint[1], 2),
-      conceptSlide(concepts.author, 'website', blueMint[2]),
-      conceptSlide(concepts.cafe, 'website', blueMint[3]),
-      conceptSlide(concepts.realEstate, 'website', blueMint[4]),
-      conceptSlide(concepts.medical, 'website', blueMint[5]),
+      conceptSlide(concepts.cafe, 'website', blueMint[0]),
+      conceptSlide(concepts.realEstate, 'website', blueMint[1]),
+      conceptSlide(concepts.medical, 'website', blueMint[2]),
+      conceptSlide(concepts.author, 'website', blueMint[3]),
+      realProjectSlide(ipaAuthorDirectory, 'website', blueMint[4], 1),
+      realProjectSlide(ipaBookDepository, 'website', blueMint[5], 2),
     ],
   },
   {
@@ -237,10 +244,12 @@ const categories: Category[] = [
     label: 'Web App',
     icon: AppWindow,
     carouselLabel: 'Web app project previews',
+    // Strongest concepts lead; the real, ongoing Client CRM Portal (already shown
+    // in full in the Current Projects section above) follows at the end.
     slides: [
-      realProjectSlide(clientCrmPortal, 'dashboard', blueMint[0], 1),
-      conceptSlide(concepts.crm, 'dashboard', blueMint[1]),
-      conceptSlide(concepts.clientPortal, 'dashboard', blueMint[2]),
+      conceptSlide(concepts.crm, 'dashboard', blueMint[0]),
+      conceptSlide(concepts.clientPortal, 'dashboard', blueMint[1]),
+      realProjectSlide(clientCrmPortal, 'dashboard', blueMint[2], 1),
     ],
   },
   {
@@ -328,7 +337,7 @@ function CategoryTabs({
               'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
               isActive
                 ? 'border-[#1F6FEB] bg-[#1F6FEB] text-white shadow-[0_4px_10px_rgba(31,111,235,0.25)]'
-                : 'border-slate-300/70 bg-white text-slate-600 hover:border-blue-200 hover:bg-blue-50/50 hover:text-[#1F6FEB]',
+                : 'border-[#C7D2E0] bg-[#EEF3F9] text-slate-700 hover:border-[#9DB6D9] hover:bg-[#E1EBF7] hover:text-[#1F6FEB] focus-visible:border-[#9DB6D9] focus-visible:bg-[#E1EBF7]',
             )}
           >
             <cat.icon className="h-4 w-4 shrink-0" />
@@ -391,8 +400,10 @@ export function ProjectsPage() {
 
         <div className="relative flex items-start justify-between gap-4">
           <div>
-            <p className="text-[0.6rem] font-medium tracking-[0.2em] text-[#1F6FEB] uppercase">Projects</p>
-            <h1 className="mt-1 text-2xl leading-[1.15] font-extrabold tracking-tight text-[#122c52] sm:text-3xl lg:text-[2rem]">
+            <span className="inline-flex items-center rounded-md bg-[#128C4A] px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.14em] whitespace-nowrap text-white uppercase shadow-[0_1px_2px_rgba(15,23,42,0.15)]">
+              Projects
+            </span>
+            <h1 className="mt-2 text-2xl leading-[1.15] font-extrabold tracking-tight text-[#122c52] sm:text-3xl lg:text-[2rem]">
               Work you can explore.
             </h1>
             <p className="mt-1 max-w-2xl text-sm leading-snug text-slate-600 lg:max-w-none lg:pr-6">
@@ -401,7 +412,13 @@ export function ProjectsPage() {
             </p>
           </div>
 
-          <ClientLoginButton />
+          <Link
+            to="/contact?intent=message"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-[#1F6FEB] px-3 py-1.5 text-[0.8rem] font-semibold whitespace-nowrap text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1a5fc9] hover:shadow-[0_6px_14px_rgba(31,111,235,0.2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1F6FEB]"
+          >
+            <Mail className="h-[14px] w-[14px]" />
+            Contact Me
+          </Link>
         </div>
       </header>
 
@@ -409,23 +426,26 @@ export function ProjectsPage() {
           portfolio below. Each card is its own single-slide carousel so it reuses the exact
           same enlarge/lightbox behavior, with an "In Progress" badge (not "Concept Mockup"). */}
       <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
-        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">
+        <span className="inline-flex items-center rounded-md bg-[#128C4A] px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.14em] whitespace-nowrap text-white uppercase shadow-[0_1px_2px_rgba(15,23,42,0.15)]">
           Current Projects
-        </p>
-        <p className="mt-0.5 text-sm text-slate-500">Real, ongoing work currently in development.</p>
+        </span>
+        <p className="mt-1.5 text-sm text-slate-500">Ongoing work currently in development.</p>
 
         <div className="mt-3.5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <MockupCarousel
             slides={[realProjectSlide(ipaAuthorDirectory, 'website', blueMint[0], 1)]}
             ariaLabel="IPA Author Directory preview"
+            chrome="realistic"
           />
           <MockupCarousel
             slides={[realProjectSlide(ipaBookDepository, 'website', blueMint[1], 2)]}
             ariaLabel="IPA Book Depository preview"
+            chrome="realistic"
           />
           <MockupCarousel
             slides={[realProjectSlide(clientCrmPortal, 'dashboard', blueMint[2], 1)]}
             ariaLabel="Client CRM Portal preview"
+            chrome="realistic"
           />
         </div>
       </section>
@@ -434,13 +454,9 @@ export function ProjectsPage() {
           concept mockups (mixed with the current projects above where relevant) instead of
           abstract filler, for categories without a dedicated asset. */}
       <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
-        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">
+        <span className="inline-flex items-center rounded-md bg-[#128C4A] px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.14em] whitespace-nowrap text-white uppercase shadow-[0_1px_2px_rgba(15,23,42,0.15)]">
           Concept Portfolio
-        </p>
-        <p className="mt-0.5 text-sm text-slate-500">
-          A curated set of concept mockups showing range across websites, web apps, and digital
-          platforms.
-        </p>
+        </span>
 
         <div className="mt-3.5 grid gap-5 lg:grid-cols-[minmax(220px,1fr)_2.8fr] lg:items-stretch lg:gap-6">
           <div className="flex min-w-0 flex-col lg:h-full">
@@ -449,14 +465,20 @@ export function ProjectsPage() {
           </div>
 
           <div id={panelId} role="tabpanel" aria-labelledby={`category-tab-${active.id}`} className="min-w-0">
-            <MockupCarousel key={active.id} slides={active.slides} ariaLabel={active.carouselLabel} />
+            <MockupCarousel
+              key={active.id}
+              slides={active.slides}
+              ariaLabel={active.carouselLabel}
+              chrome="concept"
+              autoplayInterval={2000}
+            />
           </div>
         </div>
       </section>
 
-      {/* Tools — reuses the exact approved homepage marquee component */}
+      {/* Tools — reuses the exact approved homepage marquee component (same icons, colors, styling) */}
       <div className="mt-4">
-        <TechMarquee />
+        <HomeToolsMarquee />
       </div>
     </>
   )

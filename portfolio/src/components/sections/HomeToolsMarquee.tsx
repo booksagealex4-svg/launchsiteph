@@ -21,10 +21,11 @@ const tools: { name: string; icon: ComponentType<{ className?: string; style?: C
 ]
 
 /**
- * Homepage-only tools marquee: one unified rounded strip — a fixed label
- * section on the left and the moving track on the right, separated by a
- * thin divider so they read as one component, not two floating cards. Kept
- * separate from the shared `TechMarquee` (used by /projects and /about).
+ * Tools marquee with the approved icon/color treatment: one unified rounded
+ * strip — a fixed label section on the left and the moving track on the
+ * right, separated by a thin divider so they read as one component, not two
+ * floating cards. Used on the homepage and the Projects page. Kept separate
+ * from the older `TechMarquee` (still used by /about) pending its own refresh.
  */
 export function HomeToolsMarquee() {
   const items = [...tools, ...tools]

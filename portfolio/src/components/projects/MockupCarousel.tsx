@@ -184,7 +184,24 @@ function MiniMockup({ slide, large = false }: { slide: MockupSlide; large?: bool
   )
 }
 
-export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; ariaLabel: string }) {
+export function MockupCarousel({
+  slides,
+  ariaLabel,
+  chrome = 'default',
+  autoplayInterval = 4200,
+}: {
+  slides: MockupSlide[]
+  ariaLabel: string
+  /** 'realistic' (soft blue) is the Current Projects treatment; 'concept' (strong
+   *  neutral gray) is the Concept Portfolio treatment — both swap the plain gray
+   *  dots for macOS-style traffic-light chrome + a subtle url-bar pill, but with
+   *  a distinct color identity. Opt-in only, so existing carousels (Services)
+   *  render exactly as before unless they ask for one. */
+  chrome?: 'default' | 'realistic' | 'concept'
+  /** Autoplay wait time between slides, in ms. Defaults to the existing 4200ms
+   *  for every consumer that doesn't explicitly set a different value. */
+  autoplayInterval?: number
+}) {
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
   const [fading, setFading] = useState(false)
@@ -210,9 +227,9 @@ export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; a
 
     const id = window.setInterval(() => {
       setIndex((i) => (i + 1) % slides.length)
-    }, 4200)
+    }, autoplayInterval)
     return () => window.clearInterval(id)
-  }, [paused, expandedSlide, slides.length])
+  }, [paused, expandedSlide, slides.length, autoplayInterval])
 
   useEffect(() => {
     if (!expandedSlide) return
@@ -247,11 +264,29 @@ export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; a
       onBlur={() => setPaused(false)}
     >
       {/* Browser chrome */}
-      <div className="flex items-center gap-1.5 border-b border-slate-200 bg-slate-50 px-3 py-1.5">
-        <span className="h-[6px] w-[6px] rounded-full bg-slate-300" />
-        <span className="h-[6px] w-[6px] rounded-full bg-slate-300" />
-        <span className="h-[6px] w-[6px] rounded-full bg-slate-300" />
-      </div>
+      {chrome === 'realistic' && (
+        <div className="flex items-center gap-2 border-b border-[#BFDCF3] bg-[#E3EEFB] px-3 py-2">
+          <span className="h-[10px] w-[10px] rounded-full bg-[#FF5F57]" />
+          <span className="h-[10px] w-[10px] rounded-full bg-[#FEBC2E]" />
+          <span className="h-[10px] w-[10px] rounded-full bg-[#28C840]" />
+          <span className="ml-2 h-[14px] w-full max-w-[160px] rounded-full border border-[#BFDCF3] bg-white" />
+        </div>
+      )}
+      {chrome === 'concept' && (
+        <div className="flex items-center gap-2 border-b border-[#B9C1CB] bg-[#D8DEE6] px-3 py-2">
+          <span className="h-[10px] w-[10px] rounded-full bg-[#FF5F57]" />
+          <span className="h-[10px] w-[10px] rounded-full bg-[#FEBC2E]" />
+          <span className="h-[10px] w-[10px] rounded-full bg-[#28C840]" />
+          <span className="ml-2 h-[14px] w-full max-w-[160px] rounded-full border border-[#B9C1CB] bg-white" />
+        </div>
+      )}
+      {chrome === 'default' && (
+        <div className="flex items-center gap-1.5 border-b border-slate-200 bg-slate-50 px-3 py-1.5">
+          <span className="h-[6px] w-[6px] rounded-full bg-slate-300" />
+          <span className="h-[6px] w-[6px] rounded-full bg-slate-300" />
+          <span className="h-[6px] w-[6px] rounded-full bg-slate-300" />
+        </div>
+      )}
 
       <div className="relative aspect-[16/8] min-w-0 overflow-hidden bg-slate-50" role="group" aria-label={ariaLabel}>
         <div
@@ -306,9 +341,23 @@ export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; a
                     </span>
                   </span>
                   {slide.title && (
-                    <span className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col border-t border-slate-200 bg-white/92 px-2.5 py-1.5 text-left backdrop-blur-sm">
+                    <span
+                      className={cn(
+                        'pointer-events-none absolute inset-x-0 bottom-0 flex flex-col border-t px-2.5 py-1.5 text-left backdrop-blur-sm',
+                        chrome === 'realistic' && 'border-[#BFDCF3] bg-[#E3EEFB]/95',
+                        chrome === 'concept' && 'border-[#B9C1CB] bg-[#D8DEE6]/95',
+                        chrome === 'default' && 'border-slate-200 bg-white/92',
+                      )}
+                    >
                       <span className="truncate text-xs font-semibold text-slate-800">{slide.title}</span>
-                      <span className="truncate text-[0.65rem] text-slate-500">{slide.type}</span>
+                      <span
+                        className={cn(
+                          'truncate text-[0.65rem]',
+                          chrome === 'concept' ? 'text-slate-600' : 'text-slate-500',
+                        )}
+                      >
+                        {slide.type}
+                      </span>
                     </span>
                   )}
                 </button>
@@ -317,27 +366,37 @@ export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; a
           </div>
         </div>
 
-        {/* Arrows */}
-        <button
-          type="button"
-          onClick={() => goTo(index - 1)}
-          aria-label="Previous preview"
-          className="absolute top-1/2 left-2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/90 text-slate-600 shadow-sm transition-all duration-200 hover:border-blue-200 hover:text-[#1F6FEB] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </button>
-        <button
-          type="button"
-          onClick={() => goTo(index + 1)}
-          aria-label="Next preview"
-          className="absolute top-1/2 right-2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/90 text-slate-600 shadow-sm transition-all duration-200 hover:border-blue-200 hover:text-[#1F6FEB] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
-        >
-          <ChevronRight className="h-4 w-4" />
-        </button>
+        {/* Arrows — only meaningful when there's more than one slide to move between */}
+        {slides.length > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={() => goTo(index - 1)}
+              aria-label="Previous preview"
+              className="absolute top-1/2 left-2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/90 text-slate-600 shadow-sm transition-all duration-200 hover:border-blue-200 hover:text-[#1F6FEB] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => goTo(index + 1)}
+              aria-label="Next preview"
+              className="absolute top-1/2 right-2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/90 text-slate-600 shadow-sm transition-all duration-200 hover:border-blue-200 hover:text-[#1F6FEB] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </>
+        )}
       </div>
 
-      {/* Indicators */}
-      <div className="flex items-center justify-center gap-1.5 border-t border-slate-100 py-2">
+      {/* Indicators — hidden for a single-slide carousel (nothing to navigate between) */}
+      {slides.length > 1 && (
+      <div
+        className={cn(
+          'flex items-center justify-center gap-1.5 border-t py-2',
+          chrome === 'concept' ? 'border-[#C7CED6] bg-[#E7EBEF]' : 'border-slate-100',
+        )}
+      >
         {slides.map((slide, i) => (
           <button
             key={slide.id}
@@ -347,11 +406,16 @@ export function MockupCarousel({ slides, ariaLabel }: { slides: MockupSlide[]; a
             aria-current={i === index}
             className={cn(
               'h-1.5 rounded-full transition-all duration-200',
-              i === index ? 'w-5 bg-[#1F6FEB]' : 'w-1.5 bg-slate-200 hover:bg-slate-300',
+              i === index
+                ? 'w-5 bg-[#1F6FEB]'
+                : chrome === 'concept'
+                  ? 'w-1.5 bg-[#AEB8C2] hover:bg-[#93A0AD]'
+                  : 'w-1.5 bg-slate-200 hover:bg-slate-300',
             )}
           />
         ))}
       </div>
+      )}
 
       {/* Enlarged in-page preview */}
       {expandedSlide && (
