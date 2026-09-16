@@ -13,8 +13,8 @@ const navLinks: NavLink[] = [
   { label: 'Home', to: '/', icon: Home },
   { label: 'Projects', to: '/projects', icon: FolderKanban },
   { label: 'Services', to: '/services', icon: Briefcase },
-  { label: 'How It Works', to: '/testimonials', icon: Quote },
   { label: 'About', to: '/about', icon: CircleUserRound },
+  { label: 'How It Works', to: '/testimonials', icon: Quote },
   { label: 'FAQs / Contact', to: '/contact', icon: Send },
 ]
 
@@ -133,7 +133,7 @@ export function Sidebar() {
 
         <div className="mt-5 border-t border-[#C8D2DC] pt-3 text-center">
           <p className="text-[0.7rem] tracking-wide text-slate-500">
-            © 2024–2026 Alexis Sarip. All rights reserved.
+            © 2026 Alexis Sarip. All rights reserved.
           </p>
         </div>
       </div>

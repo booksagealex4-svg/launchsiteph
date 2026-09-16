@@ -650,7 +650,7 @@ export function ContactPage() {
       </div>
 
       <footer className="flex flex-col items-center gap-1 py-2 text-center text-xs text-muted-foreground">
-        <p>© 2024–2026 Alexis Sarip. All rights reserved.</p>
+        <p>© 2026 Alexis Sarip. All rights reserved.</p>
       </footer>
     </>
   )

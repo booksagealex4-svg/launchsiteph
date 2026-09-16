@@ -13,7 +13,6 @@ import {
   Eye,
 } from 'lucide-react'
 import { FaWhatsapp, FaLinkedinIn } from 'react-icons/fa6'
-import { Link } from 'react-router-dom'
 import { certifications } from '@/data/certifications'
 import { cn } from '@/lib/utils'
 
@@ -251,37 +250,30 @@ export function BentoGrid() {
         </div>
       </CardShell>
 
-      {/* Credentials — smaller, with a companion portal-preview CTA below it */}
-      <div className="order-3 flex min-w-0 flex-col gap-3 sm:order-4 lg:col-span-1 lg:justify-between">
-        <CardShell id="credentials" className="border-[var(--card-border-accent)] bg-[#F4F7F9]">
-          <CardHeader icon={ShieldCheck} label="Credentials" />
-          <p className="mt-4 text-sm text-slate-500">
-            Professional learning and certifications that support my digital work.
-          </p>
-          <div className="mt-5 flex items-center gap-3.5 rounded-md border border-[var(--card-border-nested)] bg-white/70 px-3 py-3">
-            <div
-              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-[#93B4E8] bg-[#E6F0FF] text-[#1D4ED8]"
-              aria-hidden="true"
-            >
-              <ShieldCheck className="h-6 w-6" />
-            </div>
-            <div className="min-w-0">
-              <p className="truncate text-sm font-semibold text-slate-900">{certifications[0].title}</p>
-              <p className="mt-0.5 truncate text-xs leading-snug text-slate-500">
-                {certifications[0].issuer} · {certifications[0].date}
-              </p>
-            </div>
+      {/* Credentials — smaller */}
+      <CardShell
+        id="credentials"
+        className="order-3 border-[var(--card-border-accent)] bg-[#F4F7F9] sm:order-4 lg:col-span-1"
+      >
+        <CardHeader icon={ShieldCheck} label="Credentials" />
+        <p className="mt-4 text-sm text-slate-500">
+          Professional learning and certifications that support my digital work.
+        </p>
+        <div className="mt-5 flex items-center gap-3.5 rounded-md border border-[var(--card-border-nested)] bg-white/70 px-3 py-3">
+          <div
+            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-[#93B4E8] bg-[#E6F0FF] text-[#1D4ED8]"
+            aria-hidden="true"
+          >
+            <ShieldCheck className="h-6 w-6" />
           </div>
-        </CardShell>
-
-        <Link
-          to="/client-login"
-          className="flex items-center justify-center gap-2 rounded-md bg-[#1F6FEB] px-4 py-3 text-sm font-semibold text-white shadow-[0_1px_2px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1a5fc9] hover:shadow-[0_10px_20px_rgba(31,111,235,0.22)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1F6FEB]"
-        >
-          <Eye className="h-4 w-4 shrink-0" />
-          Preview Client Portal
-        </Link>
-      </div>
+          <div className="min-w-0">
+            <p className="truncate text-sm font-semibold text-slate-900">{certifications[0].title}</p>
+            <p className="mt-0.5 truncate text-xs leading-snug text-slate-500">
+              {certifications[0].issuer} · {certifications[0].date}
+            </p>
+          </div>
+        </div>
+      </CardShell>
 
       {/* Featured Services — wide, dominant */}
       <CardShell id="services" className="order-4 border-[var(--card-border-accent)] bg-[#F4F7F9] sm:order-5 lg:col-span-3 lg:self-start">
