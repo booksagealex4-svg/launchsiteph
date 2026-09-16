@@ -36,10 +36,10 @@ import {
   Code2,
   Expand,
   X,
+  Mail,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { CategorySelector, type SelectorCategory } from '@/components/CategorySelector'
-import { ClientLoginButton } from '@/components/ClientLoginButton'
 import { MockupCarousel, type MockupSlide } from '@/components/projects/MockupCarousel'
 import { cn } from '@/lib/utils'
 
@@ -66,15 +66,24 @@ const blueMint = ['#1F6FEB', '#1f9d7c', '#2563eb', '#0ea5e9', '#4f46e5', '#14b8a
  *  illustrative sample concepts, not completed client projects; every caption that uses one
  *  says "Concept Mockup" explicitly (see MockupCarousel). */
 const mockupImage = {
-  authorMaraEllison: '/mockups/services/author-mara-ellison.png',
-  cafeBrewBloom: '/mockups/services/cafe-brew-bloom.png',
+  authorNathanVega: '/mockups/services/author-nathan-vega.png',
+  authorDanielHarper: '/mockups/services/author-daniel-harper.png',
+  cafeAuroraCafe: '/mockups/services/cafe-aurora-cafe.png',
+  cafeNoirRoast: '/mockups/services/cafe-noir-roast.png',
   restaurantSavoryTable: '/mockups/services/restaurant-savory-table.png',
+  restaurantEmberFork: '/mockups/services/restaurant-ember-fork.png',
   bakeryHearthCrumb: '/mockups/services/bakery-hearth-crumb.png',
+  bakeryGoldenCrumb: '/mockups/services/bakery-golden-crumb.png',
   barberNorthline: '/mockups/services/barber-northline.png',
+  barberCutCollective: '/mockups/services/barber-cut-collective.png',
   realEstateCrestpoint: '/mockups/services/real-estate-crestpoint.png',
+  realEstateHorizonHomes: '/mockups/services/real-estate-horizon-homes.png',
   medicalHarborClinic: '/mockups/services/medical-harbor-clinic.png',
+  medicalRiverside: '/mockups/services/doctor-riverside-medical.png',
   automotiveApexAuto: '/mockups/services/automotive-apex-auto.png',
+  automotiveDrivecraftAuto: '/mockups/services/automotive-drivecraft-auto.png',
   ecommerceMaisoncart: '/mockups/services/ecommerce-maisoncart.png',
+  onlineShopNovaMarket: '/mockups/services/online-shop-nova-market.png',
   crmFlowdesk: '/mockups/services/crm-flowdesk.png',
   bookingSchedulesync: '/mockups/services/booking-schedulesync.png',
   clientPortalProjectflow: '/mockups/services/client-portal-projectflow.png',
@@ -96,33 +105,48 @@ interface ShowcaseCategory extends SelectorCategory {
 }
 
 /** Categories with a real `image` get a single real concept-mockup slide (visible immediately,
- *  no extra clicks); categories without one keep the existing abstract filler slides unchanged. */
+ *  no extra clicks); a category with `images` instead gets one real slide per entry (used for
+ *  Authors, which carries two concept sites); categories without either keep the existing
+ *  abstract filler slides unchanged. */
 function withSlides(
   kind: MockupSlide['kind'],
   sectionType: string,
-  items: { id: string; label: string; icon: LucideIcon; description: string; image?: ConceptImage }[],
+  items: { id: string; label: string; icon: LucideIcon; description: string; image?: ConceptImage; images?: ConceptImage[] }[],
   count: number,
 ): ShowcaseCategory[] {
-  return items.map(({ id, label, icon, description, image }, i) => ({
+  return items.map(({ id, label, icon, description, image, images }, i) => ({
     id,
     label,
     icon,
-    slides: image
-      ? [
-          {
-            id: `${id}-concept`,
-            kind,
-            variant: 1,
-            accent: blueMint[i % blueMint.length],
-            label: `${label} concept preview`,
-            title: image.previewTitle,
-            type: image.previewType,
-            description,
-            image: image.src,
-            imageAlt: image.alt,
-          },
-        ]
-      : buildSlides(kind, label, blueMint[i % blueMint.length], count, { title: label, type: sectionType, description }),
+    slides: images
+      ? images.map((img, si) => ({
+          id: `${id}-concept-${si}`,
+          kind,
+          variant: ((si % 4) + 1) as 1 | 2 | 3 | 4,
+          accent: blueMint[i % blueMint.length],
+          label: `${label} concept preview ${si + 1}`,
+          title: img.previewTitle,
+          type: img.previewType,
+          description,
+          image: img.src,
+          imageAlt: img.alt,
+        }))
+      : image
+        ? [
+            {
+              id: `${id}-concept`,
+              kind,
+              variant: 1,
+              accent: blueMint[i % blueMint.length],
+              label: `${label} concept preview`,
+              title: image.previewTitle,
+              type: image.previewType,
+              description,
+              image: image.src,
+              imageAlt: image.alt,
+            },
+          ]
+        : buildSlides(kind, label, blueMint[i % blueMint.length], count, { title: label, type: sectionType, description }),
   }))
 }
 
@@ -135,114 +159,224 @@ const websiteCategories = withSlides(
       label: 'Authors',
       icon: BookOpen,
       description: 'Professional author websites for books, biography, media, events, and reader information.',
-      image: {
-        src: mockupImage.authorMaraEllison,
-        alt: 'Concept mockup for an author website',
-        previewTitle: 'Author Website Concept',
-        previewType: 'Author / Books / Personal Brand',
-      },
+      images: [
+        {
+          src: mockupImage.authorNathanVega,
+          alt: 'Concept mockup for a fiction author website',
+          previewTitle: 'Fiction Author Website Concept',
+          previewType: 'Author / Books / Personal Brand',
+        },
+        {
+          src: mockupImage.authorDanielHarper,
+          alt: 'Concept mockup for a non-fiction author website',
+          previewTitle: 'Non-Fiction Author Website Concept',
+          previewType: 'Author / Books / Personal Brand',
+        },
+      ],
     },
     {
       id: 'cafes',
       label: 'Cafes',
       icon: Coffee,
       description: 'Clean, inviting websites for menus, location details, opening hours, and customer information.',
-      image: {
-        src: mockupImage.cafeBrewBloom,
-        alt: 'Concept mockup for a café website',
-        previewTitle: 'Café Website Concept',
-        previewType: 'Café / Menu / Reservations',
-      },
+      images: [
+        {
+          src: mockupImage.cafeAuroraCafe,
+          alt: 'Concept mockup for a warm, bakery-style café website',
+          previewTitle: 'Café Website Concept — Warm & Inviting',
+          previewType: 'Café / Menu / Reservations',
+        },
+        {
+          src: mockupImage.cafeNoirRoast,
+          alt: 'Concept mockup for a dark, specialty-coffee café website',
+          previewTitle: 'Café Website Concept — Bold & Modern',
+          previewType: 'Café / Menu / Reservations',
+        },
+      ],
     },
     {
       id: 'restaurants',
       label: 'Restaurants',
       icon: UtensilsCrossed,
       description: 'Professional restaurant sites for menus, reservations, contact details, and location information.',
-      image: {
-        src: mockupImage.restaurantSavoryTable,
-        alt: 'Concept mockup for a restaurant website',
-        previewTitle: 'Restaurant Website Concept',
-        previewType: 'Restaurant / Menu / Reservations',
-      },
+      images: [
+        {
+          src: mockupImage.restaurantSavoryTable,
+          alt: 'Concept mockup for a casual dining restaurant website',
+          previewTitle: 'Restaurant Website Concept — Casual Dining',
+          previewType: 'Restaurant / Menu / Reservations',
+        },
+        {
+          src: mockupImage.restaurantEmberFork,
+          alt: 'Concept mockup for an upscale restaurant website',
+          previewTitle: 'Restaurant Website Concept — Fine Dining',
+          previewType: 'Restaurant / Menu / Reservations',
+        },
+      ],
     },
     {
       id: 'bakeries',
       label: 'Bakeries',
       icon: Cookie,
       description: 'Warm, polished websites for products, custom orders, location details, and inquiries.',
-      image: {
-        src: mockupImage.bakeryHearthCrumb,
-        alt: 'Concept mockup for a bakery website',
-        previewTitle: 'Bakery Website Concept',
-        previewType: 'Bakery / Products / Ordering',
-      },
+      images: [
+        {
+          src: mockupImage.bakeryHearthCrumb,
+          alt: 'Concept mockup for a bakery website',
+          previewTitle: 'Bakery Website Concept',
+          previewType: 'Bakery / Products / Ordering',
+        },
+        {
+          src: mockupImage.bakeryGoldenCrumb,
+          alt: 'Concept mockup for an artisan bakery website',
+          previewTitle: 'Bakery Website Concept — Artisan Bakery',
+          previewType: 'Bakery / Menu / Online Ordering',
+        },
+      ],
     },
     {
       id: 'barber-shops',
       label: 'Barber Shops',
       icon: Scissors,
       description: 'Modern service websites for pricing, booking information, services, and contact details.',
-      image: {
-        src: mockupImage.barberNorthline,
-        alt: 'Concept mockup for a barber shop website',
-        previewTitle: 'Barber Shop Website Concept',
-        previewType: 'Barber / Services / Booking',
-      },
+      images: [
+        {
+          src: mockupImage.barberNorthline,
+          alt: 'Concept mockup for a barber shop website',
+          previewTitle: 'Barber Shop Website Concept',
+          previewType: 'Barber / Services / Booking',
+        },
+        {
+          src: mockupImage.barberCutCollective,
+          alt: 'Concept mockup for a premium barbershop website',
+          previewTitle: 'Barbershop Website Concept — Premium Grooming',
+          previewType: 'Services / Appointments / Grooming',
+        },
+      ],
     },
     {
       id: 'real-estate',
       label: 'Real Estate',
       icon: Building2,
       description: 'Professional property-focused websites for listings, agent information, inquiries, and contact details.',
-      image: {
-        src: mockupImage.realEstateCrestpoint,
-        alt: 'Concept mockup for a real estate website',
-        previewTitle: 'Real Estate Website Concept',
-        previewType: 'Real Estate / Listings / Agents',
-      },
+      images: [
+        {
+          src: mockupImage.realEstateCrestpoint,
+          alt: 'Concept mockup for a real estate website',
+          previewTitle: 'Real Estate Website Concept',
+          previewType: 'Real Estate / Listings / Agents',
+        },
+        {
+          src: mockupImage.realEstateHorizonHomes,
+          alt: 'Concept mockup for a luxury real estate website',
+          previewTitle: 'Real Estate Website Concept — Luxury Homes',
+          previewType: 'Properties / Listings / Consultation',
+        },
+      ],
     },
     {
       id: 'doctors',
       label: 'Doctors',
       icon: Stethoscope,
       description: 'Clear, professional informational websites for services, clinic details, appointments, and patient guidance.',
-      image: {
-        src: mockupImage.medicalHarborClinic,
-        alt: 'Concept mockup for a medical clinic website',
-        previewTitle: 'Medical Website Concept',
-        previewType: 'Clinic / Services / Appointments',
-      },
+      images: [
+        {
+          src: mockupImage.medicalHarborClinic,
+          alt: 'Concept mockup for a medical clinic website',
+          previewTitle: 'Medical Website Concept',
+          previewType: 'Clinic / Services / Appointments',
+        },
+        {
+          src: mockupImage.medicalRiverside,
+          alt: 'Concept mockup for a medical care website',
+          previewTitle: 'Medical Website Concept — Patient Care',
+          previewType: 'Healthcare / Services / Appointments',
+        },
+      ],
     },
     {
       id: 'automotive',
       label: 'Automotive',
       icon: Car,
       description: 'Professional automotive websites for services, inventory or offerings, business information, and inquiries.',
-      image: {
-        src: mockupImage.automotiveApexAuto,
-        alt: 'Concept mockup for an automotive service website',
-        previewTitle: 'Automotive Website Concept',
-        previewType: 'Auto Care / Services / Scheduling',
-      },
+      images: [
+        {
+          src: mockupImage.automotiveApexAuto,
+          alt: 'Concept mockup for an automotive service website',
+          previewTitle: 'Automotive Website Concept',
+          previewType: 'Auto Care / Services / Scheduling',
+        },
+        {
+          src: mockupImage.automotiveDrivecraftAuto,
+          alt: 'Concept mockup for a premium automotive dealership website',
+          previewTitle: 'Automotive Website Concept — Premium Dealership',
+          previewType: 'Inventory / Services / Test Drives',
+        },
+      ],
     },
     {
       id: 'online-shops',
       label: 'Online Shops',
       icon: ShoppingBag,
       description: 'Product-focused websites designed to make browsing, product information, and customer actions clear.',
-      image: {
-        src: mockupImage.ecommerceMaisoncart,
-        alt: 'Concept mockup for an online shop website',
-        previewTitle: 'Online Shop Concept',
-        previewType: 'E-Commerce / Products / Shopping',
-      },
+      images: [
+        {
+          src: mockupImage.ecommerceMaisoncart,
+          alt: 'Concept mockup for an online shop website',
+          previewTitle: 'Online Shop Concept',
+          previewType: 'E-Commerce / Products / Shopping',
+        },
+        {
+          src: mockupImage.onlineShopNovaMarket,
+          alt: 'Concept mockup for a lifestyle online store website',
+          previewTitle: 'Online Shop Website Concept — Lifestyle Store',
+          previewType: 'E-Commerce / Products / Shopping',
+        },
+      ],
     },
     {
       id: 'other-business',
       label: 'Other Business',
       icon: Briefcase,
       description: 'Custom websites designed around the specific needs, audience, and goals of your business.',
+      images: [
+        {
+          src: mockupImage.cafeAuroraCafe,
+          alt: 'Concept mockup for a café business website',
+          previewTitle: 'Café Business Website Concept',
+          previewType: 'Café / Menu / Reservations',
+        },
+        {
+          src: mockupImage.restaurantEmberFork,
+          alt: 'Concept mockup for a restaurant business website',
+          previewTitle: 'Restaurant Business Website Concept',
+          previewType: 'Restaurant / Menu / Reservations',
+        },
+        {
+          src: mockupImage.bakeryGoldenCrumb,
+          alt: 'Concept mockup for a bakery business website',
+          previewTitle: 'Bakery Business Website Concept',
+          previewType: 'Bakery / Products / Ordering',
+        },
+        {
+          src: mockupImage.barberCutCollective,
+          alt: 'Concept mockup for a barbershop business website',
+          previewTitle: 'Barbershop Business Website Concept',
+          previewType: 'Barbershop / Services / Appointments',
+        },
+        {
+          src: mockupImage.realEstateHorizonHomes,
+          alt: 'Concept mockup for a real estate business website',
+          previewTitle: 'Real Estate Business Website Concept',
+          previewType: 'Properties / Listings / Consultation',
+        },
+        {
+          src: mockupImage.onlineShopNovaMarket,
+          alt: 'Concept mockup for an online shop business website',
+          previewTitle: 'Online Shop Business Website Concept',
+          previewType: 'E-Commerce / Products / Shopping',
+        },
+      ],
     },
   ],
   7,
@@ -448,8 +582,8 @@ function IconChip({ icon: Icon, tint = 'blue' }: { icon: LucideIcon; tint?: 'blu
   return (
     <span
       className={cn(
-        'flex h-9 w-9 shrink-0 items-center justify-center rounded-md',
-        tint === 'blue' ? 'bg-blue-50 text-[#1F6FEB]' : 'bg-[#eafaf4] text-[#1f9d7c]',
+        'flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-white shadow-[0_1px_2px_rgba(15,23,42,0.15)]',
+        tint === 'blue' ? 'bg-[#1F6FEB]' : 'bg-[#0d9488]',
       )}
     >
       <Icon className="h-[18px] w-[18px]" />
@@ -465,9 +599,14 @@ function WebsiteIdeaBar() {
   const [value, setValue] = useState('')
   return (
     <div>
-      <p className="text-xs font-semibold text-slate-700">Have a different idea?</p>
+      <div className="flex flex-wrap items-center gap-1.5">
+        <p className="text-xs font-semibold text-slate-700">Already have an idea in mind?</p>
+        <span className="inline-flex items-center gap-1 rounded-full bg-[#0d9488] px-2.5 py-1 text-[0.65rem] font-bold tracking-wide text-white uppercase shadow-[0_2px_6px_rgba(13,148,136,0.35)] ring-1 ring-[#0d9488]/20">
+          Free Mockup
+        </span>
+      </div>
       <p className="mt-0.5 text-xs text-slate-500">
-        Tell me what you have in mind, even if it does not fit one of the options above.
+        Describe it below and I&apos;ll put together a sample mockup based on your idea — no cost, no obligation.
       </p>
       <div className="mt-2 flex items-center gap-1.5 rounded-md border border-slate-300/70 bg-white p-1 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)] transition-colors duration-200 focus-within:border-blue-300">
         <label htmlFor="website-idea-input" className="sr-only">
@@ -534,10 +673,12 @@ function ServiceShowcase({
     <section className="rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
       <div className="flex items-center gap-2.5">
         <IconChip icon={icon} tint={tint} />
-        <div>
-          <h2 className="text-base font-bold text-slate-900 sm:text-lg">{title}</h2>
-          <p className="text-sm text-slate-500">{subtext}</p>
-        </div>
+        <span className="inline-flex items-center rounded-md bg-[#128C4A] px-3 py-1.5 text-sm font-bold text-white shadow-[0_1px_2px_rgba(15,23,42,0.15)] sm:text-base">
+          {title}
+        </span>
+      </div>
+      <div className="mt-3 rounded-md border border-[#BFDCF3] bg-[#EAF3FC] px-3 py-2.5">
+        <p className="text-sm leading-relaxed text-slate-700">{subtext}</p>
       </div>
 
       <div className="mt-4 grid gap-5 lg:grid-cols-[minmax(220px,1fr)_2.8fr] lg:items-stretch lg:gap-6">
@@ -554,7 +695,14 @@ function ServiceShowcase({
 
         <div className="flex min-w-0 flex-col gap-2.5">
           <div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-tab-${active.id}`} className="min-w-0">
-            <MockupCarousel key={active.id} slides={active.slides} ariaLabel={`${title} — ${active.label} previews`} />
+            <MockupCarousel
+              key={active.id}
+              slides={active.slides}
+              ariaLabel={`${title} — ${active.label} previews`}
+              chrome="concept"
+              autoplayInterval={2000}
+              strongLabel
+            />
           </div>
           {rightFooter}
         </div>
@@ -595,8 +743,10 @@ export function ServicesPage() {
 
         <div className="relative flex items-start justify-between gap-4">
           <div>
-            <p className="text-[0.6rem] font-medium tracking-[0.2em] text-[#1F6FEB] uppercase">Services</p>
-            <h1 className="mt-1 text-2xl leading-[1.15] font-extrabold tracking-tight text-[#122c52] sm:text-3xl lg:text-[2rem]">
+            <span className="inline-flex items-center rounded-md bg-[#128C4A] px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.14em] whitespace-nowrap text-white uppercase shadow-[0_1px_2px_rgba(15,23,42,0.15)]">
+              Services
+            </span>
+            <h1 className="mt-2 text-2xl leading-[1.15] font-extrabold tracking-tight text-[#122c52] sm:text-3xl lg:text-[2rem]">
               Solutions built around what you need.
             </h1>
             <p className="mt-1 max-w-2xl text-sm leading-snug text-slate-600 lg:max-w-none lg:pr-6">
@@ -605,7 +755,13 @@ export function ServicesPage() {
             </p>
           </div>
 
-          <ClientLoginButton />
+          <Link
+            to="/contact?intent=message"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-[#1F6FEB] px-3 py-1.5 text-[0.8rem] font-semibold whitespace-nowrap text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1a5fc9] hover:shadow-[0_6px_14px_rgba(31,111,235,0.2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1F6FEB]"
+          >
+            <Mail className="h-[14px] w-[14px]" />
+            Contact Me
+          </Link>
         </div>
       </header>
 

@@ -189,6 +189,7 @@ export function MockupCarousel({
   ariaLabel,
   chrome = 'default',
   autoplayInterval = 4200,
+  strongLabel = false,
 }: {
   slides: MockupSlide[]
   ariaLabel: string
@@ -201,6 +202,11 @@ export function MockupCarousel({
   /** Autoplay wait time between slides, in ms. Defaults to the existing 4200ms
    *  for every consumer that doesn't explicitly set a different value. */
   autoplayInterval?: number
+  /** Opt-in: gives the default "Concept Mockup" overlay pill (top-left of the
+   *  thumbnail) stronger contrast — solid white, darker text, a defining ring —
+   *  instead of the original translucent/lighter treatment. Used by the
+   *  Services page; other consumers keep the original look unless they ask. */
+  strongLabel?: boolean
 }) {
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
@@ -328,7 +334,11 @@ export function MockupCarousel({
                     <span
                       className={cn(
                         'pointer-events-none absolute top-1.5 left-1.5 rounded-full px-2 py-0.5 text-[0.55rem] font-semibold tracking-wide uppercase shadow-sm',
-                        slide.badge ? 'bg-[#eafaf4] text-[#1f9d7c]' : 'bg-white/90 text-slate-600',
+                        slide.badge
+                          ? 'bg-[#eafaf4] text-[#1f9d7c]'
+                          : strongLabel
+                            ? 'bg-white text-slate-800 font-bold shadow-[0_1px_3px_rgba(15,23,42,0.18)] ring-1 ring-black/10'
+                            : 'bg-white/90 text-slate-600',
                       )}
                     >
                       {slide.badge ?? 'Concept Mockup'}
