@@ -1,14 +1,9 @@
-import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import {
   Award,
-  Briefcase,
-  Clock,
-  Compass,
-  Globe2,
   MapPin,
-  Reply,
+  Video,
   Eye,
   ShieldCheck,
   Ear,
@@ -26,37 +21,29 @@ import {
   Mail,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { TechMarquee } from '@/components/sections/TechMarquee'
 import { CertificationRail } from '@/components/CertificationRail'
 import { certifications } from '@/data/certifications'
 import { cn } from '@/lib/utils'
 
-const profileDetails: { label: string; value: string; icon: LucideIcon }[] = [
-  { label: 'Role', value: 'Freelancer', icon: Briefcase },
-  { label: 'Base', value: 'Philippines', icon: MapPin },
-  { label: 'Timezone', value: 'GMT+8', icon: Clock },
-  { label: 'Focus', value: 'Digital Experiences', icon: Compass },
-]
-
 const valueItems: { title: string; desc: string; icon: LucideIcon }[] = [
   {
     title: 'Clarity',
-    desc: 'I believe digital experiences should be easy to understand, even for people who are not highly technical.',
+    desc: 'Easy to understand, even for non-technical users.',
     icon: Eye,
   },
   {
     title: 'Practicality',
-    desc: 'I focus on solutions that are useful, manageable, and relevant to the real needs of the project.',
+    desc: 'Useful, manageable solutions that fit real needs.',
     icon: Hammer,
   },
   {
     title: 'Communication',
-    desc: 'Clear updates and straightforward communication help projects stay organized and reduce confusion.',
+    desc: 'Clear updates that keep projects on track.',
     icon: MessageCircle,
   },
   {
     title: 'Consistency',
-    desc: 'I value clean structure, dependable design systems, and experiences that feel intentional from beginning to end.',
+    desc: 'Clean structure and intentional design throughout.',
     icon: ShieldCheck,
   },
 ]
@@ -65,25 +52,25 @@ const workSteps: { number: string; title: string; desc: string; icon: LucideIcon
   {
     number: '01',
     title: 'Understand the Goal',
-    desc: 'Start by understanding what the project needs to accomplish and who will use it.',
+    desc: 'What the project needs to accomplish, and for whom.',
     icon: Ear,
   },
   {
     number: '02',
     title: 'Plan the Experience',
-    desc: 'Organize the information, layout, navigation, and key actions before adding unnecessary complexity.',
+    desc: 'Organize layout, navigation, and key actions first.',
     icon: ClipboardList,
   },
   {
     number: '03',
     title: 'Build and Refine',
-    desc: 'Create the solution step by step, review the experience, and improve details as the project develops.',
+    desc: 'Build step by step, then review and improve.',
     icon: Hammer,
   },
   {
     number: '04',
     title: 'Keep It Clear',
-    desc: 'Present progress, feedback, and next steps in a way that is easy to follow.',
+    desc: 'Progress and next steps that are easy to follow.',
     icon: Sparkles,
   },
 ]
@@ -91,122 +78,76 @@ const workSteps: { number: string; title: string; desc: string; icon: LucideIcon
 const strengthItems: { title: string; desc: string; icon: LucideIcon }[] = [
   {
     title: 'Professional Website Design',
-    desc: "Clean, responsive websites designed around the client's audience and goals.",
+    desc: 'Clean, responsive sites built around your audience.',
     icon: Globe,
   },
   {
     title: 'Web App & Portal Concepts',
-    desc: 'Practical dashboards, client portals, trackers, and web-based management tools.',
+    desc: 'Dashboards, portals, and management tools.',
     icon: KeyRound,
   },
   {
     title: 'Clear User Experience',
-    desc: 'Layouts and navigation designed to be understandable and easy to use.',
+    desc: 'Layouts that are simple and easy to use.',
     icon: Layers,
   },
   {
-    title: 'Organized Project Communication',
-    desc: 'A structured approach to updates, revisions, files, and project progress.',
+    title: 'Organized Communication',
+    desc: 'Structured updates, files, and progress tracking.',
     icon: MessageCircle,
   },
   {
     title: 'Digital Problem-Solving',
-    desc: 'A practical approach to turning ideas or workflow problems into usable digital solutions.',
+    desc: 'Turning ideas into practical digital solutions.',
     icon: Workflow,
   },
 ]
 
-function IconChip({
-  icon: Icon,
-  tint = 'blue',
-  size = 'md',
-}: {
-  icon: LucideIcon
-  tint?: 'blue' | 'mint'
-  size?: 'sm' | 'md'
-}) {
+/** Approved strong-icon language: solid blue backplate, white icon. */
+function IconChip({ icon: Icon }: { icon: LucideIcon }) {
   return (
-    <span
-      className={cn(
-        'flex shrink-0 items-center justify-center rounded-md',
-        size === 'sm' ? 'h-7 w-7' : 'h-9 w-9',
-        tint === 'blue' ? 'bg-blue-50 text-[#1F6FEB]' : 'bg-[#eafaf4] text-[#1f9d7c]',
-      )}
-    >
-      <Icon className={size === 'sm' ? 'h-3.5 w-3.5' : 'h-[18px] w-[18px]'} />
+    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-[#1F6FEB] text-white">
+      <Icon className="h-[18px] w-[18px]" />
     </span>
   )
 }
 
-function DetailCard({ label, value, icon }: { label: string; value: string; icon: LucideIcon }) {
+/** Compact green/white section-title badge, used consistently for every remaining
+ *  card heading on the About page. */
+function SectionBadge({ children }: { children: ReactNode }) {
   return (
-    <div className="flex items-center gap-3 rounded-lg border border-slate-300/70 bg-white p-3.5 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)]">
-      <IconChip icon={icon} tint="mint" />
-      <div className="min-w-0">
-        <p className="text-[0.65rem] font-semibold tracking-[0.1em] text-slate-400 uppercase">{label}</p>
-        <p className="truncate text-sm font-semibold text-slate-800">{value}</p>
-      </div>
-    </div>
+    <span className="inline-flex items-center rounded-md bg-[#128C4A] px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.14em] text-white uppercase shadow-[0_1px_2px_rgba(15,23,42,0.15)]">
+      {children}
+    </span>
   )
 }
 
+/** Compact mini-item — small solid-blue icon, bold title, one short supporting line. */
 function ValueCard({ title, desc, icon }: { title: string; desc: string; icon: LucideIcon }) {
   return (
-    <div className="flex flex-col gap-2.5 rounded-lg border border-slate-300/70 bg-white p-4 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)]">
+    <div className="flex items-start gap-2.5 rounded-md border border-slate-200/70 bg-white p-2.5 transition-all duration-200 hover:border-blue-200">
       <IconChip icon={icon} />
-      <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
-      <p className="text-sm leading-snug text-slate-500">{desc}</p>
+      <div className="min-w-0">
+        <h3 className="text-sm font-bold text-slate-800">{title}</h3>
+        <p className="text-xs leading-snug text-slate-500">{desc}</p>
+      </div>
     </div>
   )
 }
 
-/** Left-aligned, filled-marker variant — deliberately distinct from the Testimonials process cards. */
+/** Compact numbered step — deliberately distinct from the Testimonials process cards. */
 function WorkStepCard({ number, title, desc, icon: Icon }: { number: string; title: string; desc: string; icon: LucideIcon }) {
   return (
-    <div className="flex flex-col gap-2.5 rounded-lg border border-slate-300/70 bg-white p-4 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)]">
-      <div className="flex items-center gap-2.5">
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#1F6FEB] text-xs font-bold text-white">
-          {number}
-        </span>
-        <Icon className="h-4 w-4 shrink-0 text-[#1f9d7c]" />
-      </div>
-      <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
-      <p className="text-sm leading-snug text-slate-500">{desc}</p>
-    </div>
-  )
-}
-
-/** Local-JS-only Philippine time readout — no external API, updates on an interval. */
-function useLocalTimeString(timeZone: string) {
-  const [now, setNow] = useState(() => new Date())
-
-  useEffect(() => {
-    const id = window.setInterval(() => setNow(new Date()), 30_000)
-    return () => window.clearInterval(id)
-  }, [])
-
-  return now.toLocaleTimeString('en-US', { timeZone, hour: 'numeric', minute: '2-digit' })
-}
-
-/** Compact credibility-panel row — icon, micro-label, strong value, optional supporting caption. */
-function TrustRow({
-  label,
-  value,
-  micro,
-  icon,
-}: {
-  label: string
-  value: ReactNode
-  micro?: ReactNode
-  icon: LucideIcon
-}) {
-  return (
-    <div className="flex items-start gap-2.5 py-2.5 first:pt-0 last:pb-0">
-      <IconChip icon={icon} tint="mint" size="sm" />
+    <div className="flex items-start gap-2.5 rounded-md border border-slate-200/70 bg-white p-2.5 transition-all duration-200 hover:border-blue-200">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#1F6FEB] text-xs font-bold text-white">
+        {number}
+      </span>
       <div className="min-w-0">
-        <p className="text-[0.6rem] font-semibold tracking-[0.1em] text-slate-400 uppercase">{label}</p>
-        <p className="text-sm font-semibold text-slate-800">{value}</p>
-        {micro ? <p className="mt-0.5 text-xs text-slate-500">{micro}</p> : null}
+        <div className="flex items-center gap-1.5">
+          <Icon className="h-3.5 w-3.5 shrink-0 text-[#1f9d7c]" />
+          <h3 className="text-sm font-bold text-slate-800">{title}</h3>
+        </div>
+        <p className="text-xs leading-snug text-slate-500">{desc}</p>
       </div>
     </div>
   )
@@ -214,110 +155,96 @@ function TrustRow({
 
 function StrengthCard({ title, desc, icon }: { title: string; desc: string; icon: LucideIcon }) {
   return (
-    <div className="flex items-start gap-3 rounded-lg border border-slate-300/70 p-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_8px_16px_rgba(15,23,42,0.06)]">
+    <div className="flex items-start gap-2.5 rounded-md border border-slate-200/70 bg-white p-2.5 transition-all duration-200 hover:border-blue-200">
       <IconChip icon={icon} />
       <div className="min-w-0">
-        <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
-        <p className="mt-0.5 text-sm leading-snug text-slate-500">{desc}</p>
+        <h3 className="text-sm font-bold text-slate-800">{title}</h3>
+        <p className="text-xs leading-snug text-slate-500">{desc}</p>
       </div>
     </div>
   )
 }
 
-function AboutHeroCard() {
-  const philippineTime = useLocalTimeString('Asia/Manila')
+/** Compact info-strip item — small solid-blue icon, micro-label, single-line value. */
+function InfoRow({
+  icon: Icon,
+  label,
+  value,
+  className,
+}: {
+  icon: LucideIcon
+  label: string
+  value: string
+  className?: string
+}) {
+  return (
+    <div className={cn('flex min-w-0 items-start gap-2', className)}>
+      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[#1F6FEB] text-white">
+        <Icon className="h-3.5 w-3.5" />
+      </span>
+      <div className="min-w-0 leading-tight">
+        <p className="text-[0.58rem] font-semibold tracking-[0.08em] whitespace-nowrap text-slate-400 uppercase">{label}</p>
+        <p className="text-xs font-semibold whitespace-nowrap text-slate-700">{value}</p>
+      </div>
+    </div>
+  )
+}
 
+/** Single unified About card — portrait, a short bio, and a compact
+ *  certification/location/consultation/contact info strip, all in one composition. */
+function AboutHeroCard() {
   return (
     <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
-      <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr] lg:gap-6">
-        <div className="flex min-w-0 flex-col gap-3">
-          <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">
-            Multidisciplinary Freelancer
-          </p>
-          <h2 className="text-xl leading-snug font-extrabold text-slate-900 sm:text-2xl">
-            Hi, I&apos;m Alex.
-          </h2>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+        <img
+          src="/about-alex-portrait.png"
+          alt="Alex, freelance digital creator"
+          className="h-28 w-28 shrink-0 rounded-lg object-cover object-top shadow-[0_1px_2px_rgba(15,23,42,0.1)] sm:h-32 sm:w-32"
+        />
+
+        <div className="min-w-0 flex-1">
           <p className="text-sm leading-relaxed text-slate-600">
-            I&apos;m Alexis Sarip, a freelance digital creator and web developer based in the
-            Philippines. I build professional websites, web applications, client portals, and
-            practical digital systems designed to make information easier to understand, manage,
-            and use.
+            Hi, I&apos;m Alex! Founder of{' '}
+            <a
+              href="https://launchsiteph.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#1F6FEB] underline decoration-[#1F6FEB]/30 underline-offset-2 transition-colors duration-200 hover:text-[#1a5fc9] hover:decoration-[#1F6FEB]"
+            >
+              LaunchSite PH
+            </a>
+            .
           </p>
-          <p className="text-sm leading-relaxed text-slate-600">
-            My work combines visual design, user experience, and practical problem-solving. I
-            focus on creating digital experiences that feel clear, organized, professional, and
-            approachable — especially for clients who may not be highly technical.
+          <p className="mt-2.5 text-sm leading-relaxed text-slate-600">
+            I&apos;m a self-taught digital creator and web developer based in the Philippines,
+            with several years of experience working with clients, including authors and
+            publishing professionals. I use web development, AI, and practical digital tools to
+            turn ideas into clear, useful solutions. I value continuous learning, hard work, clear
+            communication, and building digital experiences that genuinely help people.
           </p>
-
-          <div className="mt-2 border-t border-slate-200/70 pt-3">
-            <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">
-              More About Me
-            </p>
-            <p className="mt-1.5 text-[0.8rem] leading-relaxed text-slate-500">
-              My background includes several years of work in book publishing, client
-              communication, project coordination, digital design, and production support. Over
-              time, I became increasingly involved in building websites, online tools, and
-              digital workflows that could make everyday work simpler and more organized.
-            </p>
-            <p className="mt-2 text-[0.8rem] leading-relaxed text-slate-500">
-              Today, I continue to combine those experiences through freelance digital work —
-              helping turn ideas into useful websites, portals, dashboards, and online experiences
-              that are easier for people to navigate and understand.
-            </p>
-          </div>
-        </div>
-
-        <div className="flex min-w-0 flex-col rounded-lg border border-[var(--card-border-nested)] bg-[#F1F5F7] p-4">
-          <p className="mb-1 text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-nested)] uppercase">
-            Working Context
-          </p>
-          <div className="divide-y divide-slate-200/70">
-            <TrustRow
-              label="Certified Skills"
-              value="LinkedIn Learning"
-              micro="AI and digital skills training"
-              icon={Award}
-            />
-            <TrustRow label="Replies" value="Usually within 24 hours" icon={Reply} />
-            <TrustRow label="Availability" value="Remote" icon={Globe2} />
-            <TrustRow
-              label="Location"
-              value={
-                <>
-                  Philippines <span className="font-normal text-slate-400">· GMT+8</span>
-                </>
-              }
-              micro={`${philippineTime} local time`}
-              icon={MapPin}
-            />
-          </div>
-
-          <div className="mt-3 flex flex-1 flex-col justify-center border-t border-slate-200/70 pt-3">
-            <div className="flex flex-col gap-2 sm:flex-row">
-              <Link
-                to="/contact?intent=message"
-                className="group flex flex-1 items-center justify-center gap-1.5 rounded-md bg-[#1F6FEB] px-3 py-2 text-xs font-semibold text-white shadow-[0_2px_8px_rgba(31,111,235,0.25)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1a5fc9] hover:shadow-[0_6px_14px_rgba(31,111,235,0.3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
-              >
-                <MessageCircle className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5" />
-                Send Me a Message
-              </Link>
-              <Link
-                to="/contact?intent=email"
-                className="flex flex-1 items-center justify-center gap-1.5 rounded-md border border-[#1F6FEB]/40 bg-white px-3 py-2 text-xs font-semibold text-[#1F6FEB] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#1F6FEB]/70 hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
-              >
-                <Mail className="h-3.5 w-3.5 shrink-0" />
-                Email Me
-              </Link>
-            </div>
-          </div>
         </div>
       </div>
 
-      {/* Quick profile details */}
-      <div className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
-        {profileDetails.map((item) => (
-          <DetailCard key={item.label} {...item} />
-        ))}
+      {/* Compact info strip — Certification/Location/Live Consultation flow as one
+          continuous line, with clear breathing room before the CTA on the far right. */}
+      <div className="mt-4 flex flex-col gap-3 border-t border-slate-200/70 pt-3.5 lg:flex-row lg:items-center lg:gap-5">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start sm:gap-x-5 sm:gap-y-2.5 lg:flex-1 xl:flex-nowrap xl:items-center xl:divide-x xl:divide-slate-200">
+          <InfoRow icon={Award} label="Certification" value="LinkedIn Learning" />
+          <InfoRow icon={MapPin} label="Location" value="Philippines · GMT+8" className="xl:pl-5" />
+          <InfoRow
+            icon={Video}
+            label="Live Consultation"
+            value="Available for phone and video project discussions"
+            className="xl:pl-5"
+          />
+        </div>
+        <Link
+          to="/contact?intent=message"
+          className="inline-flex items-center justify-center gap-1.5 self-start rounded-md bg-[#1F6FEB] px-3 py-1.5 text-xs font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1a5fc9] hover:shadow-[0_4px_10px_rgba(31,111,235,0.25)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 lg:ml-4 lg:shrink-0"
+        >
+          <MessageCircle className="h-3.5 w-3.5 shrink-0" />
+          Send Me a Message
+        </Link>
       </div>
     </section>
   )
@@ -370,26 +297,21 @@ export function AboutPage() {
       <AboutHeroCard />
 
       {/* Certifications */}
-      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
-        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">
-          LinkedIn Learning
+      <section className="mt-3 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
+        <SectionBadge>Certifications</SectionBadge>
+        <p className="mt-2 text-sm text-slate-500">
+          Professional learning and verified LinkedIn Learning credentials supporting my digital
+          work.
         </p>
-        <h2 className="mt-1 text-lg font-extrabold text-slate-900 sm:text-xl">
-          Professional Learning &amp; Certifications
-        </h2>
-        <p className="mt-1 text-sm text-slate-500">
-          Documented LinkedIn Learning course completions covering artificial intelligence,
-          digital marketing, sales strategy, productivity, and practical digital workflows.
-        </p>
-        <div className="mt-4">
+        <div className="mt-3">
           <CertificationRail certifications={certifications} />
         </div>
       </section>
 
       {/* What I Value */}
-      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
-        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">What I Value</p>
-        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="mt-3 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
+        <SectionBadge>What I Value</SectionBadge>
+        <div className="mt-2.5 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
           {valueItems.map((item) => (
             <ValueCard key={item.title} {...item} />
           ))}
@@ -397,29 +319,19 @@ export function AboutPage() {
       </section>
 
       {/* How I Work */}
-      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
-        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">How I Work</p>
-        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="mt-3 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
+        <SectionBadge>How I Work</SectionBadge>
+        <div className="mt-2.5 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
           {workSteps.map((step) => (
             <WorkStepCard key={step.number} {...step} />
           ))}
         </div>
       </section>
 
-      {/* Tools & Capabilities — reuses the exact approved homepage marquee */}
-      <section className="mt-4">
-        <p className="mb-3 text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">
-          Tools &amp; Capabilities
-        </p>
-        <TechMarquee />
-      </section>
-
       {/* What I Can Bring to a Project */}
-      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
-        <p className="text-[0.65rem] font-bold tracking-[0.12em] text-[var(--card-border-accent)] uppercase">
-          What I Can Bring to a Project
-        </p>
-        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <section className="mt-3 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)]">
+        <SectionBadge>What I Can Bring</SectionBadge>
+        <div className="mt-2.5 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
           {strengthItems.map((item) => (
             <StrengthCard key={item.title} {...item} />
           ))}
@@ -427,9 +339,9 @@ export function AboutPage() {
       </section>
 
       {/* Personal note — small editorial card, no fake quote styling */}
-      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F1F5F7] p-4 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)] sm:p-5">
+      <section className="mt-3 rounded-lg border border-[var(--card-border-accent)] bg-[#F1F5F7] p-4 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_4px_10px_rgba(15,23,42,0.04)]">
         <div className="flex items-start gap-3">
-          <IconChip icon={PenLine} tint="mint" />
+          <IconChip icon={PenLine} />
           <div>
             <h3 className="text-sm font-bold text-slate-900">A simple approach.</h3>
             <p className="mt-1 text-sm leading-relaxed text-slate-600">
@@ -443,8 +355,8 @@ export function AboutPage() {
       </section>
 
       {/* Bottom CTA — same action concepts approved on Projects/Services/Testimonials */}
-      <section className="mt-4 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-5 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-6">
-        <div className="flex flex-col items-center gap-4 text-center">
+      <section className="mt-3 rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] sm:p-5">
+        <div className="flex flex-col items-center gap-3 text-center">
           <p className="text-sm text-slate-500">Have an idea in mind? Let&apos;s bring it to life.</p>
           <div className="flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row">
             <Link
