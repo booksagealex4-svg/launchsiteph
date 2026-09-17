@@ -1,92 +1,35 @@
-import { useEffect, useRef, useState } from 'react'
-import type { ReactNode } from 'react'
+import { useState } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import type { LucideIcon } from 'lucide-react'
-import {
-  Globe,
-  LayoutDashboard,
-  ListChecks,
-  KeyRound,
-  Zap,
-  Smartphone,
-  FileText,
-  Puzzle,
-  Send,
-  ChevronDown,
-  Clock,
-  Globe2,
-  WalletCards,
-  Workflow,
-  Wallet,
-  SplitSquareHorizontal,
-} from 'lucide-react'
-import { useSearchParams } from 'react-router-dom'
-import { ClientLoginButton } from '@/components/ClientLoginButton'
+import { Send, ChevronDown, Mail, ArrowUpRight } from 'lucide-react'
+import { FaWhatsapp, FaLinkedinIn } from 'react-icons/fa6'
 import { cn } from '@/lib/utils'
 
-/** Shared shell for every FAQ/Contact card — compact padding, with a restrained hover lift
- *  (structural, not clickable). No fixed height here: FAQs opts into `lg:flex-1` to fill its
- *  column, the other three cards simply size to their (unchanged) content. */
+/** Shared shell for the page's three main cards — red outer border, off-white surface,
+ *  restrained hover lift (structural, not clickable). FAQs opts into `lg:h-full` to match
+ *  the combined height of the two stacked right-side cards. */
 const cardShellClass =
   'flex min-h-0 flex-col rounded-lg border border-[var(--card-border-accent)] bg-[#F7F9FB] p-4 shadow-[0_1px_3px_rgba(15,23,42,0.07),0_6px_14px_rgba(15,23,42,0.05)] transition-all duration-200 hover:-translate-y-px hover:shadow-[0_4px_10px_rgba(15,23,42,0.1),0_14px_28px_rgba(15,23,42,0.09)] hover:ring-1 hover:ring-[var(--card-border-accent)]/25'
 
-const nestedRowClass = 'rounded-md border border-[var(--card-border-nested)]/35 bg-white'
-
-/** Strong-green backplate title — replaces red card-title text on this page only. `self-start`
- *  keeps it hugging its own text instead of stretching full-width as a flex-col child. Static
- *  (non-interactive), per spec, so no hover treatment is applied. */
+/** Strong-green backplate title, used for every card heading on this page. `self-start`
+ *  keeps it hugging its own text instead of stretching full-width as a flex-col child. */
 function SectionTitle({ children }: { children: ReactNode }) {
   return (
-    <div className="inline-block self-start rounded-md border border-[#0F6E52] bg-[#178A68] px-2.5 py-1 text-xs font-bold text-white shadow-[0_2px_6px_rgba(15,110,82,0.25)]">
+    <div className="inline-block self-start rounded-md bg-[#128C4A] px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.14em] text-white uppercase shadow-[0_1px_2px_rgba(15,23,42,0.15)]">
       {children}
     </div>
   )
 }
 
-const projectOptions: { id: string; label: string; icon: LucideIcon }[] = [
-  { id: 'website', label: 'Website', icon: Globe },
-  { id: 'web-app', label: 'Web App', icon: LayoutDashboard },
-  { id: 'tracker', label: 'Personal Tracker', icon: ListChecks },
-  { id: 'client-portal', label: 'Client Portal', icon: KeyRound },
-  { id: 'automation', label: 'Automation', icon: Zap },
-  { id: 'mobile-app', label: 'Mobile App', icon: Smartphone },
-  { id: 'mockup', label: 'Free Mockup', icon: FileText },
-  { id: 'custom', label: 'Custom Project', icon: Puzzle },
+const serviceOptions = [
+  'Website Design',
+  'Web App',
+  'Client Portal / Personal Tracker',
+  'Automation',
+  'Social Media Solution',
+  'Custom Digital Project',
+  'Other',
 ]
-
-const paymentOptions: { id: string; label: string; helper: string; icon: LucideIcon }[] = [
-  {
-    id: 'full',
-    label: 'Pay in Full',
-    helper: 'Full amount before work begins.',
-    icon: Wallet,
-  },
-  {
-    id: 'half',
-    label: '50/50 Payment',
-    helper: '50% to begin, 50% after completion.',
-    icon: SplitSquareHorizontal,
-  },
-]
-
-const beforeYouReachOut: { label: string; value: string; icon: LucideIcon }[] = [
-  { label: 'Response Time', value: 'Usually within 24 hours', icon: Clock },
-  { label: 'Availability', value: 'Remote', icon: Globe2 },
-  { label: 'Payment Options', value: 'Pay in full or 50/50', icon: WalletCards },
-  { label: 'Project Process', value: 'Review → Clarify → Scope → Begin', icon: Workflow },
-]
-
-const whatHappensNext = [
-  { number: '01', text: 'Review' },
-  { number: '02', text: 'Clarify' },
-  { number: '03', text: 'Scope & Next Steps' },
-]
-
-const intentToProjectId: Record<string, string> = {
-  mockup: 'mockup',
-  'web-app': 'web-app',
-  tracker: 'tracker',
-  project: 'custom',
-}
 
 interface FaqItem {
   id: string
@@ -94,54 +37,19 @@ interface FaqItem {
   answer: ReactNode
 }
 
+/** The questions a potential client actually needs before reaching out — the full process
+ *  is already explained on the How It Works page, so answers here stay short and do not
+ *  repeat it step by step. */
 const faqItems: FaqItem[] = [
   {
-    id: 'what-can-you-build',
-    question: 'What can you build for me?',
+    id: 'services',
+    question: 'What services do you offer?',
     answer: (
       <p>
-        I can help with professional websites, web applications, client portals, dashboards,
-        personal trackers, automation concepts, and other custom digital projects. If your idea
-        does not fit one of these categories, you can still send it to me and we can discuss what
-        makes sense.
+        I build websites, web apps, client portals, personal trackers, and other custom
+        digital projects. If your idea does not fit neatly into one of these, you can still
+        send it to me and we can discuss what makes sense.
       </p>
-    ),
-  },
-  {
-    id: 'technical-knowledge',
-    question: 'Do I need to understand technology first?',
-    answer: (
-      <p>
-        No. You do not need to know technical terms or decide which technology should be used.
-        Explain what you want to accomplish, and I can help translate the idea into a practical
-        digital solution.
-      </p>
-    ),
-  },
-  {
-    id: 'payments',
-    question: 'How do payments work?',
-    answer: (
-      <div className="flex flex-col gap-1.5">
-        <div>
-          <p className="font-bold text-slate-800">Option 1 — Pay in Full</p>
-          <p className="leading-snug text-slate-600">Pay the full agreed project amount before work begins.</p>
-        </div>
-        <div>
-          <p className="font-bold text-slate-800">Option 2 — 50/50 Payment</p>
-          <p className="leading-snug text-slate-600">
-            Pay 50% to officially begin the project and the remaining 50% after the agreed work is
-            completed.
-          </p>
-        </div>
-        <div>
-          <p className="font-bold text-slate-800">Payment Method</p>
-          <p className="leading-snug text-slate-600">
-            Direct bank payment, invoice/payment link, or another mutually agreed method that
-            works for both sides.
-          </p>
-        </div>
-      </div>
     ),
   },
   {
@@ -149,141 +57,116 @@ const faqItems: FaqItem[] = [
     question: 'Can I request a free mockup?',
     answer: (
       <p>
-        For suitable projects, I may prepare a simple visual mockup so you can better understand
-        the proposed direction before moving forward. A mockup is not guaranteed for every inquiry
-        and does not represent a complete finished project.
+        Yes. For suitable projects, I can prepare a free concept mockup so you can see my
+        approach before deciding whether to move forward.
       </p>
     ),
   },
   {
-    id: 'response-time',
-    question: 'How soon will you respond?',
+    id: 'process',
+    question: 'How does the process work?',
     answer: (
       <p>
-        I usually respond within 24 hours. If I need more information about your request, I may
-        ask a few simple questions before recommending the next step.
+        We talk about your idea, I may prepare a free mockup, we review it together, and no
+        official project begins until we both agree on the scope and details.
       </p>
     ),
   },
   {
-    id: 'outside-philippines',
-    question: 'Can you work with clients outside the Philippines?',
+    id: 'talk',
+    question: 'Can we talk by phone or video call?',
     answer: (
       <p>
-        Yes. I work remotely and can communicate with clients in different locations and time
-        zones. I am based in the Philippines, GMT+8.
+        Yes. We can communicate by email, WhatsApp, phone call, or video call — whichever is
+        easiest for you.
       </p>
     ),
   },
   {
-    id: 'after-you-send',
-    question: 'What happens after I send my request?',
+    id: 'timeline',
+    question: 'How long does a project usually take?',
     answer: (
       <p>
-        I review your message first. I may reply with questions or recommendations. If the
-        project appears to be a good fit, we can then discuss the scope, expected work, timeline,
-        payment option, and next steps.
+        It depends on the scope and complexity of the project. Once we agree on the details, I
+        will share a clear timeline before work officially begins.
+      </p>
+    ),
+  },
+  {
+    id: 'remote',
+    question: 'Do you work with clients outside the Philippines?',
+    answer: (
+      <p>
+        Yes. I work remotely with clients in different locations and time zones. I am based in
+        the Philippines, GMT+8.
+      </p>
+    ),
+  },
+  {
+    id: 'payments',
+    question: 'How do payments work?',
+    answer: (
+      <p>
+        You can pay the full amount before work begins, or split it 50% to start and 50% after
+        completion. Payment details are agreed on before the project officially starts.
+      </p>
+    ),
+  },
+  {
+    id: 'changes',
+    question: 'Can I request changes during the project?',
+    answer: (
+      <p>
+        Yes. We review the work together as it develops, and adjustments can be discussed based
+        on what we agreed on for the project.
+      </p>
+    ),
+  },
+  {
+    id: 'what-to-send',
+    question: 'What do I need to send before we begin?',
+    answer: (
+      <p>
+        Just a clear description of what you want to build. Examples or references are helpful,
+        but not required to get started.
+      </p>
+    ),
+  },
+  {
+    id: 'get-started',
+    question: 'How do I get started?',
+    answer: (
+      <p>
+        Send me your idea using the form on this page, or reach out directly by email or
+        WhatsApp. We will talk it through before anything begins.
       </p>
     ),
   },
 ]
 
-/** Project-interest chip — default light-neutral/blue-border, pale-blue hover with a slight
- *  lift, strong blue fill with white text/icon when selected. */
-function CategoryChip({
-  label,
-  icon: Icon,
-  active,
-  onClick,
-}: {
-  label: string
-  icon: LucideIcon
-  active: boolean
-  onClick: () => void
-}) {
-  return (
-    <button
-      type="button"
-      role="radio"
-      aria-checked={active}
-      onClick={onClick}
-      className={cn(
-        'flex items-center gap-1.5 rounded-md border px-2 py-1 text-[0.7rem] font-medium transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
-        active
-          ? 'border-[#1F6FEB] bg-[#1F6FEB] text-white shadow-[0_2px_8px_rgba(31,111,235,0.28)]'
-          : 'border-[#1F6FEB]/30 bg-white text-slate-700 hover:-translate-y-px hover:border-[#1F6FEB]/60 hover:bg-blue-50 hover:shadow-[0_2px_6px_rgba(31,111,235,0.14)]',
-      )}
-    >
-      <Icon className="h-3 w-3 shrink-0" />
-      {label}
-    </button>
-  )
-}
-
-/** Payment-preference card — same default/hover/selected hierarchy as CategoryChip, with
- *  room for helper copy and an icon that turns white when selected. */
-function PaymentOptionCard({
-  label,
-  helper,
-  icon: Icon,
-  active,
-  onClick,
-}: {
-  label: string
-  helper: string
-  icon: LucideIcon
-  active: boolean
-  onClick: () => void
-}) {
-  return (
-    <button
-      type="button"
-      role="radio"
-      aria-checked={active}
-      onClick={onClick}
-      className={cn(
-        'flex flex-1 items-center gap-2 rounded-md border px-2.5 py-2 text-left transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
-        active
-          ? 'border-[#1F6FEB] bg-[#1F6FEB] shadow-[0_4px_12px_rgba(31,111,235,0.3)]'
-          : 'border-[#1F6FEB]/30 bg-white hover:-translate-y-px hover:bg-blue-50 hover:shadow-[0_4px_10px_rgba(15,23,42,0.08)]',
-      )}
-    >
-      <span
-        className={cn(
-          'flex h-7 w-7 shrink-0 items-center justify-center rounded-md',
-          active ? 'bg-white/20 text-white' : 'bg-blue-50 text-[#1F6FEB]',
-        )}
-      >
-        <Icon className="h-3.5 w-3.5" />
-      </span>
-      <span className="min-w-0">
-        <span className={cn('block text-xs font-semibold', active ? 'text-white' : 'text-slate-700')}>{label}</span>
-        <span className={cn('block text-[0.65rem] leading-snug', active ? 'text-blue-50' : 'text-slate-500')}>
-          {helper}
-        </span>
-      </span>
-    </button>
-  )
-}
-
-/** Inline-expanding accordion — clicking a question expands its answer directly beneath it
- *  (not in a separate viewer elsewhere), so it is unambiguous to a non-technical visitor which
- *  answer belongs to which question. The FAQ card now has an entire column's worth of height to
- *  work with (see the layout below), so even the longest answer expanding in place never pushes
- *  the page past the viewport. CSS grid-rows animates height without measuring, and respects
- *  prefers-reduced-motion automatically via the motion-reduce: variant. */
+/** Inline-expanding accordion — only one answer open at a time, animated with CSS grid-rows
+ *  so no measuring is needed. Global `prefers-reduced-motion` handling (see index.css)
+ *  disables the transition automatically. */
 function FaqAccordion({ items }: { items: FaqItem[] }) {
   const [openId, setOpenId] = useState<string | null>(items[0]?.id ?? null)
 
   return (
-    <div className="flex flex-col divide-y divide-slate-200/70">
-      {items.map((item, idx) => {
+    <div className="flex flex-col gap-1.5">
+      {items.map((item) => {
         const isOpen = openId === item.id
         const buttonId = `faq-button-${item.id}`
         const panelId = `faq-panel-${item.id}`
 
         return (
-          <div key={item.id} className={cn('rounded-md transition-colors duration-200', isOpen && 'bg-[#F3F7FD]')}>
+          <div
+            key={item.id}
+            className={cn(
+              'rounded-md border bg-white transition-all duration-200 hover:-translate-y-px hover:border-[var(--card-border-nested)]/60 hover:shadow-[0_3px_8px_rgba(15,23,42,0.06)]',
+              isOpen
+                ? 'border-[var(--card-border-nested)]/70 bg-[#F3F7FD] shadow-[0_1px_2px_rgba(15,23,42,0.04)]'
+                : 'border-[var(--card-border-nested)]/30',
+            )}
+          >
             <h3 className="m-0">
               <button
                 type="button"
@@ -291,26 +174,20 @@ function FaqAccordion({ items }: { items: FaqItem[] }) {
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 onClick={() => setOpenId((v) => (v === item.id ? null : item.id))}
-                className="group flex w-full items-center justify-between gap-2 rounded-md px-2 py-2 text-left transition-colors duration-200 hover:bg-[#EEF3FB] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                className="flex w-full items-center justify-between gap-3 rounded-md px-3 py-2.5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               >
-                <span className="flex min-w-0 items-baseline gap-2.5">
-                  <span className="text-xs font-bold text-[#DC2626]">{String(idx + 1).padStart(2, '0')}</span>
-                  <span className="text-sm leading-snug font-semibold text-slate-800 transition-colors duration-200 group-hover:text-slate-900">
-                    {item.question}
-                  </span>
+                <span className={cn('text-sm leading-snug text-slate-800', isOpen ? 'font-bold' : 'font-semibold')}>
+                  {item.question}
                 </span>
                 <span
                   className={cn(
-                    'flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[#1F6FEB] transition-all duration-200 group-hover:bg-blue-100',
+                    'flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[#1F6FEB] transition-all duration-200',
                     isOpen && 'bg-[#1F6FEB] text-white',
                   )}
                 >
                   <ChevronDown
                     aria-hidden="true"
-                    className={cn(
-                      'h-3 w-3 transition-transform duration-200 motion-reduce:transition-none',
-                      isOpen && 'rotate-180',
-                    )}
+                    className={cn('h-3.5 w-3.5 transition-transform duration-200', isOpen && 'rotate-180')}
                   />
                 </span>
               </button>
@@ -319,20 +196,10 @@ function FaqAccordion({ items }: { items: FaqItem[] }) {
               id={panelId}
               role="region"
               aria-labelledby={buttonId}
-              className={cn(
-                'grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none',
-                isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',
-              )}
+              className={cn('grid transition-[grid-template-rows] duration-200 ease-out', isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]')}
             >
               <div className="overflow-hidden">
-                <div
-                  className={cn(
-                    'px-2 pt-0 pb-3 pl-[2.15rem] text-sm leading-relaxed text-slate-600 transition-opacity duration-200 motion-reduce:transition-none',
-                    isOpen ? 'opacity-100' : 'opacity-0',
-                  )}
-                >
-                  {item.answer}
-                </div>
+                <div className="px-3 pt-0 pb-2.5 text-sm leading-relaxed text-slate-600">{item.answer}</div>
               </div>
             </div>
           </div>
@@ -342,150 +209,146 @@ function FaqAccordion({ items }: { items: FaqItem[] }) {
   )
 }
 
-export function ContactPage() {
-  const [searchParams] = useSearchParams()
-  const intent = searchParams.get('intent')
+// Icon backplates use each brand's real solid color with a white glyph — the same
+// treatment approved on the Home page Contact card.
+const contactMethods: {
+  label: string
+  action: string
+  href: string
+  icon: LucideIcon | typeof FaWhatsapp
+  bg: string
+  hoverBg: string
+  hoverBorder: string
+}[] = [
+  {
+    label: 'Email',
+    action: 'Message Me',
+    href: 'mailto:booksage.alex5@gmail.com',
+    icon: Mail,
+    bg: '#E14F45',
+    hoverBg: '#FDF1EF',
+    hoverBorder: '#F3C7BD',
+  },
+  {
+    label: 'WhatsApp',
+    action: 'Start a Chat',
+    href: 'https://wa.me/639096439567',
+    icon: FaWhatsapp,
+    bg: '#25D366',
+    hoverBg: '#EAFBF1',
+    hoverBorder: '#BEEAD1',
+  },
+  {
+    label: 'LinkedIn',
+    action: 'View Profile',
+    href: 'https://www.linkedin.com/in/alexis-sarip-a46442428/',
+    icon: FaLinkedinIn,
+    bg: '#0A66C2',
+    hoverBg: '#EAF3FC',
+    hoverBorder: '#BFDCF3',
+  },
+]
 
-  const [projectInterest, setProjectInterest] = useState<string | null>(
-    () => intentToProjectId[intent ?? ''] ?? null,
+function ContactRow({
+  label,
+  action,
+  href,
+  icon: Icon,
+  bg,
+  hoverBg,
+  hoverBorder,
+}: {
+  label: string
+  action: string
+  href: string
+  icon: LucideIcon | typeof FaWhatsapp
+  bg: string
+  hoverBg: string
+  hoverBorder: string
+}) {
+  return (
+    <a
+      href={href}
+      target={href.startsWith('http') ? '_blank' : undefined}
+      rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+      aria-label={`${label} — ${action}`}
+      style={{ '--hover-bg': hoverBg, '--hover-border': hoverBorder } as CSSProperties}
+      className="group/row flex items-center gap-3 rounded-md border border-[var(--card-border-nested)]/40 bg-white px-3 py-2.5 transition-all duration-200 ease-out hover:-translate-y-px hover:border-[var(--hover-border)] hover:bg-[var(--hover-bg)] hover:shadow-[0_3px_8px_rgba(15,23,42,0.08)] focus-visible:-translate-y-px focus-visible:border-[var(--hover-border)] focus-visible:bg-[var(--hover-bg)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+    >
+      <span
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-white shadow-[0_1px_2px_rgba(15,23,42,0.15)]"
+        style={{ backgroundColor: bg }}
+      >
+        <Icon className="h-[15px] w-[15px]" />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block text-[0.65rem] font-medium tracking-wide text-slate-500 uppercase">{label}</span>
+        <span className="block truncate text-sm font-semibold text-slate-800 transition-colors duration-200 group-hover/row:text-slate-900">
+          {action}
+        </span>
+      </span>
+      <ArrowUpRight className="h-4 w-4 shrink-0 text-slate-400 transition-all duration-200 ease-out group-hover/row:translate-x-1 group-hover/row:text-slate-600" />
+    </a>
   )
-  const [paymentPreference, setPaymentPreference] = useState<string | null>(null)
-  const [freeMockupRequested, setFreeMockupRequested] = useState(() => intent === 'mockup')
-  const [errors, setErrors] = useState<{ name?: string; email?: string; details?: string }>({})
+}
+
+export function ContactPage() {
+  const [errors, setErrors] = useState<{ name?: string; email?: string; service?: string; message?: string }>({})
   const [submitted, setSubmitted] = useState(false)
-  const emailContext = intent === 'email'
-  const emailInputRef = useRef<HTMLInputElement>(null)
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
-
-  useEffect(() => {
-    if (intent === 'message') textareaRef.current?.focus()
-    if (intent === 'email') emailInputRef.current?.focus()
-    // Only ever run this once, for the intent the page was opened with.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    const form = e.currentTarget
-    const name = (form.elements.namedItem('name') as HTMLInputElement).value.trim()
-    const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim()
-    const details = (form.elements.namedItem('details') as HTMLTextAreaElement).value.trim()
-
-    const nextErrors: typeof errors = {}
-    if (!name) nextErrors.name = 'Please enter your name.'
-    if (!email) nextErrors.email = 'Please enter your email address.'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) nextErrors.email = 'Please enter a valid email address.'
-    if (!details) nextErrors.details = 'Please tell me a little about your idea.'
-
-    setErrors(nextErrors)
-    setSubmitted(Object.keys(nextErrors).length === 0)
-  }
 
   const fieldBaseClass =
     'w-full rounded-md border bg-white px-3 py-2 text-sm text-slate-700 placeholder:text-slate-400 transition-colors duration-200 focus:ring-2 focus:ring-blue-100 focus:outline-none'
   const fieldNeutralClass = 'border-[#C7D2E0] focus:border-[#1F6FEB]'
   const fieldErrorClass = 'border-red-400 focus:border-red-400'
 
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const form = e.currentTarget
+    const name = (form.elements.namedItem('contact-name') as HTMLInputElement).value.trim()
+    const email = (form.elements.namedItem('contact-email') as HTMLInputElement).value.trim()
+    const service = (form.elements.namedItem('contact-service') as HTMLSelectElement).value
+    const message = (form.elements.namedItem('contact-message') as HTMLTextAreaElement).value.trim()
+
+    const nextErrors: typeof errors = {}
+    if (!name) nextErrors.name = 'Please enter your name.'
+    if (!email) nextErrors.email = 'Please enter your email address.'
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) nextErrors.email = 'Please enter a valid email address.'
+    if (!service) nextErrors.service = 'Please select a service.'
+    if (!message) nextErrors.message = 'Please tell me a little about your idea.'
+
+    setErrors(nextErrors)
+    setSubmitted(Object.keys(nextErrors).length === 0)
+  }
+
   return (
     <>
-      {/* Page header — compact: eyebrow + heading + one-line supporting copy only */}
-      <header className="relative overflow-hidden rounded-lg border border-[var(--card-border-accent)] bg-[#fdfbf7] px-5 py-2.5 shadow-[0_1px_2px_rgba(15,23,42,0.03)] sm:px-6">
-        <svg
-          className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.2]"
-          viewBox="0 0 1000 140"
-          preserveAspectRatio="xMidYMid slice"
-          aria-hidden="true"
-        >
-          <g className="animate-hero-drift-a" stroke="#1F6FEB" strokeWidth="1.1" fill="none">
-            <path d="M -100 20 C 120 -20, 260 60, 460 25 S 780 -10, 1120 30" />
-          </g>
-          <g className="animate-hero-drift-b" stroke="#7fd8c4" strokeWidth="1.1" fill="none">
-            <path d="M -80 80 C 160 110, 340 40, 600 85 S 900 130, 1100 75" />
-          </g>
-        </svg>
-
-        <div className="relative flex items-center justify-between gap-4">
-          <div>
-            <p className="text-[0.6rem] font-medium tracking-[0.2em] text-[#1F6FEB] uppercase">FAQs / Contact</p>
-            <h1 className="text-xl leading-[1.2] font-extrabold tracking-tight text-[#122c52] sm:text-2xl">
-              Questions first. Your idea next.
-            </h1>
-            <p className="text-xs leading-snug text-slate-600 sm:text-sm">
-              Find quick answers or tell me what you would like to build. You do not need
-              technical terms.
-            </p>
+      {/* Three-card workspace — FAQ card fills the left column; the form and contact-info
+          cards stack on the right so both sides visually balance. No page header: the
+          card layout begins directly inside the main region's own padding. */}
+      <div className="grid flex-1 grid-cols-1 gap-4 lg:grid-cols-[54fr_46fr] lg:items-stretch lg:gap-5">
+        {/* Card 1 — FAQs */}
+        <section className={cn(cardShellClass, 'lg:h-full')}>
+          <SectionTitle>FAQs</SectionTitle>
+          <div className="mt-2.5 flex min-h-0 flex-1 flex-col justify-center">
+            <FaqAccordion items={faqItems} />
           </div>
+        </section>
 
-          <ClientLoginButton />
-        </div>
-      </header>
-
-      {/* Main FAQ / Contact workspace — two independent columns (not a row-locked grid): the
-          left column gives FAQs nearly all of its height and Before You Reach Out just a
-          compact strip; the right column (unchanged) stacks Your Project + Project
-          Preferences. `lg:items-stretch` makes both columns match the taller one (the right
-          column, whose content is fixed), so the FAQ card's `lg:flex-1` always resolves against
-          a stable height no matter which question is expanded.
-
-          Below `lg:`, both column wrappers switch to `display:contents` — they stop generating
-          a box and their cards become direct items of this single-column grid, so `order-*` on
-          each card controls the mobile/tablet stacking sequence independently of the desktop
-          column grouping. No content is duplicated; the same four <section> elements just get
-          reflowed by CSS at each breakpoint. */}
-      <div className="mt-3 grid flex-1 grid-cols-1 gap-4 lg:grid-cols-[42fr_58fr] lg:items-stretch lg:gap-5">
-        {/* Left column — FAQs (tall) + Before You Reach Out (compact) */}
+        {/* Right column — inquiry form + contact information */}
         <div className="contents lg:flex lg:flex-col lg:gap-5">
-          {/* Card A — FAQs */}
-          <section className={cn(cardShellClass, 'order-1 lg:order-none lg:flex-1')}>
-            <SectionTitle>FAQs</SectionTitle>
-            <div className="mt-2 min-h-0 flex-1 overflow-y-auto">
-              <FaqAccordion items={faqItems} />
-            </div>
-          </section>
-
-          {/* Card B — Before You Reach Out: compact, just tall enough to be visible */}
-          <section className={cn(cardShellClass, 'order-3 lg:order-none')}>
-            <SectionTitle>Before You Reach Out</SectionTitle>
-            <div className="mt-2 grid grid-cols-2 gap-1.5">
-              {beforeYouReachOut.map((row) => (
-                <div key={row.label} className={cn(nestedRowClass, 'flex items-center gap-2 p-1.5')}>
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[#1F6FEB] text-white">
-                    <row.icon className="h-3.5 w-3.5" />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-[0.55rem] font-semibold tracking-[0.08em] text-slate-400 uppercase">
-                      {row.label}
-                    </p>
-                    <p className="text-xs leading-snug font-semibold text-slate-800">{row.value}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>
-
-        {/* Right column — Your Project + Project Preferences (unchanged) */}
-        <form onSubmit={handleSubmit} noValidate className="contents lg:flex lg:flex-col lg:gap-5">
-          {/* Card C — Your Project */}
-          <section className={cn(cardShellClass, 'order-2 lg:order-none')}>
-            <SectionTitle>Your Project</SectionTitle>
-
-            <div className="mt-2 flex flex-1 flex-col gap-2.5">
-              {emailContext ? (
-                <p className="text-xs text-slate-500 italic">
-                  Prefer email? Fill in your email address below and describe your idea.
-                </p>
-              ) : null}
-
+          {/* Card 2 — Send Your Idea */}
+          <form onSubmit={handleSubmit} noValidate className={cn(cardShellClass, 'order-1 lg:order-none')}>
+            <SectionTitle>Send Your Idea</SectionTitle>
+            <div className="mt-2.5 flex flex-col gap-3">
               <div className="grid gap-3 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="contact-name" className="mb-1 block text-xs font-semibold text-slate-700">
+                  <label htmlFor="contact-name" className="mb-1 block text-sm font-semibold text-slate-700">
                     Name
                   </label>
                   <input
                     id="contact-name"
                     type="text"
-                    name="name"
+                    name="contact-name"
                     autoComplete="name"
                     aria-invalid={!!errors.name}
                     aria-describedby={errors.name ? 'contact-name-error' : undefined}
@@ -499,14 +362,13 @@ export function ContactPage() {
                   ) : null}
                 </div>
                 <div>
-                  <label htmlFor="contact-email" className="mb-1 block text-xs font-semibold text-slate-700">
+                  <label htmlFor="contact-email" className="mb-1 block text-sm font-semibold text-slate-700">
                     Email
                   </label>
                   <input
-                    ref={emailInputRef}
                     id="contact-email"
                     type="email"
-                    name="email"
+                    name="contact-email"
                     autoComplete="email"
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? 'contact-email-error' : undefined}
@@ -521,135 +383,86 @@ export function ContactPage() {
                 </div>
               </div>
 
-              {/* Dominant field — the idea itself, grows to fill remaining card height */}
-              <div className="flex flex-1 flex-col">
-                <label htmlFor="contact-details" className="mb-1 block text-sm font-bold text-slate-800">
-                  Tell me about your idea
+              <div>
+                <label htmlFor="contact-service" className="mb-1 block text-sm font-semibold text-slate-700">
+                  Service
                 </label>
-                <textarea
-                  ref={textareaRef}
-                  id="contact-details"
-                  name="details"
-                  aria-invalid={!!errors.details}
-                  aria-describedby={errors.details ? 'contact-details-error' : undefined}
-                  className={cn(
-                    'w-full flex-1 resize-none rounded-md border bg-white px-3.5 py-2.5 text-sm leading-relaxed text-slate-700 placeholder:text-slate-400 transition-colors duration-200 focus:ring-2 focus:ring-blue-100 focus:outline-none',
-                    errors.details ? fieldErrorClass : fieldNeutralClass,
-                  )}
-                  placeholder="What would you like to build, improve, or solve?"
-                />
-                {errors.details ? (
-                  <p id="contact-details-error" role="alert" className="mt-1 text-xs text-red-600">
-                    {errors.details}
-                  </p>
-                ) : (
-                  <p className="mt-1 text-xs text-slate-500">
-                    No technical terms needed — explain it in your own words.
-                  </p>
-                )}
-              </div>
-            </div>
-          </section>
-
-          {/* Card D — Project Preferences */}
-          <section className={cn(cardShellClass, 'order-4 lg:order-none')}>
-            <SectionTitle>Project Preferences</SectionTitle>
-
-            <div className="mt-2 flex flex-1 flex-col justify-between gap-2.5">
-              {/* Project interest */}
-              <div>
-                <p className="text-xs font-semibold text-slate-700">What are you interested in?</p>
-                <div role="radiogroup" aria-label="Project interest" className="mt-1.5 flex flex-wrap gap-1.5">
-                  {projectOptions.map((option) => (
-                    <CategoryChip
-                      key={option.id}
-                      label={option.label}
-                      icon={option.icon}
-                      active={projectInterest === option.id}
-                      onClick={() => setProjectInterest((v) => (v === option.id ? null : option.id))}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Payment preference */}
-              <div>
-                <p className="text-xs font-semibold text-slate-700">Payment Preference</p>
-                <div
-                  role="radiogroup"
-                  aria-label="Payment preference"
-                  className="mt-1.5 grid grid-cols-1 gap-1.5 sm:grid-cols-2"
+                <select
+                  id="contact-service"
+                  name="contact-service"
+                  defaultValue=""
+                  aria-invalid={!!errors.service}
+                  aria-describedby={errors.service ? 'contact-service-error' : undefined}
+                  className={cn(fieldBaseClass, errors.service ? fieldErrorClass : fieldNeutralClass)}
                 >
-                  {paymentOptions.map((option) => (
-                    <PaymentOptionCard
-                      key={option.id}
-                      label={option.label}
-                      helper={option.helper}
-                      icon={option.icon}
-                      active={paymentPreference === option.id}
-                      onClick={() => setPaymentPreference((v) => (v === option.id ? null : option.id))}
-                    />
+                  <option value="" disabled>
+                    Select a service
+                  </option>
+                  {serviceOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
                   ))}
-                </div>
-              </div>
-
-              {/* Free mockup — nested row, clearly optional */}
-              <label
-                className={cn(
-                  nestedRowClass,
-                  'flex cursor-pointer items-start gap-2.5 p-2.5 transition-colors duration-200 hover:bg-blue-50/40',
-                )}
-              >
-                <input
-                  type="checkbox"
-                  checked={freeMockupRequested}
-                  onChange={(e) => setFreeMockupRequested(e.target.checked)}
-                  className="mt-0.5 h-4 w-4 shrink-0 rounded border-slate-300 accent-[#1F6FEB] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
-                />
-                <span className="min-w-0 text-xs text-slate-700">
-                  I would like to request a free mockup if appropriate for my project.
-                </span>
-              </label>
-
-              {/* Submit */}
-              <div>
-                <button
-                  type="submit"
-                  className="flex w-full items-center justify-center gap-2 rounded-md bg-[#1F6FEB] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_4px_14px_rgba(31,111,235,0.32)] transition-all duration-200 hover:-translate-y-[1.5px] hover:bg-[#1a5fc9] hover:shadow-[0_8px_20px_rgba(31,111,235,0.38)] active:translate-y-0 active:shadow-[0_4px_14px_rgba(31,111,235,0.32)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 sm:w-auto"
-                >
-                  <Send className="h-4 w-4 shrink-0" />
-                  Send My Request
-                </button>
-                {submitted ? (
-                  <p className="mt-1.5 text-xs text-slate-500">
-                    Contact submission is being prepared. You can also reach me directly by email
-                    or WhatsApp.
+                </select>
+                {errors.service ? (
+                  <p id="contact-service-error" role="alert" className="mt-1 text-xs text-red-600">
+                    {errors.service}
                   </p>
                 ) : null}
               </div>
 
-              {/* What happens next — compact inline steps */}
-              <div className={cn(nestedRowClass, 'p-2.5')}>
-                <p className="mb-1.5 text-[0.6rem] font-bold tracking-[0.1em] text-[var(--card-border-nested)] uppercase">
-                  What Happens Next
-                </p>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
-                  {whatHappensNext.map((step) => (
-                    <div key={step.number} className="flex items-center gap-1.5">
-                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#1F6FEB] text-[0.6rem] font-bold text-white">
-                        {step.number}
-                      </span>
-                      <p className="text-xs font-medium text-slate-700">{step.text}</p>
-                    </div>
-                  ))}
-                </div>
+              <div>
+                <label htmlFor="contact-message" className="mb-1 block text-sm font-semibold text-slate-700">
+                  Message / Project Idea
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="contact-message"
+                  rows={3}
+                  aria-invalid={!!errors.message}
+                  aria-describedby={errors.message ? 'contact-message-error' : 'contact-message-helper'}
+                  className={cn('resize-none', fieldBaseClass, errors.message ? fieldErrorClass : fieldNeutralClass)}
+                />
+                {errors.message ? (
+                  <p id="contact-message-error" role="alert" className="mt-1 text-xs text-red-600">
+                    {errors.message}
+                  </p>
+                ) : (
+                  <p id="contact-message-helper" className="mt-1 text-xs text-slate-500">
+                    Tell me what you want to build and anything important you want included.
+                  </p>
+                )}
               </div>
+
+              <button
+                type="submit"
+                className="flex w-full items-center justify-center gap-2 rounded-md bg-[#1F6FEB] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_4px_14px_rgba(31,111,235,0.32)] transition-all duration-200 hover:-translate-y-[1.5px] hover:bg-[#1a5fc9] hover:shadow-[0_8px_20px_rgba(31,111,235,0.38)] active:translate-y-0 active:shadow-[0_4px_14px_rgba(31,111,235,0.32)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 sm:w-auto"
+              >
+                <Send className="h-4 w-4 shrink-0" />
+                Send My Request
+              </button>
+              {submitted ? (
+                <p className="text-xs text-slate-500">
+                  Your message form is ready, but message delivery will be connected when the site
+                  contact system is activated.
+                </p>
+              ) : null}
+            </div>
+          </form>
+
+          {/* Card 3 — Contact Information */}
+          <section className={cn(cardShellClass, 'order-2 lg:order-none')}>
+            <SectionTitle>Contact Information</SectionTitle>
+            <div className="mt-2.5 flex flex-col gap-2">
+              {contactMethods.map((method) => (
+                <ContactRow key={method.label} {...method} />
+              ))}
             </div>
           </section>
-        </form>
+        </div>
       </div>
 
-      <footer className="flex flex-col items-center gap-1 py-2 text-center text-xs text-muted-foreground">
+      <footer className="flex flex-col items-center gap-1 py-3 text-center text-xs text-muted-foreground">
         <p>© 2026 Alexis Sarip. All rights reserved.</p>
       </footer>
     </>
