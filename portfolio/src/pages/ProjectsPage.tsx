@@ -6,16 +6,6 @@ import { MockupCarousel, type MockupSlide } from '@/components/projects/MockupCa
 import { HomeToolsMarquee } from '@/components/sections/HomeToolsMarquee'
 import { cn } from '@/lib/utils'
 
-function buildSlides(kind: MockupSlide['kind'], prefix: string, accents: string[], count: number): MockupSlide[] {
-  return Array.from({ length: count }, (_, i) => ({
-    id: `${prefix}-${i}`,
-    kind,
-    variant: (((i % 4) + 1) as 1 | 2 | 3 | 4),
-    accent: accents[i % accents.length],
-    label: `${prefix} preview ${i + 1}`,
-  }))
-}
-
 const blueMint = ['#1F6FEB', '#1f9d7c', '#2563eb', '#0ea5e9', '#4f46e5', '#14b8a6']
 
 /** Curated concept-mockup assets — same real files already committed under
@@ -23,13 +13,35 @@ const blueMint = ['#1F6FEB', '#1f9d7c', '#2563eb', '#0ea5e9', '#4f46e5', '#14b8a
  *  duplicated) for a selective, portfolio-style Concept Portfolio section. */
 const mockupImage = {
   authorMaraEllison: '/mockups/services/author-mara-ellison.png',
+  authorNathanVega: '/mockups/services/author-nathan-vega.png',
+  authorDanielHarper: '/mockups/services/author-daniel-harper.png',
+  authorOliveMeadow: '/mockups/services/author-olive-meadow.webp',
+  authorEleanorGrant: '/mockups/services/author-eleanor-grant.webp',
   cafeBrewBloom: '/mockups/services/cafe-brew-bloom.png',
+  restaurantSavoryTable: '/mockups/services/restaurant-savory-table.png',
+  bakeryHearthCrumb: '/mockups/services/bakery-hearth-crumb.png',
+  barberNorthline: '/mockups/services/barber-northline.png',
   realEstateCrestpoint: '/mockups/services/real-estate-crestpoint.png',
+  automotiveApexAuto: '/mockups/services/automotive-apex-auto.png',
   medicalHarborClinic: '/mockups/services/medical-harbor-clinic.png',
+  ecommerceMaisoncart: '/mockups/services/ecommerce-maisoncart.png',
   crmFlowdesk: '/mockups/services/crm-flowdesk.png',
   clientPortalProjectflow: '/mockups/services/client-portal-projectflow.png',
   automationAutobridge: '/mockups/services/automation-autobridge.png',
   socialSociallift: '/mockups/services/social-sociallift.png',
+  webappDashboard01: '/mockups/services/webapp-dashboard-01.webp',
+  webappClientManagement01: '/mockups/services/webapp-client-management-01.webp',
+  webappBookingSystem01: '/mockups/services/webapp-booking-system-01.webp',
+  webappBookingSystem02: '/mockups/services/webapp-booking-system-02.webp',
+  webappInventory01: '/mockups/services/webapp-inventory-01.webp',
+  webappMemberPortal01: '/mockups/services/webapp-member-portal-01.webp',
+  webappMemberPortal02: '/mockups/services/webapp-member-portal-02.webp',
+  webappAdminPortal01: '/mockups/services/webapp-admin-portal-01.webp',
+  webappAdminPortal02: '/mockups/services/webapp-admin-portal-02.webp',
+  trackerProject01: '/mockups/services/tracker-project-01.webp',
+  trackerClientPortal01: '/mockups/services/tracker-client-portal-01.webp',
+  trackerAuthorPortal01: '/mockups/services/tracker-author-portal-01.webp',
+  trackerProgressDashboard01: '/mockups/services/tracker-progress-dashboard-01.webp',
 } as const
 
 interface RealProject {
@@ -118,19 +130,7 @@ interface ConceptDefinition {
 
 /** Curated concept mockups — illustrative sample concepts, not completed client work. Every
  *  slide built from these always shows the "Concept Mockup" trust badge (see MockupCarousel). */
-const concepts: Record<
-  'author' | 'cafe' | 'realEstate' | 'medical' | 'crm' | 'clientPortal' | 'automation' | 'social',
-  ConceptDefinition
-> = {
-  author: {
-    id: 'concept-author',
-    image: mockupImage.authorMaraEllison,
-    imageAlt: 'Concept mockup for an author website',
-    title: 'Author Website Concept',
-    type: 'Author / Books / Personal Brand',
-    description:
-      'A polished author website concept designed to showcase books, biography, events, media, and reader-facing information in one professional experience.',
-  },
+const concepts: Record<string, ConceptDefinition> = {
   cafe: {
     id: 'concept-cafe',
     image: mockupImage.cafeBrewBloom,
@@ -158,23 +158,156 @@ const concepts: Record<
     description:
       'A professional healthcare website concept focused on patient trust, service discovery, appointment access, and clear medical information.',
   },
-  crm: {
-    id: 'concept-crm',
-    image: mockupImage.crmFlowdesk,
-    imageAlt: 'Concept mockup for a CRM platform',
-    title: 'CRM Platform Concept',
+  authorNathanVega: {
+    id: 'concept-author-nathan-vega',
+    image: mockupImage.authorNathanVega,
+    imageAlt: 'Concept mockup for a fiction author website',
+    title: 'Fiction Author Website Concept',
+    type: 'Author / Books / Personal Brand',
+    description:
+      'An author website concept designed to showcase books, biography, events, and reader-facing information in one professional experience.',
+  },
+  authorDanielHarper: {
+    id: 'concept-author-daniel-harper',
+    image: mockupImage.authorDanielHarper,
+    imageAlt: 'Concept mockup for a non-fiction author website',
+    title: 'Non-Fiction Author Website Concept',
+    type: 'Author / Books / Personal Brand',
+    description:
+      'An author website concept built around credibility, published work, media features, and clear ways for readers to connect.',
+  },
+  authorOliveMeadow: {
+    id: 'concept-author-olive-meadow',
+    image: mockupImage.authorOliveMeadow,
+    imageAlt: "Concept mockup for a children's picture-book author website",
+    title: "Children's Author Website Concept",
+    type: 'Author / Books / Personal Brand',
+    description:
+      'A playful, illustrated author website concept designed around storybooks, characters, and family-friendly browsing.',
+  },
+  authorEleanorGrant: {
+    id: 'concept-author-eleanor-grant',
+    image: mockupImage.authorEleanorGrant,
+    imageAlt: 'Concept mockup for a literary fiction author website',
+    title: 'Literary Fiction Author Website Concept',
+    type: 'Author / Books / Personal Brand',
+    description: 'An elegant, editorial author website concept designed around long-form fiction and a personal author brand.',
+  },
+  webappDashboard: {
+    id: 'concept-webapp-dashboard',
+    image: mockupImage.webappDashboard01,
+    imageAlt: 'Concept mockup for a business dashboard with goals, projects, and activity',
+    title: 'Dashboard Concept',
+    type: 'Dashboard / Analytics / Workflow',
+    description:
+      'A clear workspace concept for viewing important information, updates, tasks, and activity in one place.',
+  },
+  webappClientManagement: {
+    id: 'concept-webapp-client-management',
+    image: mockupImage.webappClientManagement01,
+    imageAlt: 'Concept mockup for a client management dashboard',
+    title: 'Client Management Concept',
     type: 'CRM / Leads / Client Management',
     description:
-      'A client-management platform concept designed to organize leads, conversations, deals, tasks, and business activity in one clear dashboard.',
+      'A practical client-management system concept for organizing contacts, projects, and communication in one dashboard.',
   },
-  clientPortal: {
-    id: 'concept-client-portal',
-    image: mockupImage.clientPortalProjectflow,
-    imageAlt: 'Concept mockup for a client portal',
+  webappScheduling: {
+    id: 'concept-webapp-scheduling',
+    image: mockupImage.webappBookingSystem01,
+    imageAlt: 'Concept mockup for a booking and scheduling platform',
+    title: 'Scheduling Platform Concept',
+    type: 'Scheduling / Appointments / Clients',
+    description: 'A structured booking-system concept for appointments, schedules, availability, and customer requests.',
+  },
+  webappAdminPortal: {
+    id: 'concept-webapp-admin-portal',
+    image: mockupImage.webappAdminPortal01,
+    imageAlt: 'Concept mockup for an admin dashboard with revenue and team workload',
+    title: 'Admin Portal Concept',
+    type: 'Admin / Analytics / Management',
+    description: 'A centralized admin workspace concept for managing content, users, records, and site operations.',
+  },
+  trackerProject: {
+    id: 'concept-tracker-project',
+    image: mockupImage.trackerProject01,
+    imageAlt: 'Concept mockup for a project tracking dashboard',
+    title: 'Project Tracker Concept',
+    type: 'Progress / Tasks / Updates',
+    description: 'A simple workspace concept for following project stages, updates, tasks, and progress.',
+  },
+  trackerClientPortal: {
+    id: 'concept-tracker-client-portal',
+    image: mockupImage.trackerClientPortal01,
+    imageAlt: 'Concept mockup for a client portal with milestones, files, and feedback',
     title: 'Client Portal Concept',
-    type: 'Projects / Files / Reviews / Payments',
+    type: 'Messages / Files / Reviews / Payments',
     description:
-      'A client portal concept designed to keep project progress, communication, files, approvals, and payments organized in one workspace.',
+      'A private client-area concept for project updates, messages, files, reviews, and important information.',
+  },
+  trackerAuthorPortal: {
+    id: 'concept-tracker-author-portal',
+    image: mockupImage.trackerAuthorPortal01,
+    imageAlt: 'Concept mockup for an author portal with book progress and reader messages',
+    title: 'Author Portal Concept',
+    type: 'Manuscripts / Events / Readers',
+    description:
+      'A dedicated workspace concept for authors to follow publishing-related projects, files, updates, and communication.',
+  },
+  trackerProgressDashboard: {
+    id: 'concept-tracker-progress-dashboard',
+    image: mockupImage.trackerProgressDashboard01,
+    imageAlt: 'Concept mockup for a progress dashboard with goals and milestones',
+    title: 'Progress Dashboard Concept',
+    type: 'Milestones / Progress / Updates',
+    description: 'A clear visual overview concept of project status, milestones, updates, and next steps.',
+  },
+  businessRestaurant: {
+    id: 'concept-business-restaurant',
+    image: mockupImage.restaurantSavoryTable,
+    imageAlt: 'Concept mockup for a restaurant website',
+    title: 'Restaurant Website Concept',
+    type: 'Restaurant / Menu / Reservations',
+    description: 'A professional restaurant website concept for menus, reservations, contact details, and location information.',
+  },
+  businessBakery: {
+    id: 'concept-business-bakery',
+    image: mockupImage.bakeryHearthCrumb,
+    imageAlt: 'Concept mockup for a bakery website',
+    title: 'Bakery Website Concept',
+    type: 'Bakery / Products / Ordering',
+    description: 'A warm, polished bakery website concept for products, custom orders, location details, and inquiries.',
+  },
+  businessBarber: {
+    id: 'concept-business-barber',
+    image: mockupImage.barberNorthline,
+    imageAlt: 'Concept mockup for a barber shop website',
+    title: 'Barber Shop Website Concept',
+    type: 'Barber / Services / Booking',
+    description: 'A modern service-business website concept for pricing, booking information, services, and contact details.',
+  },
+  businessAutomotive: {
+    id: 'concept-business-automotive',
+    image: mockupImage.automotiveApexAuto,
+    imageAlt: 'Concept mockup for an automotive service website',
+    title: 'Automotive Website Concept',
+    type: 'Auto Care / Services / Scheduling',
+    description: 'A professional automotive website concept for services, offerings, business information, and inquiries.',
+  },
+  customMemberPortal: {
+    id: 'concept-custom-member-portal',
+    image: mockupImage.webappMemberPortal01,
+    imageAlt: 'Concept mockup for a member dashboard with programs and community highlights',
+    title: 'Member Portal Concept',
+    type: 'Portal / Files / Communication',
+    description: 'A private member-space concept where members can access information, files, updates, and account features.',
+  },
+  customAdminManagement: {
+    id: 'concept-custom-admin-management',
+    image: mockupImage.webappAdminPortal02,
+    imageAlt: 'Concept mockup for an admin dashboard with lead pipeline and project status',
+    title: 'Admin Management Dashboard Concept',
+    type: 'Admin / Analytics / Management',
+    description: 'A custom operations-management concept for tracking leads, projects, payments, and team performance.',
   },
   automation: {
     id: 'concept-automation',
@@ -193,6 +326,38 @@ const concepts: Record<
     type: 'Content / Scheduling / Analytics',
     description:
       'A social media platform concept built around content planning, publishing, scheduling, analytics, and campaign visibility.',
+  },
+  otherInventory: {
+    id: 'concept-other-inventory',
+    image: mockupImage.webappInventory01,
+    imageAlt: 'Concept mockup for an inventory management platform',
+    title: 'Inventory Management Concept',
+    type: 'Inventory / Stock / Warehouse',
+    description: 'A simple inventory-system concept for organizing products, stock information, availability, and updates.',
+  },
+  otherBookingDashboard: {
+    id: 'concept-other-booking-dashboard',
+    image: mockupImage.webappBookingSystem02,
+    imageAlt: "Concept mockup for a booking system dashboard with today's schedule",
+    title: 'Booking Dashboard Concept',
+    type: 'Scheduling / Appointments / Clients',
+    description: 'A day-to-day scheduling concept for managing bookings, staff availability, and upcoming appointments.',
+  },
+  otherLearningPortal: {
+    id: 'concept-other-learning-portal',
+    image: mockupImage.webappMemberPortal02,
+    imageAlt: 'Concept mockup for a member portal with course progress and resources',
+    title: 'Learning Portal Concept',
+    type: 'Portal / Files / Communication',
+    description: 'A membership and learning-space concept for course progress, resources, and account information.',
+  },
+  otherOnlineShop: {
+    id: 'concept-other-online-shop',
+    image: mockupImage.ecommerceMaisoncart,
+    imageAlt: 'Concept mockup for an online shop website',
+    title: 'Online Shop Concept',
+    type: 'E-Commerce / Products / Shopping',
+    description: 'A product-focused online shop concept designed to make browsing, product information, and checkout clear.',
   },
 }
 
@@ -227,16 +392,16 @@ const categories: Category[] = [
     label: 'Website',
     icon: Globe,
     carouselLabel: 'Website project previews',
-    // Strongest, most visually polished concepts lead; the two real, ongoing
-    // projects (already shown in full in the Current Projects section above)
-    // follow at the end of this browsing carousel.
+    // Strong general website concepts, plus four distinct approved author-website
+    // concepts. Author Directory / Book Depository live only in Current Projects now.
     slides: [
       conceptSlide(concepts.cafe, 'website', blueMint[0]),
       conceptSlide(concepts.realEstate, 'website', blueMint[1]),
       conceptSlide(concepts.medical, 'website', blueMint[2]),
-      conceptSlide(concepts.author, 'website', blueMint[3]),
-      realProjectSlide(ipaAuthorDirectory, 'website', blueMint[4], 1),
-      realProjectSlide(ipaBookDepository, 'website', blueMint[5], 2),
+      conceptSlide(concepts.authorNathanVega, 'website', blueMint[3]),
+      conceptSlide(concepts.authorDanielHarper, 'website', blueMint[4]),
+      conceptSlide(concepts.authorOliveMeadow, 'website', blueMint[5]),
+      conceptSlide(concepts.authorEleanorGrant, 'website', blueMint[0]),
     ],
   },
   {
@@ -244,12 +409,14 @@ const categories: Category[] = [
     label: 'Web App',
     icon: AppWindow,
     carouselLabel: 'Web app project previews',
-    // Strongest concepts lead; the real, ongoing Client CRM Portal (already shown
-    // in full in the Current Projects section above) follows at the end.
+    // Four approved Web App Creation concepts, plus the real, ongoing Client CRM
+    // Portal (already shown in full in Current Projects above) at the end.
     slides: [
-      conceptSlide(concepts.crm, 'dashboard', blueMint[0]),
-      conceptSlide(concepts.clientPortal, 'dashboard', blueMint[1]),
-      realProjectSlide(clientCrmPortal, 'dashboard', blueMint[2], 1),
+      conceptSlide(concepts.webappDashboard, 'dashboard', blueMint[0]),
+      conceptSlide(concepts.webappClientManagement, 'dashboard', blueMint[1]),
+      conceptSlide(concepts.webappScheduling, 'dashboard', blueMint[2]),
+      conceptSlide(concepts.webappAdminPortal, 'dashboard', blueMint[3]),
+      realProjectSlide(clientCrmPortal, 'dashboard', blueMint[4], 1),
     ],
   },
   {
@@ -257,28 +424,48 @@ const categories: Category[] = [
     label: 'Personal Tracker',
     icon: Activity,
     carouselLabel: 'Personal tracker project previews',
-    slides: buildSlides('dashboard', 'Personal tracker', [...blueMint].reverse(), 6),
+    slides: [
+      conceptSlide(concepts.trackerProject, 'dashboard', blueMint[5]),
+      conceptSlide(concepts.trackerClientPortal, 'dashboard', blueMint[4]),
+      conceptSlide(concepts.trackerAuthorPortal, 'dashboard', blueMint[3]),
+      conceptSlide(concepts.trackerProgressDashboard, 'dashboard', blueMint[2]),
+    ],
   },
   {
     id: 'business-website',
     label: 'Business Website',
     icon: Boxes,
     carouselLabel: 'Business website project previews',
-    slides: buildSlides('generic', 'Business website', ['#1F6FEB'], 5),
+    slides: [
+      conceptSlide(concepts.businessRestaurant, 'generic', blueMint[0]),
+      conceptSlide(concepts.businessBakery, 'generic', blueMint[1]),
+      conceptSlide(concepts.businessBarber, 'generic', blueMint[2]),
+      conceptSlide(concepts.businessAutomotive, 'generic', blueMint[3]),
+    ],
   },
   {
     id: 'custom-project',
     label: 'Custom Digital Project',
     icon: Layers,
     carouselLabel: 'Custom digital project previews',
-    slides: [conceptSlide(concepts.automation, 'generic', blueMint[0]), conceptSlide(concepts.social, 'generic', blueMint[1])],
+    slides: [
+      conceptSlide(concepts.automation, 'generic', blueMint[0]),
+      conceptSlide(concepts.social, 'generic', blueMint[1]),
+      conceptSlide(concepts.customMemberPortal, 'generic', blueMint[2]),
+      conceptSlide(concepts.customAdminManagement, 'generic', blueMint[3]),
+    ],
   },
   {
     id: 'future-project',
     label: 'Other / Future Project',
     icon: Sparkles,
     carouselLabel: 'Other / future project previews',
-    slides: buildSlides('generic', 'Other / future project', ['#4f46e5'], 5),
+    slides: [
+      conceptSlide(concepts.otherInventory, 'generic', blueMint[4]),
+      conceptSlide(concepts.otherBookingDashboard, 'generic', blueMint[5]),
+      conceptSlide(concepts.otherLearningPortal, 'generic', blueMint[0]),
+      conceptSlide(concepts.otherOnlineShop, 'website', blueMint[1]),
+    ],
   },
 ]
 
