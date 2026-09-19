@@ -77,7 +77,7 @@ type HomeProject = {
 const homeProjects: HomeProject[] = [
   {
     id: 'ipa-author-directory',
-    title: 'IPA Author Directory',
+    title: 'Author Directory',
     type: 'Author Directory / Web Platform',
     description:
       'A professional author and book discovery platform designed to make author profiles, books, and membership information easy to explore.',
@@ -87,7 +87,7 @@ const homeProjects: HomeProject[] = [
   },
   {
     id: 'ipa-book-depository',
-    title: 'IPA Book Depository',
+    title: 'Book Depository',
     type: 'Book Discovery / Catalog Platform',
     description:
       'A digital book catalog designed to organize, showcase, and make published titles easier to discover through a clean and accessible browsing experience.',

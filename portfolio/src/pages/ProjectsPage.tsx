@@ -50,25 +50,25 @@ interface RealProject {
 const realProjects: RealProject[] = [
   {
     id: 'ipa-author-directory',
-    title: 'IPA Author Directory',
+    title: 'Author Directory',
     type: 'Author Directory / Web Platform',
     description:
       'A professional author and book discovery platform designed to make author profiles, books, and membership information easy to explore.',
     status: 'in-progress',
     thumbnail: '/mockups/projects/current/ipa-author-directory.svg',
-    imageAlt: 'Interface concept preview of the IPA Author Directory — an author discovery platform with profile cards and browsing',
+    imageAlt: 'Interface concept preview of the Author Directory — an author discovery platform with profile cards and browsing',
     category: 'website',
     href: '/projects',
   },
   {
     id: 'ipa-book-depository',
-    title: 'IPA Book Depository',
+    title: 'Book Depository',
     type: 'Book Discovery / Catalog Platform',
     description:
       'A digital book catalog designed to organize, showcase, and make published titles easier to discover through a clean and accessible browsing experience.',
     status: 'in-progress',
     thumbnail: '/mockups/projects/current/ipa-book-depository.svg',
-    imageAlt: 'Interface concept preview of the IPA Book Depository — a book catalog with browsing and filtering',
+    imageAlt: 'Interface concept preview of the Book Depository — a book catalog with browsing and filtering',
     category: 'website',
     href: '/projects',
   },
@@ -434,12 +434,12 @@ export function ProjectsPage() {
         <div className="mt-3.5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <MockupCarousel
             slides={[realProjectSlide(ipaAuthorDirectory, 'website', blueMint[0], 1)]}
-            ariaLabel="IPA Author Directory preview"
+            ariaLabel="Author Directory preview"
             chrome="realistic"
           />
           <MockupCarousel
             slides={[realProjectSlide(ipaBookDepository, 'website', blueMint[1], 2)]}
-            ariaLabel="IPA Book Depository preview"
+            ariaLabel="Book Depository preview"
             chrome="realistic"
           />
           <MockupCarousel
