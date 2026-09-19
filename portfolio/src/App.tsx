@@ -1,7 +1,7 @@
 import { Routes, Route, Outlet } from 'react-router-dom'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { ScrollToTop } from '@/components/ScrollToTop'
-import { VisitorCounter } from '@/components/VisitorCounter'
+import { PhilippineTime } from '@/components/PhilippineTime'
 import { PortalLayout } from '@/components/portal/PortalLayout'
 import { HomePage } from '@/pages/HomePage'
 import { ProjectsPage } from '@/pages/ProjectsPage'
@@ -44,7 +44,7 @@ function PublicLayout() {
         <Outlet />
       </main>
 
-      <VisitorCounter />
+      <PhilippineTime />
     </div>
   )
 }
