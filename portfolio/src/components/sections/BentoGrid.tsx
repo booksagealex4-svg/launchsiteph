@@ -311,16 +311,16 @@ export function BentoGrid() {
         id="credentials"
         className="order-3 border-[var(--card-border-accent)] bg-[#F4F7F9] sm:order-4 lg:col-span-1"
       >
-        <CardHeader icon={ShieldCheck} label="Credentials" />
+        <CardHeader icon={ShieldCheck} label="Certifications" />
         <p className="mt-4 text-sm text-slate-500">
           Professional learning and certifications that support my digital work.
         </p>
         <div className="mt-5 flex items-center gap-3.5 rounded-md border border-[var(--card-border-nested)] bg-white/70 px-3 py-3">
           <div
-            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-[#93B4E8] bg-[#E6F0FF] text-[#1D4ED8]"
+            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-[#1D4ED8] text-white shadow-[0_1px_2px_rgba(15,23,42,0.15)]"
             aria-hidden="true"
           >
-            <ShieldCheck className="h-6 w-6" />
+            <BadgeCheck className="h-7 w-7" />
           </div>
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-slate-900">{certifications[0].title}</p>
