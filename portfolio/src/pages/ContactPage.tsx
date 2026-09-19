@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import type { CSSProperties, ReactNode } from 'react'
 import type { LucideIcon } from 'lucide-react'
-import { Send, ChevronDown, Mail, ArrowUpRight } from 'lucide-react'
+import { Send, ChevronDown, Mail, ArrowUpRight, Loader2 } from 'lucide-react'
 import { FaWhatsapp, FaLinkedinIn } from 'react-icons/fa6'
 import { cn } from '@/lib/utils'
+import { submitInquiry } from '@/lib/submitInquiry'
 
 /** Shared shell for the page's three main cards — red outer border, off-white surface,
  *  restrained hover lift (structural, not clickable). FAQs opts into `lg:h-full` to match
@@ -292,22 +293,27 @@ function ContactRow({
   )
 }
 
+type SubmissionStatus = 'idle' | 'sending' | 'success' | 'error'
+
 export function ContactPage() {
   const [errors, setErrors] = useState<{ name?: string; email?: string; service?: string; message?: string }>({})
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState<SubmissionStatus>('idle')
 
   const fieldBaseClass =
     'w-full rounded-md border bg-white px-3 py-2 text-sm text-slate-700 placeholder:text-slate-400 transition-colors duration-200 focus:ring-2 focus:ring-blue-100 focus:outline-none'
   const fieldNeutralClass = 'border-[#C7D2E0] focus:border-[#1F6FEB]'
   const fieldErrorClass = 'border-red-400 focus:border-red-400'
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    if (status === 'sending') return
+
     const form = e.currentTarget
     const name = (form.elements.namedItem('contact-name') as HTMLInputElement).value.trim()
     const email = (form.elements.namedItem('contact-email') as HTMLInputElement).value.trim()
     const service = (form.elements.namedItem('contact-service') as HTMLSelectElement).value
     const message = (form.elements.namedItem('contact-message') as HTMLTextAreaElement).value.trim()
+    const honeypot = (form.elements.namedItem('contact-company') as HTMLInputElement).value
 
     const nextErrors: typeof errors = {}
     if (!name) nextErrors.name = 'Please enter your name.'
@@ -317,7 +323,19 @@ export function ContactPage() {
     if (!message) nextErrors.message = 'Please tell me a little about your idea.'
 
     setErrors(nextErrors)
-    setSubmitted(Object.keys(nextErrors).length === 0)
+    if (Object.keys(nextErrors).length > 0) {
+      setStatus('idle')
+      return
+    }
+
+    setStatus('sending')
+    try {
+      await submitInquiry({ name, email, service, message, sourceForm: 'FAQs / Contact', honeypot })
+      setStatus('success')
+      form.reset()
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -340,6 +358,15 @@ export function ContactPage() {
           <form onSubmit={handleSubmit} noValidate className={cn(cardShellClass, 'order-1 lg:order-none')}>
             <SectionTitle>Send Your Idea</SectionTitle>
             <div className="mt-2.5 flex flex-col gap-3">
+              {/* Honeypot — hidden from real visitors, real bots that fill every field get caught.
+                  relative + h-0/w-0/overflow-hidden keeps the offscreen input from affecting page scroll width. */}
+              <div className="relative h-0 w-0 overflow-hidden" aria-hidden="true">
+                <div className="absolute -left-[9999px] h-px w-px overflow-hidden">
+                  <label htmlFor="contact-company">Company</label>
+                  <input id="contact-company" type="text" name="contact-company" tabIndex={-1} autoComplete="off" />
+                </div>
+              </div>
+
               <div className="grid gap-3 sm:grid-cols-2">
                 <div>
                   <label htmlFor="contact-name" className="mb-1 block text-sm font-semibold text-slate-700">
@@ -436,15 +463,26 @@ export function ContactPage() {
 
               <button
                 type="submit"
-                className="flex w-full items-center justify-center gap-2 rounded-md bg-[#1F6FEB] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_4px_14px_rgba(31,111,235,0.32)] transition-all duration-200 hover:-translate-y-[1.5px] hover:bg-[#1a5fc9] hover:shadow-[0_8px_20px_rgba(31,111,235,0.38)] active:translate-y-0 active:shadow-[0_4px_14px_rgba(31,111,235,0.32)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 sm:w-auto"
+                disabled={status === 'sending'}
+                className="flex w-full items-center justify-center gap-2 rounded-md bg-[#1F6FEB] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_4px_14px_rgba(31,111,235,0.32)] transition-all duration-200 hover:-translate-y-[1.5px] hover:bg-[#1a5fc9] hover:shadow-[0_8px_20px_rgba(31,111,235,0.38)] active:translate-y-0 active:shadow-[0_4px_14px_rgba(31,111,235,0.32)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
               >
-                <Send className="h-4 w-4 shrink-0" />
-                Send My Request
+                {status === 'sending' ? (
+                  <Loader2 className="h-4 w-4 shrink-0 animate-spin" />
+                ) : (
+                  <Send className="h-4 w-4 shrink-0" />
+                )}
+                {status === 'sending' ? 'Sending...' : 'Send My Request'}
               </button>
-              {submitted ? (
-                <p className="text-xs text-slate-500">
-                  Your message form is ready, but message delivery will be connected when the site
-                  contact system is activated.
+              {status === 'success' ? (
+                <p role="status" className="text-xs font-medium text-green-700">
+                  Thank you. Your message has been sent successfully. I&apos;ll get back to you as
+                  soon as possible.
+                </p>
+              ) : null}
+              {status === 'error' ? (
+                <p role="alert" className="text-xs font-medium text-red-600">
+                  Something went wrong while sending your message. Please try again or contact me
+                  directly by email or WhatsApp.
                 </p>
               ) : null}
             </div>

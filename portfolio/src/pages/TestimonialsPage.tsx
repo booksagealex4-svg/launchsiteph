@@ -13,10 +13,12 @@ import {
   Phone,
   Video,
   ArrowUpRight,
+  Loader2,
 } from 'lucide-react'
 import { FaWhatsapp, FaLinkedinIn } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 import { cn } from '@/lib/utils'
+import { submitInquiry } from '@/lib/submitInquiry'
 
 const processSteps: {
   number: string
@@ -202,22 +204,27 @@ function ContactRow({
   )
 }
 
+type SubmissionStatus = 'idle' | 'sending' | 'success' | 'error'
+
 export function TestimonialsPage() {
   const [errors, setErrors] = useState<{ name?: string; email?: string; service?: string; idea?: string }>({})
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState<SubmissionStatus>('idle')
 
   const fieldBaseClass =
     'w-full rounded-md border bg-white px-3 py-2.5 text-sm text-slate-700 placeholder:text-slate-400 transition-colors duration-200 focus:ring-2 focus:ring-blue-100 focus:outline-none'
   const fieldNeutralClass = 'border-[#C7D2E0] focus:border-[#1F6FEB]'
   const fieldErrorClass = 'border-red-400 focus:border-red-400'
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    if (status === 'sending') return
+
     const form = e.currentTarget
     const name = (form.elements.namedItem('idea-name') as HTMLInputElement).value.trim()
     const email = (form.elements.namedItem('idea-email') as HTMLInputElement).value.trim()
     const service = (form.elements.namedItem('idea-service') as HTMLSelectElement).value
     const idea = (form.elements.namedItem('idea-message') as HTMLTextAreaElement).value.trim()
+    const honeypot = (form.elements.namedItem('idea-company') as HTMLInputElement).value
 
     const nextErrors: typeof errors = {}
     if (!name) nextErrors.name = 'Please enter your name.'
@@ -227,7 +234,19 @@ export function TestimonialsPage() {
     if (!idea) nextErrors.idea = 'Please tell me about your project idea.'
 
     setErrors(nextErrors)
-    setSubmitted(Object.keys(nextErrors).length === 0)
+    if (Object.keys(nextErrors).length > 0) {
+      setStatus('idle')
+      return
+    }
+
+    setStatus('sending')
+    try {
+      await submitInquiry({ name, email, service, message: idea, sourceForm: 'How It Works', honeypot })
+      setStatus('success')
+      form.reset()
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -351,6 +370,15 @@ export function TestimonialsPage() {
             className="rounded-md border border-[var(--card-border-nested)]/40 bg-white p-3.5"
           >
             <div className="flex flex-col gap-3">
+              {/* Honeypot — hidden from real visitors, real bots that fill every field get caught.
+                  relative + h-0/w-0/overflow-hidden keeps the offscreen input from affecting page scroll width. */}
+              <div className="relative h-0 w-0 overflow-hidden" aria-hidden="true">
+                <div className="absolute -left-[9999px] h-px w-px overflow-hidden">
+                  <label htmlFor="idea-company">Company</label>
+                  <input id="idea-company" type="text" name="idea-company" tabIndex={-1} autoComplete="off" />
+                </div>
+              </div>
+
               <div>
                 <label htmlFor="idea-name" className="mb-1 block text-sm font-semibold text-slate-700">
                   Name
@@ -447,15 +475,26 @@ export function TestimonialsPage() {
 
               <button
                 type="submit"
-                className="flex w-full items-center justify-center gap-2 rounded-md bg-[#1F6FEB] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_4px_14px_rgba(31,111,235,0.32)] transition-all duration-200 hover:-translate-y-[1.5px] hover:bg-[#1a5fc9] hover:shadow-[0_8px_20px_rgba(31,111,235,0.38)] active:translate-y-0 active:shadow-[0_4px_14px_rgba(31,111,235,0.32)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                disabled={status === 'sending'}
+                className="flex w-full items-center justify-center gap-2 rounded-md bg-[#1F6FEB] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_4px_14px_rgba(31,111,235,0.32)] transition-all duration-200 hover:-translate-y-[1.5px] hover:bg-[#1a5fc9] hover:shadow-[0_8px_20px_rgba(31,111,235,0.38)] active:translate-y-0 active:shadow-[0_4px_14px_rgba(31,111,235,0.32)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 disabled:cursor-not-allowed disabled:opacity-70"
               >
-                <Send className="h-4 w-4 shrink-0" />
-                Send My Idea
+                {status === 'sending' ? (
+                  <Loader2 className="h-4 w-4 shrink-0 animate-spin" />
+                ) : (
+                  <Send className="h-4 w-4 shrink-0" />
+                )}
+                {status === 'sending' ? 'Sending...' : 'Send My Idea'}
               </button>
-              {submitted ? (
-                <p className="text-xs text-slate-500">
-                  Your message form is ready, but message delivery will be connected when the site
-                  contact system is activated.
+              {status === 'success' ? (
+                <p role="status" className="text-xs font-medium text-green-700">
+                  Thank you. Your message has been sent successfully. I&apos;ll get back to you as
+                  soon as possible.
+                </p>
+              ) : null}
+              {status === 'error' ? (
+                <p role="alert" className="text-xs font-medium text-red-600">
+                  Something went wrong while sending your message. Please try again or contact me
+                  directly by email or WhatsApp.
                 </p>
               ) : null}
             </div>
