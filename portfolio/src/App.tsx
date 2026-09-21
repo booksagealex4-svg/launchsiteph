@@ -1,4 +1,5 @@
 import { Routes, Route, Outlet } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { ScrollToTop } from '@/components/ScrollToTop'
 import { PhilippineTime } from '@/components/PhilippineTime'
@@ -53,6 +54,7 @@ function App() {
   return (
     <>
       <ScrollToTop />
+      <Analytics />
       <Routes>
         <Route element={<PublicLayout />}>
           <Route path="/" element={<HomePage />} />
